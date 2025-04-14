@@ -81,6 +81,9 @@ font: 18pt &quot;Segoe UI&quot;;</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
   </widget>
   <widget class="QPushButton" name="pushButton_to_login2">
    <property name="geometry">
@@ -130,7 +133,7 @@ font: 18pt &quot;Segoe UI&quot;;</string>
   </widget>
   <widget class="QPushButton" name="pushButton_to_login">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
