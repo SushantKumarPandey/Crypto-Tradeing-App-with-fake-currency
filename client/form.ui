@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -57,6 +57,230 @@
         <height>501</height>
        </rect>
       </property>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>10</y>
+         <width>351</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 16pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Account Search</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="Accounts">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>80</y>
+         <width>361</width>
+         <height>271</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Segoe UI&quot;;</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Account A</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Account B</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Account C</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Account D</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLineEdit" name="search_Account">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>380</y>
+         <width>511</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Segoe UI&quot;;</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="search">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>380</y>
+         <width>91</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 16pt &quot;Segoe UI&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Search</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="comboBox_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>40</y>
+         <width>91</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="acceptDrops">
+        <bool>true</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>Crypto</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Accounts</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QWidget" name="widget_6" native="true">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>791</width>
+         <height>501</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>10</y>
+          <width>351</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 16pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+        </property>
+        <property name="text">
+         <string>Crypto Search</string>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="Accounts_2">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>80</y>
+          <width>361</width>
+          <height>271</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 14pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Crypto A</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Crypto B</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Crypto C</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Crypto D</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLineEdit" name="search_Account_2">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>380</y>
+          <width>511</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 14pt &quot;Segoe UI&quot;;</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="search_2">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>380</y>
+          <width>91</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 16pt &quot;Segoe UI&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Search</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>40</y>
+          <width>91</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="acceptDrops">
+         <bool>true</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>Crypto</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Accounts</string>
+         </property>
+        </item>
+       </widget>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
