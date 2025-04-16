@@ -12,9 +12,15 @@ Außerdem sollten wir versuchen regelmäßigere Meetings zu machen, da dies aufg
 
 In diesem Sprint habe ich die Role des Product Owners übernommen. Als Teil meiner Aufgabe habe Ich unsere Anforderungen analysiert und eine Prorisierung des Backlogs angegeben, wobei wir uns zuerst auf die GUI konzentrieren sollten. Zudem habe ich mich bei vielen Designentscheidungen Beteiligt und das Projekt bestmöglich an der Vision zu halten. Bei der Zeiteinschätzung haben wir es zu hoch eingeschätzt, da wir im Endeffekt jeweils weniger als 5 std beschäftigt waren, jedoch konnten wir unsere Ziele für den Sprint trotzdem einhalten 
 
-### Reflection Team Member 3
 
-In diesem Sprint habe ich...
+### Reflection Victoria
+
+In diesem Sprint habe ich keine der wichtigen rollen übernommen.
+Ich fand das es an sich sehr gut geklappt hat, der scrum master hat sich sehr gut um die zeitlich einhaltung und absprachen gekümmert.
+Wir haben meines empfinden nachs, die Aufgaben fair aufgeteilt und besprochen.
+Der Produkt Owner hat sein job auch gut gemacht und vorschläge gut begründet abgelehnt oder hat sie angenommen. Bei missverständnissen der Aufgaben ging er auch drauf ein, und hat diese auch erklärt bzw. übernommen.
+Ich fand allerdings, das unser Scrum-Master kurz beide rollen übernommen hatte, da unser Produkt Owner beschäftigt mit unserer Technik war. Was allerdings in den Situationnen gut gepasst hat und es wurde auch immer gut kommuniziert.
+Was Vielleicht nicht so gut geklappt hat bei mir Persönlich, war die Commits und generell die struktur bei gitlab, da ich vergessen hab, dass wir jetzt sinnvole commit-kommentare schreiben sollen. Ich wurde allerdings schnell drauf aufmerksam gemacht und habe dies dann gebessert. ICh sollte also noch an den Förmlichkeiten arbeiten.
 
 ### Reflection Team Member 4  
 
