@@ -173,6 +173,22 @@ color: rgb(0, 0, 0);</string>
      <string>Your Account</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>40</y>
+      <width>83</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Home</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::GoHome"/>
+    </property>
+   </widget>
   </widget>
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
