@@ -24,7 +24,7 @@ gitlab-registry:
       --docker-server=$CI_REGISTRY \
       --docker-username=image-registry \
       --docker-password=$CI_REGISTRY_TOKEN -n $NAMESPACE
-      
+
 
 lint:
   stage: lint
