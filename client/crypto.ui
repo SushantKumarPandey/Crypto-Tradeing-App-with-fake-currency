@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>800</height>
+    <width>703</width>
+    <height>653</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,10 +20,10 @@ font: 14pt &quot;Segoe UI&quot;;</string>
   <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>1181</width>
-     <height>721</height>
+     <x>20</x>
+     <y>90</y>
+     <width>651</width>
+     <height>471</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -33,14 +33,15 @@ font: 14pt &quot;Segoe UI&quot;;</string>
   <widget class="QPlainTextEdit" name="plainTextEdit">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>740</y>
+     <x>10</x>
+     <y>20</y>
      <width>241</width>
      <height>51</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: transparent;
+color: rgb(64, 65, 66);
 </string>
    </property>
    <property name="plainText">
@@ -50,8 +51,8 @@ font: 14pt &quot;Segoe UI&quot;;</string>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>1000</x>
-     <y>740</y>
+     <x>490</x>
+     <y>580</y>
      <width>81</width>
      <height>41</height>
     </rect>
@@ -63,8 +64,8 @@ font: 14pt &quot;Segoe UI&quot;;</string>
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>1100</x>
-     <y>740</y>
+     <x>590</x>
+     <y>580</y>
      <width>81</width>
      <height>41</height>
     </rect>
@@ -76,11 +77,27 @@ font: 14pt &quot;Segoe UI&quot;;</string>
   <widget class="QSpinBox" name="spinBox">
    <property name="geometry">
     <rect>
-     <x>870</x>
-     <y>740</y>
+     <x>20</x>
+     <y>580</y>
      <width>111</width>
      <height>41</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="toolButton">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>10</y>
+     <width>25</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>...</string>
+   </property>
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::ApplicationExit"/>
    </property>
   </widget>
  </widget>
