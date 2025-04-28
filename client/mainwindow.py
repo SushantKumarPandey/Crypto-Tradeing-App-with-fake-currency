@@ -1,23 +1,24 @@
-# This Python file uses the following encoding: utf-8
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow
-
-# Important:
-# You need to run the following command to generate the ui_form.py file
-#     pyside6-uic form.ui -o ui_form.py, or
-#     pyside2-uic form.ui -o ui_form.py
-from ui_form import Ui_MainWindow
-
-class MainWindow(QMainWindow):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
-
+from PySide6.QtUiTools import QUiLoader
+from PySide6.QtWidgets import QApplication, QWidget
+from PySide6.QtCore import QFile, QIODevice
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    widget = MainWindow()
-    widget.show()
+
+    ui_file_name = "form.ui"
+    ui_file = QFile(ui_file_name)
+    if not ui_file.open(QIODevice.ReadOnly):
+        print(f"Cannot open {ui_file_name}: {ui_file.errorString()}")
+        sys.exit(-1)
+    loader = QUiLoader()
+    window = loader.load(ui_file)
+    ui_file.close()
+    if not window:
+        print(loader.errorString())
+        sys.exit(-1)
+    window.show()
+
     sys.exit(app.exec())
+

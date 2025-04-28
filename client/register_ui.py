@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'register.ui'
+## Form generated from reading Crypto_UI file 'register.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.1
 ##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
+## WARNING! All changes made in this file will be lost when recompiling Crypto_UI file!
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
@@ -35,7 +35,7 @@ class Ui_RegisterForm(object):
 "    background-color: pink\n"
 ";\n"
 "}\n"
-"font: 18pt \"Segoe UI\";\n"
+"font: 18pt \"Segoe Crypto_UI\";\n"
 "")
         self.Email = QLabel(RegisterForm)
         self.Email.setObjectName(u"Email")
@@ -44,7 +44,7 @@ class Ui_RegisterForm(object):
 "    background-color: pink\n"
 ";\n"
 "}\n"
-"font: 18pt \"Segoe UI\";\n"
+"font: 18pt \"Segoe Crypto_UI\";\n"
 "")
         self.Password = QLabel(RegisterForm)
         self.Password.setObjectName(u"Password")
@@ -53,7 +53,7 @@ class Ui_RegisterForm(object):
 "    background-color: pink\n"
 ";\n"
 "}\n"
-"font: 18pt \"Segoe UI\";")
+"font: 18pt \"Segoe Crypto_UI\";")
         self.lineEdit_username = QLineEdit(RegisterForm)
         self.lineEdit_username.setObjectName(u"lineEdit_username")
         self.lineEdit_username.setGeometry(QRect(120, 140, 281, 21))
@@ -71,7 +71,7 @@ class Ui_RegisterForm(object):
 "    background-color: pink\n"
 ";\n"
 "}\n"
-"font: 18pt \"Segoe UI\";")
+"font: 18pt \"Segoe Crypto_UI\";")
         self.pushButton_to_login = QPushButton(RegisterForm)
         self.pushButton_to_login.setObjectName(u"pushButton_to_login")
         self.pushButton_to_login.setGeometry(QRect(180, 440, 171, 24))

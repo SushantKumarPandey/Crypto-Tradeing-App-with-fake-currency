@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'login.ui'
+## Form generated from reading Crypto_UI file 'login.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.1
 ##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
+## WARNING! All changes made in this file will be lost when recompiling Crypto_UI file!
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
@@ -32,7 +32,7 @@ class Ui_Dialog(object):
         self.LoginForm = QLabel(Dialog)
         self.LoginForm.setObjectName(u"LoginForm")
         self.LoginForm.setGeometry(QRect(150, 10, 171, 71))
-        self.LoginForm.setStyleSheet(u"font: 22pt \"Segoe UI\";")
+        self.LoginForm.setStyleSheet(u"font: 22pt \"Segoe Crypto_UI\";")
         self.lineEdit_username = QLineEdit(Dialog)
         self.lineEdit_username.setObjectName(u"lineEdit_username")
         self.lineEdit_username.setGeometry(QRect(120, 140, 241, 31))
@@ -43,7 +43,7 @@ class Ui_Dialog(object):
 "    background-color: pink\n"
 ";\n"
 "}\n"
-"font: 18pt \"Segoe UI\";")
+"font: 18pt \"Segoe Crypto_UI\";")
         self.lineEdit_password = QLineEdit(Dialog)
         self.lineEdit_password.setObjectName(u"lineEdit_password")
         self.lineEdit_password.setGeometry(QRect(120, 240, 241, 31))
@@ -61,7 +61,7 @@ class Ui_Dialog(object):
 "    background-color: pink\n"
 ";\n"
 "}\n"
-"font: 18pt \"Segoe UI\";")
+"font: 18pt \"Segoe Crypto_UI\";")
         self.pushButton_to_login = QPushButton(Dialog)
         self.pushButton_to_login.setObjectName(u"pushButton_to_login")
         self.pushButton_to_login.setEnabled(True)
@@ -70,7 +70,7 @@ class Ui_Dialog(object):
 "    background-color: pink\n"
 ";\n"
 "}\n"
-"font: 18pt \"Segoe UI\";")
+"font: 18pt \"Segoe Crypto_UI\";")
 
         self.retranslateUi(Dialog)
 
