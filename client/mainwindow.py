@@ -1,24 +1,38 @@
 import sys
+from PyQt6 import QtWidgets, uic
 
-from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication, QWidget
-from PySide6.QtCore import QFile, QIODevice
+class Registerwindow(QtWidgets.QDialog):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi("register.ui", self)
+
+class Loginwindow(QtWidgets.QDialog):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi("login.ui", self)
+
+        self.Register.clicked.connect(self.show_login)
+        self.register_window = None
+
+    def show_login(self):
+        self.register_window = Registerwindow()
+        self.register_window.show()
+
+class Mainwindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi("form.ui", self)
+
+        self.loginButton.clicked.connect(self.login_show)
+        self.login_window = None
+
+    def login_show(self):
+        self.login_window = Loginwindow()
+        self.login_window.show()
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-
-    ui_file_name = "form.ui"
-    ui_file = QFile(ui_file_name)
-    if not ui_file.open(QIODevice.ReadOnly):
-        print(f"Cannot open {ui_file_name}: {ui_file.errorString()}")
-        sys.exit(-1)
-    loader = QUiLoader()
-    window = loader.load(ui_file)
-    ui_file.close()
-    if not window:
-        print(loader.errorString())
-        sys.exit(-1)
+    app = QtWidgets.QApplication(sys.argv)
+    window = Mainwindow()
     window.show()
-
     sys.exit(app.exec())
 
