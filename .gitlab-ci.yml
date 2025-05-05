@@ -13,7 +13,6 @@ stages:
   - build
   - deploy
 
-
 gitlab-registry:
   stage: prepare
   image: "thlmylab/swakkd:stable"
@@ -42,13 +41,13 @@ test:
     - pytest tests/
 
 
+
 .build:
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker build -t $IMAGE:$IMAGE_TAG $IMAGE/.
     - docker push $IMAGE:$IMAGE_TAG
-
 
 build-client:
   extends: .build
@@ -59,7 +58,6 @@ build-server:
   extends: .build
   variables:
     IMAGE: server
-
 
 deploy:
   stage: deploy
