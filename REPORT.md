@@ -38,6 +38,7 @@ Diesen Sprint habe ich keine spezielle Rolle übernommen.
 Ich habe bemerkt, dass ich teilweise zielstrebiger arbeiten muss und mir meine Zeit besser einteilen sollte in den folgenden Sprints.
 Im Team lief die Arbeit insgesamt gut, der Scrum Master hat immer gut die regelmäßigen Treffen organisiert und auch gecheckt wie die Arbeit bei allen läuft.
 Negativ aufgefallen ist mir jedoch die mangelnde Kommunikation im Team und auch die missverständliche Kommunikation an manchen Stellen, was sich deutlich verbessern muss in den nächsten Sprints.
+Außerdem gab es bei uns auch noch das Naming-Things-Problem, das sich an manche konventionen nicht gehalten wurde(Branches).
 
 
 ### Reflection Victoria
