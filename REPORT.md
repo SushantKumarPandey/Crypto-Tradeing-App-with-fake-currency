@@ -1,5 +1,5 @@
 
-# Report for 16.04.2025
+# Report for 16.04.2025 
 
 ### Reflection Marcel
 
@@ -38,3 +38,15 @@ Diesen Sprint habe ich keine spezielle Rolle übernommen.
 Ich habe bemerkt, dass ich teilweise zielstrebiger arbeiten muss und mir meine Zeit besser einteilen sollte in den folgenden Sprints.
 Im Team lief die Arbeit insgesamt gut, der Scrum Master hat immer gut die regelmäßigen Treffen organisiert und auch gecheckt wie die Arbeit bei allen läuft.
 Negativ aufgefallen ist mir jedoch die mangelnde Kommunikation im Team und auch die missverständliche Kommunikation an manchen Stellen, was sich deutlich verbessern muss in den nächsten Sprints.
+
+
+### Reflection Victoria
+
+In diesem sprint habe ich die rolle des scrum-Masters übernommen.
+Ich habe mich um die Aufgabenverteilung, Meetings, und zeiteinteilung gekümmert. Meine Rolle hab ich glaube ich ganz gut ausgeführt. Was ich gemerkt habe bei einem längeren sprint,
+ist dass man die teammitglieder mehr unterdruck setzen muss, da man sonst nicht ganz mit der Arbeit hinterherkommt. (Man denkt man hat noch genug zeit)
+Die Kommunikation ist manchmal etwas schiefgelaufen, da er zu einem meeting z.b nicht kam, ohne sich vorher zu melden, oder einem wurde nicht zugehört und auch nach mehrfachen ansprechen nicht reagiert.
+In diesen Sprint, hatte ich das gefühl beide rollen übernommen zu haben, da ich mich hauptsächlich um die issues und die priorisierung bzw. aufteilung der Aufgaben/issues gekümmert hab.
+Das Team an sich hat gut gearbeitet, aus meiner perspektive, wenn Aufgaben zu zweit bearbeitet werden sollten, hab ich das auch gemacht. Probleme wurden nie wirklich angesprochen, daher weiss ich nicht ob es bei den anderen probleme gab.
+(Ich hab bei jeden meeting aber auch nachgefragt, ob noch fragen sind, oder es Probleme gibt)
+
