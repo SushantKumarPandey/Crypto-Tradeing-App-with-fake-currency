@@ -22,10 +22,19 @@ Der Produkt Owner hat sein job auch gut gemacht und vorschläge gut begründet a
 Ich fand allerdings, das unser Scrum-Master kurz beide rollen übernommen hatte, da unser Produkt Owner beschäftigt mit unserer Technik war. Was allerdings in den Situationnen gut gepasst hat und es wurde auch immer gut kommuniziert.
 Was Vielleicht nicht so gut geklappt hat bei mir Persönlich, war die Commits und generell die struktur bei gitlab, da ich vergessen hab, dass wir jetzt sinnvole commit-kommentare schreiben sollen. Ich wurde allerdings schnell drauf aufmerksam gemacht und habe dies dann gebessert. ICh sollte also noch an den Förmlichkeiten arbeiten.
 
+
+# Report for 07.05.2025
+
 ### Reflection Sushant Pandey
+
 In diesem Sprint habe ich die Rolle des Product Owners übernommen.
 Ich habe die Issue-Branches anderer Teammitglieder gemerged und in den Main-Branch integriert. Außerdem habe ich 
 die CI/CD-Pipeline bearbeitet und die Konfigurationsdatei auf den ursprünglichen Code im Main-Branch zurückgesetzt und getestet. Ich habe daran gearbeitet, 
 die CI/CD-Pipeline zu verbessern und sicherzustellen, dass alle Änderungen korrekt integriert wurden.Seit montag arbeite ich issue login für user.
  
+### Reflection Marcel
 
+Diesen Sprint habe ich keine spezielle Rolle übernommen.
+Ich habe bemerkt, dass ich teilweise zielstrebiger arbeiten muss und mir meine Zeit besser einteilen sollte in den folgenden Sprints.
+Im Team lief die Arbeit insgesamt gut, der Scrum Master hat immer gut die regelmäßigen Treffen organisiert und auch gecheckt wie die Arbeit bei allen läuft.
+Negativ aufgefallen ist mir jedoch die mangelnde Kommunikation im Team und auch die missverständliche Kommunikation an manchen Stellen, was sich deutlich verbessern muss in den nächsten Sprints.
