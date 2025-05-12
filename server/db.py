@@ -1,10 +1,9 @@
 import sqlite3
 from datetime import datetime
-
 from flask import g, current_app
 
 
-conn = sqlite3.connect('crypto.db')
+conn = sqlite3.connect('../client/crypto.db')
 c = conn.cursor()
 
 def get_db():
