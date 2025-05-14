@@ -2,6 +2,8 @@ import sys
 import sqlite3
 from PyQt6 import QtWidgets, uic
 from client import *
+from werkzeug.security import generate_password_hash
+
 
 
 class Registerwindow(QtWidgets.QDialog):
@@ -17,6 +19,8 @@ class Registerwindow(QtWidgets.QDialog):
         password = self.lineEdit_password.text()
         email = self.lineEdit_email.text()
 
+        hashed_password = generate_password_hash(password)
+
         if username == '' or password == '' or email == '':
             QtWidgets.QMessageBox.warning(self, "Error", "Please fill all fields")
             return
@@ -30,7 +34,7 @@ class Registerwindow(QtWidgets.QDialog):
             c.execute('''
                     INSERT INTO user (username, password, email) 
                     VALUES (?,?,?)
-                ''', (username, password, email))
+                ''', (username, hashed_password, email))
             conn.commit()
             print('Insert done')
             QtWidgets.QMessageBox.information(self, 'Account created',
