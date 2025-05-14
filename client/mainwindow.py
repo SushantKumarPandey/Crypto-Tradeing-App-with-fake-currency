@@ -1,6 +1,5 @@
 import sys
-from dbm import sqlite3
-
+import sqlite3
 from PyQt6 import QtWidgets, uic
 from werkzeug.security import check_password_hash
 
@@ -26,7 +25,7 @@ class Loginwindow(QtWidgets.QDialog):
         try:
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
-            c.execute("SELECT id, password FROM users WHERE username = ?", (username,))
+            c.execute("SELECT id, password FROM user WHERE username = ?", (username,))
             user = c.fetchone()
             conn.close()
 
