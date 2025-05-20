@@ -1,4 +1,6 @@
 import sys
+import unittest
+
 from PyQt6 import QtWidgets, uic
 
 class Registerwindow(QtWidgets.QDialog):
@@ -35,4 +37,3 @@ if __name__ == "__main__":
     window = Mainwindow()
     window.show()
     sys.exit(app.exec())
-
