@@ -53,3 +53,20 @@ Das Team an sich hat gut gearbeitet, aus meiner perspektive, wenn Aufgaben zu zw
 
 
 # Report for 21.05.2025
+
+### Reflection Victoria
+
+In diesem sprint habe ich die rolle des Product-owner übernommen.
+Ich habe mich um die erstellung der issues, deren ungefähren zeitaufwand, und ums mergen gekümmert.
+merges gab es nur welche von mir und issues als review gab es auch nur welche von mir. die habe ich mit den anderen besprochen bevor ich gemerged habe.
+In diesem Sprint war es etwas durcheinander, da wir uns nicht so regelmäßig wie sonst getroffen haben, durch z.B persönliche anliegen.
+Zudem ist mir aufgefallen, das sich öfters nicht in die issues eingetragen wird (oder zeit eingetragen wird) was mich manchaml irritiert.
+
+
+### Reflection Marcel
+
+In diesem Sprint habe ich keine besondere Rolle übernommen.
+Ich habe nicht viel zu diesem Sprint beitragen können, da ich die kompletten 2 Wochen aus gesundheitlichen Gründen verhindert war.
+Ich habe versucht so viel zu machen wie mir möglich war, jedoch war das leider nicht viel.
+Im nächsten Sprint möchhte ich mich wieder mehr einbringen und aufs Gas drücken. Es war diesmal allgemein recht durcheinander und wir hatten 
+keine gute Struktur im Team, das sollte sich im nächsten Sprint auch wieder bessern.
