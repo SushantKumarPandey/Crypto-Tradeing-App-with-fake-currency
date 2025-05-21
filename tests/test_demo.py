@@ -1,9 +1,8 @@
+
 def login(username, password):
     return username == "user" and password == "pass123"
 
-
 registered_users = []
-
 
 def register(username, password):
     if username in registered_users:
@@ -15,14 +14,11 @@ def register(username, password):
 def test_successful_login():
     assert login("user", "pass123") == True
 
-
 def test_failed_login_wrong_password():
     assert login("user", "wrongpass") == False
 
-
 def test_failed_login_unknown_user():
     assert login("unknown", "pass123") == False
-
 
 def test_successful_registration():
     registered_users.clear()  # reset user list before test
@@ -30,14 +26,13 @@ def test_successful_registration():
     assert result == True
     assert "newuser" in registered_users
 
-
 def test_duplicate_registration():
     registered_users.clear()
     register("newuser", "securepassword")
     result = register("newuser", "anotherpass")
     assert result == False
 
-
 def test_fake_balance():
     fake_balance = 1000
     assert fake_balance >= 0
+
