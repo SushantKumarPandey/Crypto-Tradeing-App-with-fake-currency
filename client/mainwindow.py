@@ -1,12 +1,11 @@
 import sys
-import unittest
+import json
 import sqlite3
+
 from PyQt6 import QtWidgets, uic
-from client import *
 from werkzeug.security import generate_password_hash
-
-from client.Crypto import parameters
-
+from requests import Request, Session
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 
 class Registerwindow(QtWidgets.QDialog):
     def __init__(self):
@@ -76,12 +75,21 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.login_window = Loginwindow()
         self.login_window.show()
 
-    def fetch_table(self):
-        url = ("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
+    def fetch_table(self, item):
+        coinName = item.text()
+        url = ("https://pro-api.coinmarketcap.com/v1/cryptocurrency/map")
         parameters = {
-            'symbol'
+            'symbol' : coinName,
         }
-        headers
+
+        headers = {
+            'Accepts': 'application/json',
+            'X-CMC_PRO_API_KEY': '8bc7959e-153c-40dd-8da9-34e544661e71'
+        }
+
+        session = Session()
+        session.headers.update(headers)
+
         try:
             response = session.get(url, params=parameters)
             data = json.loads(response.text)

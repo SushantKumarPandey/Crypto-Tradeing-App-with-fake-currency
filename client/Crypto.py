@@ -1,12 +1,13 @@
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+from PyQt6 import QtCore, QtGui, QtWidgets
 import json
 
-url = 'https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/map'
 parameters = {
   'start':'1',
   'limit':'5000',
-  'convert':'USD'
+  'symbol':'BTC'
 }
 headers = {
   'Accepts': 'application/json',
