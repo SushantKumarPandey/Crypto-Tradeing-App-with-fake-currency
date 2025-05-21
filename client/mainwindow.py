@@ -4,6 +4,7 @@ import sqlite3
 from PyQt6 import QtWidgets, uic
 from client import *
 from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
 
 
 class Registerwindow(QtWidgets.QDialog):
@@ -54,12 +55,29 @@ class Loginwindow(QtWidgets.QDialog):
         super().__init__()
         uic.loadUi("login.ui", self)
 
-        self.Register.clicked.connect(self.show_login)
-        self.register_window = None
+        self.pushButton_to_login.clicked.connect(self.verify_login)
 
-    def show_login(self):
-        self.register_window = Registerwindow()
-        self.register_window.show()
+    def verify_login(self):
+
+        username = self.lineEdit_password_2.text()
+        password = self.lineEdit_password.text()
+
+        try:
+            conn = sqlite3.connect("crypto.db")
+            c = conn.cursor()
+            c.execute("SELECT id, password FROM user WHERE username = ?", (username,))
+            user = c.fetchone()
+            conn.close()
+
+            if user and check_password_hash(user[1], password):
+                QtWidgets.QMessageBox.information(self, "Login Success", "Successfully Logged In")
+                self.accept()
+            else:
+                QtWidgets.QMessageBox.warning(self, "Login Failed", "Invalid Username or Password")
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(self, "Error", f"An error occurred:\n{e}")
+
+
 
 class Mainwindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -78,3 +96,4 @@ if __name__ == "__main__":
     window = Mainwindow()
     window.show()
     sys.exit(app.exec())
+
