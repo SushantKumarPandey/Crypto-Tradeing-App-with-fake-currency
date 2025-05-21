@@ -51,3 +51,5 @@ In diesen Sprint, hatte ich das gefühl beide rollen übernommen zu haben, da ic
 Das Team an sich hat gut gearbeitet, aus meiner perspektive, wenn Aufgaben zu zweit bearbeitet werden sollten, hab ich das auch gemacht. Probleme wurden nie wirklich angesprochen, daher weiss ich nicht ob es bei den anderen probleme gab.
 (Ich hab bei jeden meeting aber auch nachgefragt, ob noch fragen sind, oder es Probleme gibt)
 
+
+# Report for 21.05.2025
