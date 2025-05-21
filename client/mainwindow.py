@@ -1,4 +1,5 @@
 import sys
+import unittest
 import sqlite3
 from PyQt6 import QtWidgets, uic
 from client import *
@@ -61,7 +62,6 @@ class Loginwindow(QtWidgets.QDialog):
         self.register_window = Registerwindow()
         self.register_window.show()
 
-
 class Mainwindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -73,7 +73,6 @@ class Mainwindow(QtWidgets.QMainWindow):
     def login_show(self):
         self.login_window = Loginwindow()
         self.login_window.show()
-
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
