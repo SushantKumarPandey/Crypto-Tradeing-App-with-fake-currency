@@ -1,5 +1,5 @@
 
-# Report for 16.04.2025 
+# Report for 16.04.2025
 
 ### Reflection Marcel
 
@@ -22,6 +22,11 @@ Der Produkt Owner hat sein job auch gut gemacht und vorschläge gut begründet a
 Ich fand allerdings, das unser Scrum-Master kurz beide rollen übernommen hatte, da unser Produkt Owner beschäftigt mit unserer Technik war. Was allerdings in den Situationnen gut gepasst hat und es wurde auch immer gut kommuniziert.
 Was Vielleicht nicht so gut geklappt hat bei mir Persönlich, war die Commits und generell die struktur bei gitlab, da ich vergessen hab, dass wir jetzt sinnvole commit-kommentare schreiben sollen. Ich wurde allerdings schnell drauf aufmerksam gemacht und habe dies dann gebessert. ICh sollte also noch an den Förmlichkeiten arbeiten.
 
+### Reflection Sushant  
+
+In diesem Sprint habe ich die Register- und Login-Seite entworfen und erstellt. Außerdem habe ich das Projekt
+konfiguriert und gelernt, wie man einen Branch erstellt. Ich habe einige Issues bearbeitet und ein Problem mit dem HTTPS-Clone behoben. 
+Darüber hinaus habe ich Dokumentation geschrieben und einige Konfigurationen vorgenommen.
 
 # Report for 07.05.2025
 
@@ -53,6 +58,16 @@ Das Team an sich hat gut gearbeitet, aus meiner perspektive, wenn Aufgaben zu zw
 
 
 # Report for 21.05.2025
+
+
+### Reflection Sushant  
+In diesem Sprint war ich leider schwer krank, konnte aber dennoch an den Meetings teilnehmen. Ich habe Unit-Tests 
+durchgeführt und Vorlesungsmaterial angesehen. In meinem Branch habe ich die Pipeline für automatisiertes 
+Testing eingerichtet. Trotz meiner Krankheit habe ich versucht, so produktiv wie möglich zu sein und meine
+Aufgaben zu erledigen. Es war eine Herausforderung, aber ich bin stolz auf das, was ich erreicht habe. 
+Zusätzlich habe ich mich bemüht, 
+meine Kenntnisse in der Projektkonfiguration zu vertiefen und einige kleinere Probleme zu beheben.
+
 
 ### Reflection Victoria
 
