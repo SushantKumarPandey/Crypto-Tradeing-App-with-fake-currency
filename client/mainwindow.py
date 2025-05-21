@@ -6,7 +6,6 @@ from client import *
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
-
 class Registerwindow(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
@@ -24,6 +23,9 @@ class Registerwindow(QtWidgets.QDialog):
 
         if username == '' or password == '' or email == '':
             QtWidgets.QMessageBox.warning(self, "Error", "Please fill all fields")
+            return
+        if '@' not in email or '.' not in email:
+            QtWidgets.QMessageBox.warning(self, "Error", "Enter a valid email address.")
             return
 
         try:
@@ -55,6 +57,9 @@ class Loginwindow(QtWidgets.QDialog):
         super().__init__()
         uic.loadUi("login.ui", self)
 
+        self.Register.clicked.connect(self.show_login)
+        self.register_window = None
+
         self.pushButton_to_login.clicked.connect(self.verify_login)
 
     def verify_login(self):
@@ -76,6 +81,11 @@ class Loginwindow(QtWidgets.QDialog):
                 QtWidgets.QMessageBox.warning(self, "Login Failed", "Invalid Username or Password")
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"An error occurred:\n{e}")
+
+    def show_login(self):
+        self.register_window = Registerwindow()
+        self.register_window.show()
+
 
 
 
