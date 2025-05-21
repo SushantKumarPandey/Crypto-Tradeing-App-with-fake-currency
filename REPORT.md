@@ -51,3 +51,16 @@ In diesen Sprint, hatte ich das gefühl beide rollen übernommen zu haben, da ic
 Das Team an sich hat gut gearbeitet, aus meiner perspektive, wenn Aufgaben zu zweit bearbeitet werden sollten, hab ich das auch gemacht. Probleme wurden nie wirklich angesprochen, daher weiss ich nicht ob es bei den anderen probleme gab.
 (Ich hab bei jeden meeting aber auch nachgefragt, ob noch fragen sind, oder es Probleme gibt)
 
+
+# Report for 21.05.2025
+
+### Reflection Victoria
+
+In diesem sprint habe ich die rolle des Product-owner übernommen.
+Ich habe mich um die erstellung der issues, deren ungefähren zeitaufwand, und ums mergen gekümmert.
+merges gab es nur welche von mir und issues als review gab es auch nur welche von mir. die habe ich mit den anderen besprochen bevor ich gemerged habe.
+In diesem Sprint war es etwas durcheinander, da wir uns nicht so regelmäßig wie sonst getroffen haben, durch z.B persönliche anliegen.
+Zudem ist mir aufgefallen, das sich öfters nicht in die issues eingetragen wird (oder zeit eingetragen wird) was mich manchaml irritiert.
+
+
+
