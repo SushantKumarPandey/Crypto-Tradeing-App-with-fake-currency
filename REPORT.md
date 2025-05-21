@@ -63,4 +63,10 @@ In diesem Sprint war es etwas durcheinander, da wir uns nicht so regelmäßig wi
 Zudem ist mir aufgefallen, das sich öfters nicht in die issues eingetragen wird (oder zeit eingetragen wird) was mich manchaml irritiert.
 
 
+### Reflection Marcel
 
+In diesem Sprint habe ich keine besondere Rolle übernommen.
+Ich habe nicht viel zu diesem Sprint beitragen können, da ich die kompletten 2 Wochen aus gesundheitlichen Gründen verhindert war.
+Ich habe versucht so viel zu machen wie mir möglich war, jedoch war das leider nicht viel.
+Im nächsten Sprint möchhte ich mich wieder mehr einbringen und aufs Gas drücken. Es war diesmal allgemein recht durcheinander und wir hatten 
+keine gute Struktur im Team, das sollte sich im nächsten Sprint auch wieder bessern.
