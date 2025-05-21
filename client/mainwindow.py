@@ -1,10 +1,11 @@
 import sys
-import unittest
+import json
 import sqlite3
+
 from PyQt6 import QtWidgets, uic
-from client import *
 from werkzeug.security import generate_password_hash
-from werkzeug.security import check_password_hash
+from requests import Request, Session
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 
 class Registerwindow(QtWidgets.QDialog):
     def __init__(self):
@@ -23,9 +24,6 @@ class Registerwindow(QtWidgets.QDialog):
 
         if username == '' or password == '' or email == '':
             QtWidgets.QMessageBox.warning(self, "Error", "Please fill all fields")
-            return
-        if '@' not in email or '.' not in email:
-            QtWidgets.QMessageBox.warning(self, "Error", "Enter a valid email address.")
             return
 
         try:
@@ -60,34 +58,9 @@ class Loginwindow(QtWidgets.QDialog):
         self.Register.clicked.connect(self.show_login)
         self.register_window = None
 
-        self.pushButton_to_login.clicked.connect(self.verify_login)
-
-    def verify_login(self):
-
-        username = self.lineEdit_password_2.text()
-        password = self.lineEdit_password.text()
-
-        try:
-            conn = sqlite3.connect("crypto.db")
-            c = conn.cursor()
-            c.execute("SELECT id, password FROM user WHERE username = ?", (username,))
-            user = c.fetchone()
-            conn.close()
-
-            if user and check_password_hash(user[1], password):
-                QtWidgets.QMessageBox.information(self, "Login Success", "Successfully Logged In")
-                self.accept()
-            else:
-                QtWidgets.QMessageBox.warning(self, "Login Failed", "Invalid Username or Password")
-        except Exception as e:
-            QtWidgets.QMessageBox.critical(self, "Error", f"An error occurred:\n{e}")
-
     def show_login(self):
         self.register_window = Registerwindow()
         self.register_window.show()
-
-
-
 
 class Mainwindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -102,12 +75,21 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.login_window = Loginwindow()
         self.login_window.show()
 
-    def fetch_table(self):
-        url = ("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
+    def fetch_table(self, item):
+        coinName = item.text()
+        url = ("https://pro-api.coinmarketcap.com/v1/cryptocurrency/map")
         parameters = {
-            'symbol'
+            'symbol' : coinName,
         }
-        headers
+
+        headers = {
+            'Accepts': 'application/json',
+            'X-CMC_PRO_API_KEY': '8bc7959e-153c-40dd-8da9-34e544661e71'
+        }
+
+        session = Session()
+        session.headers.update(headers)
+
         try:
             response = session.get(url, params=parameters)
             data = json.loads(response.text)

@@ -287,6 +287,11 @@ background-color: rgb(85, 170, 127);</string>
        </item>
        <item>
         <property name="text">
+         <string>BTC</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Crypto B</string>
         </property>
        </item>
