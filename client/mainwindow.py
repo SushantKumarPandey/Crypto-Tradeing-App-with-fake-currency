@@ -6,7 +6,6 @@ from client import *
 from werkzeug.security import generate_password_hash
 
 
-
 class Registerwindow(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
