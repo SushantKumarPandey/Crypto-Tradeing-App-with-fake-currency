@@ -95,15 +95,28 @@ class Mainwindow(QtWidgets.QMainWindow):
         uic.loadUi("form.ui", self)
 
         self.loginButton.clicked.connect(self.login_show)
+        self.Accounts_2.itemClicked.connect(self.fetch_table())
         self.login_window = None
 
     def login_show(self):
         self.login_window = Loginwindow()
         self.login_window.show()
 
+    def fetch_table(self):
+        url = ("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
+        parameters = {
+            'symbol'
+        }
+        headers
+        try:
+            response = session.get(url, params=parameters)
+            data = json.loads(response.text)
+            print(data)
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            print(e)
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = Mainwindow()
     window.show()
     sys.exit(app.exec())
-
