@@ -1,6 +1,5 @@
 import sys
 import unittest
-
 import sqlite3
 from PyQt6 import QtWidgets, uic
 from client import *
