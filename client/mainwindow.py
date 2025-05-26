@@ -93,7 +93,7 @@ class Mainwindow(QtWidgets.QMainWindow):
         uic.loadUi("form.ui", self)
 
         self.loginButton.clicked.connect(self.login_show)
-        self.Accounts_2.itemClicked.connect(self.fetch_table())
+        self.Accounts_2.itemClicked.connect(self.fetch_table)
         self.login_window = None
 
     def login_show(self):
