@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 
+
 class Registerwindow(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
@@ -15,34 +16,39 @@ class Registerwindow(QtWidgets.QDialog):
         self.pushButton_register.clicked.connect(self.register)
 
     def register(self):
-
         username = self.lineEdit_username.text()
         password = self.lineEdit_password.text()
         email = self.lineEdit_email.text()
 
         hashed_password = generate_password_hash(password)
 
-        if username == '' or password == '' or email == '':
+        if username == "" or password == "" or email == "":
             QtWidgets.QMessageBox.warning(self, "Error", "Please fill all fields")
             return
-        if '@' not in email or '.' not in email:
+        if "@" not in email or "." not in email:
             QtWidgets.QMessageBox.warning(self, "Error", "Enter a valid email address.")
             return
 
         try:
-            print('connecting ...')
-            conn = sqlite3.connect('crypto.db')
+            print("connecting ...")
+            conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
-            print('Executing Insert')
+            print("Executing Insert")
 
-            c.execute('''
+            c.execute(
+                """
                     INSERT INTO user (username, password, email) 
                     VALUES (?,?,?)
-                ''', (username, hashed_password, email))
+                """,
+                (username, hashed_password, email),
+            )
             conn.commit()
-            print('Insert done')
-            QtWidgets.QMessageBox.information(self, 'Account created',
-                                              "Your account has been created! You are now able to log in.")
+            print("Insert done")
+            QtWidgets.QMessageBox.information(
+                self,
+                "Account created",
+                "Your account has been created! You are now able to log in.",
+            )
             self.close()
 
         except sqlite3.Error as e:
@@ -64,7 +70,6 @@ class Loginwindow(QtWidgets.QDialog):
         self.pushButton_to_login.clicked.connect(self.verify_login)
 
     def verify_login(self):
-
         username = self.lineEdit_password_2.text()
         password = self.lineEdit_password.text()
 
@@ -76,16 +81,21 @@ class Loginwindow(QtWidgets.QDialog):
             conn.close()
 
             if user and check_password_hash(user[1], password):
-                QtWidgets.QMessageBox.information(self, "Login Success", "Successfully Logged In")
+                QtWidgets.QMessageBox.information(
+                    self, "Login Success", "Successfully Logged In"
+                )
                 self.accept()
             else:
-                QtWidgets.QMessageBox.warning(self, "Login Failed", "Invalid Username or Password")
+                QtWidgets.QMessageBox.warning(
+                    self, "Login Failed", "Invalid Username or Password"
+                )
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"An error occurred:\n{e}")
 
     def show_login(self):
         self.register_window = Registerwindow()
         self.register_window.show()
+
 
 class Mainwindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -102,14 +112,14 @@ class Mainwindow(QtWidgets.QMainWindow):
 
     def fetch_table(self, item):
         coinName = item.text()
-        url = ("https://pro-api.coinmarketcap.com/v1/cryptocurrency/map")
+        url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map"
         parameters = {
-            'symbol' : coinName,
+            "symbol": coinName,
         }
 
         headers = {
-            'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': '8bc7959e-153c-40dd-8da9-34e544661e71'
+            "Accepts": "application/json",
+            "X-CMC_PRO_API_KEY": "8bc7959e-153c-40dd-8da9-34e544661e71",
         }
 
         session = Session()
@@ -121,6 +131,7 @@ class Mainwindow(QtWidgets.QMainWindow):
             print(data)
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print(e)
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
