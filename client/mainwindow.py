@@ -9,47 +9,30 @@ import os
 
 
 class Registerwindow(QtWidgets.QDialog):
-    def __init__(self):
-        super().__init__()
-        ui_path = os.path.join(os.path.dirname(__file__), "register.ui")
+    def init(self):
+        super().init()
+        ui_path = os.path.join(os.path.dirname(file), "register.ui")
         uic.loadUi(ui_path, self)
 
         self.pushButton_register.clicked.connect(self.register)
 
-    def register(self):
-        username = self.lineEdit_username.text()
-        password = self.lineEdit_password.text()
-        email = self.lineEdit_email.text()
+
+    def create_new_user(self,username, password, email, db_path="../client/crypto.db"):
+        if username == '' or password == '' or email == '':
+            return "empty"
+        if '@' not in email or '.' not in email:
+            return "notValid"
 
         hashed_password = generate_password_hash(password)
 
-        if username == "" or password == "" or email == "":
-            QtWidgets.QMessageBox.warning(self, "Error", "Please fill all fields")
-            return
-        if "@" not in email or "." not in email:
-            QtWidgets.QMessageBox.warning(self, "Error", "Enter a valid email address.")
-            return
-
         try:
-            print("connecting ...")
-            conn = sqlite3.connect("crypto.db")
+            conn = sqlite3.connect(db_path)
             c = conn.cursor()
-            print("Executing Insert")
-
-            c.execute(
-                """
+            c.execute('''
                     INSERT INTO user (username, password, email) 
                     VALUES (?,?,?)
-                """,
-                (username, hashed_password, email),
-            )
+                ''', (username, hashed_password, email))
             conn.commit()
-            print("Insert done")
-            QtWidgets.QMessageBox.information(
-                self,
-                "Account created",
-                "Your account has been created! You are now able to log in.",
-            )
             self.close()
             return "success"
 
@@ -76,7 +59,6 @@ class Registerwindow(QtWidgets.QDialog):
             QtWidgets.QMessageBox.information(self, 'Account created',
                                               "Your account has been created! You are now able to log in.")
             self.close()
-
 
 
 class Loginwindow(QtWidgets.QDialog):
