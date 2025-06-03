@@ -29,7 +29,8 @@ stages:
 lint:
   stage: lint
   script:
-    - pip install flake8 black isort
+    - apk add --no-cache py3-pip
+    - pip3 install flake8 black isort
     - flake8 team14/
     - black --check team14/
     - isort --check-only team14/
