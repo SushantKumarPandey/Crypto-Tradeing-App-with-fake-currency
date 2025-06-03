@@ -120,6 +120,8 @@ class TestHTTP(unittest.TestCase):
         result = self.window.create_new_user('user', 'pass', 'no-at-sign')
         self.assertEqual(result, 'notValid')
 
+    def test(self):
+        pass
 
 # class TestAPI(unittest.TestCase):
 '''
