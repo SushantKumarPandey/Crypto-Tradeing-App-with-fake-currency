@@ -13,17 +13,17 @@ stages:
   - build
   - deploy
 
-gitlab-registry:
-  stage: prepare
-  image: "thlmylab/swakkd:stable"
-  variables:
-    NAMESPACE: mylab-sweii
-  script:
-    - kubectl delete secret gitlab-registry-secret -n $NAMESPACE || true
-    - "kubectl create secret docker-registry gitlab-registry-secret \
-      --docker-server=$CI_REGISTRY \
-      --docker-username=image-registry \
-      --docker-password=$CI_REGISTRY_TOKEN -n $NAMESPACE"
+#gitlab-registry:
+#  stage: prepare
+#  image: "thlmylab/swakkd:stable"
+#  variables:
+#    NAMESPACE: mylab-sweii
+#  script:
+#    - kubectl delete secret gitlab-registry-secret -n $NAMESPACE || true
+#    - "kubectl create secret docker-registry gitlab-registry-secret \
+#      --docker-server=$CI_REGISTRY \
+#      --docker-username=image-registry \
+#      --docker-password=$CI_REGISTRY_TOKEN -n $NAMESPACE"
       
 
 lint:
