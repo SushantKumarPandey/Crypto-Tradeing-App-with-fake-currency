@@ -8,6 +8,21 @@ from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import os
 
+class Cryptowindow(QtWidgets.QWidget):
+    def __init__(self, item):
+        super().__init__()
+        uic.loadUi("crypto.ui", self)
+        show_info()
+
+        self.item = item
+        self.pushbutton.clicked(self.buy_crypto)
+        self.pushbutton_2.clicked(self.sell_crypto)
+
+    #def show_info(self):
+
+    #def buy_crypto(self):
+
+    #def sell_crypto(self):
 
 class Registerwindow(QtWidgets.QDialog):
     def init(self):
@@ -110,16 +125,46 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.Accounts.itemClicked.connect(self.show_account)
         self.Guides.itemClicked.connect(self.show_guides)
         self.Tutorial.itemClicked.connect(self.show_tutorial)
-        #        self.Accounts_2.itemClicked.connect(self.fetch_table())
+        self.Accounts_2.itemClicked.connect(self.crypto_show)
+        self.refresh.clicked.connect(self.fetch_table)
+        self.search_2.clicked.connect(self.search_crypto)
         self.login_window = None
 
     def login_show(self):
         self.login_window = Loginwindow()
         self.login_window.show()
 
+    def crypto_show(self, item):
+        self.login_window = Cryptowindow(item)
+        self.login_window.show()
+
+    def search_crypto(self):
+        search_term = self.search_Account_3.text()
+        try:
+            conn = sqlite3.connect('crypto.db')
+            c = conn.cursor()
+
+            c.execute('''
+            SELECT symbol FROM coin Where symbol LIKE ?''', (f'%{search_term}%',))
+
+            results = c.fetchall()
+            print(results)
+
+            self.Accounts_2.clear()
+            for row in results:
+                item = QtWidgets.QListWidgetItem(row[0])
+                self.Accounts_2.addItem(row[0])
+
+        except sqlite3.Error as e:
+
+            QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
+
+        finally:
+
+            conn.close()
+
     def account_search(self):
         name = self.search_Account_2.text().strip()
-
         try:
             conn = sqlite3.connect('crypto.db')
             c = conn.cursor()
@@ -318,6 +363,47 @@ class Mainwindow(QtWidgets.QMainWindow):
             finally:
                 conn.close()
     """
+
+    def fetch_table(self, table):
+        url = ("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
+        parameters = {
+            'limit': '500'
+        }
+
+        headers = {
+            'Accepts': 'application/json',
+            'X-CMC_PRO_API_KEY': '8bc7959e-153c-40dd-8da9-34e544661e71'
+        }
+
+        session = Session()
+        session.headers.update(headers)
+
+        try:
+            response = session.get(url, params=parameters)
+            data = json.loads(response.text)
+            conn = sqlite3.connect('crypto.db')
+            c = conn.cursor()
+            for coin in data['coins']:
+                c.execute('''
+                       INSERT INTO coin (id, price, name, supply, symbol, market_cap, data_date)
+                       VALUES (?, ?, ?, ?, ?, ?, ?)
+                   ''', (
+                    coin['id'],
+                    coin['price'],
+                    coin['name'],
+                    coin['total_supply'],
+                    coin['symbol'],
+                    coin['market_cap'],
+                    coin['last_updated'],
+                ))
+            conn.commit()
+            conn.close()
+            print(data)
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            print(e)
+        table.item.clear()
+        for item in data['data']:
+            table.addItem(item['symbol'])
 
     def show_account(self, item):
         username = item.text()
