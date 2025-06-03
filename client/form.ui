@@ -47,7 +47,7 @@ color: rgb(0, 0, 0);</string>
      <enum>QTabWidget::TabShape::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -871,32 +871,6 @@ color: rgb(0, 170, 127);</string>
      <attribute name="title">
       <string>Guides/Tutorial</string>
      </attribute>
-     <widget class="QWidget" name="widget_5" native="true">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>89</y>
-        <width>550</width>
-        <height>591</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(64, 65, 66);</string>
-      </property>
-     </widget>
-     <widget class="QWidget" name="widget_7" native="true">
-      <property name="geometry">
-       <rect>
-        <x>600</x>
-        <y>89</y>
-        <width>550</width>
-        <height>591</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(64, 65, 66);</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
@@ -934,6 +908,46 @@ background-color: transparent;</string>
       <property name="text">
        <string>Guides</string>
       </property>
+     </widget>
+     <widget class="QListWidget" name="Tutorial">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>90</y>
+        <width>501</width>
+        <height>591</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 14pt &quot;Segoe UI&quot;;
+background-color: rgb(64, 65, 66);
+color: rgb(85, 170, 127);</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>A</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QListWidget" name="Guides">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>90</y>
+        <width>501</width>
+        <height>591</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 14pt &quot;Segoe UI&quot;;
+background-color: rgb(64, 65, 66);
+color: rgb(85, 170, 127);</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>A</string>
+       </property>
+      </item>
      </widget>
     </widget>
     <widget class="QWidget" name="Profil">
