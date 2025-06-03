@@ -22,6 +22,12 @@ Der Produkt Owner hat sein job auch gut gemacht und vorschläge gut begründet a
 Ich fand allerdings, das unser Scrum-Master kurz beide rollen übernommen hatte, da unser Produkt Owner beschäftigt mit unserer Technik war. Was allerdings in den Situationnen gut gepasst hat und es wurde auch immer gut kommuniziert.
 Was Vielleicht nicht so gut geklappt hat bei mir Persönlich, war die Commits und generell die struktur bei gitlab, da ich vergessen hab, dass wir jetzt sinnvole commit-kommentare schreiben sollen. Ich wurde allerdings schnell drauf aufmerksam gemacht und habe dies dann gebessert. ICh sollte also noch an den Förmlichkeiten arbeiten.
 
+### Reflection Sushant
+In diesem Sprint  habe ich die project geschaut, uber project gelernt . Dan habe ich die technolie und installiert.hatte probelem auch bei installation 
+und intermeted version und so gehabt aber habe ich löunng gefunden. dann habe ich die issue login und register seite bekooment.
+die habe ich mit hilfe qtdesigner und bei andre gemacht. die login und register seite erfolgreich erstellt und in meeting teilgenommen. 
+und in praktium presenatiert.
+
 
 # Report for 07.05.2025
 
@@ -75,3 +81,21 @@ keine gute Struktur im Team, das sollte sich im nächsten Sprint auch wieder bes
 
 In diesem Sprint habe ich die Rolle des Scrum Masters übernommen. Dabei waren es zwei sehr schwere Wochen, da die Teammitglieder teils krank oder anderweitig nicht zur verfügung standen
 .Dazu konnte auch ich nicht so viel Machen, wie ich eigentlich wollte, da mich die Api sehr verzögerte. Alles in allem war dieser Sprint nicht so ausgegangen, wie ich das wollte, aber es wurden ein paar wichtige Dinge gelernt
+
+
+### Reflection Sushant
+In diesem Sprint war ich leider schwer krank, konnte aber dennoch an den Meetings teilnehmen. Ich habe Unit-Tests
+durchgeführt und Vorlesungsmaterial angesehen. In meinem Branch habe ich die Pipeline für automatisiertes
+Testing eingerichtet.und ich habe pre hook,ymal und pre-commit config and auto-format files gekümmert und auch bisschen unitest.
+
+
+
+### Report for 04.06.2025
+In diesem Sprint habe ich die Rolle des Scrum Masters übernommen.
+Wir haben ein Team-Meeting gemacht, um die issue zu bearbeiten und offene Punkte zu klären. Ich habe versucht, den Überblick zu behalten, wer woran arbeitet und wo noch Blockaden bestehen.
+Mein eigener Fokus lag auf dem Bestenlisten-Feature, insbesondere dem Backend mit API-Anbindung und Integration in das GUI. Und über letzte woche pre hook und hook problem,darüber habe 
+habe ich gearbeite und erfolgreich gepuscht.pre-commit config and auto-format files,black,prehook yaml addiert und die branch gepusht.
+Die Kommunikation mit dem Team hat gut funktioniert, aber teilweise war es schwer, alle gleichzeitig zu erreichen.
+die Flask-Route erfolgreich mit dem PyQt-Frontend verbinden konnte – und dass man jetzt über die GUI die Top-Player direkt abrufen kann.
+über a (API-Fehler, Datenbankanbindung) habe ich viel gelernt, ich bekomme probelm meine neue branch zu pushen,weil die habe ich direkt von main erstellte,wegen
+ pre hook files. danke

@@ -270,6 +270,90 @@ class Mainwindow(QtWidgets.QMainWindow):
            QtWidgets.QMessageBox.information(self, f"name: {name}")
     """
 
+    def account_search(self):
+        name = self.search_Account_2.text().strip()
+
+        try:
+            conn = sqlite3.connect('crypto.db')
+            c = conn.cursor()
+
+            c.execute("""
+            SELECT username FROM user
+                WHERE username LIKE ?
+            """, (f"%{name}%",))
+
+            results = c.fetchall()
+            print(results)
+
+            self.Accounts.clear()
+            for row in results:
+                item = QtWidgets.QListWidgetItem(row[0])
+                self.Accounts.addItem(row[0])
+
+        except sqlite3.Error as e:
+            QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
+
+        finally:
+            conn.close()
+
+    """
+        def crypto_search(self):
+            name = self.search_Account_2.text().strip()
+
+            try:
+                conn = sqlite3.connect('crypto.db')
+                c = conn.cursor()
+
+                results = c.fetchall()
+                print(results)
+
+                self.Crypto.clear()
+                for row in results:
+                    item = QtWidgets.QListWidgetItem(row[0])
+                    self.Crypt.addItem(row[0])
+
+            except sqlite3.Error as e:
+                QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
+
+            finally:
+                conn.close()
+    """
+
+    def show_account(self, item):
+        username = item.text()
+        infos = []
+        try:
+            conn = sqlite3.connect('crypto.db')
+            c = conn.cursor()
+            c.execute("""
+                    SELECT username, email FROM user
+                    WHERE username = ?
+                """, (username,))
+            infos = c.fetchall()
+
+        except sqlite3.Error as e:
+            QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
+
+        finally:
+            conn.close()
+
+        if infos:
+            user_info = infos[0]
+            QtWidgets.QMessageBox.information(
+                self,
+                "Account Info",
+                f"Username: {user_info[0]}\nEmail: {user_info[1]}"
+            )
+        else:
+            QtWidgets.QMessageBox.information(self, "Keine Daten", "Kein Benutzer gefunden.")
+
+    """
+        def show_crypto(self, item):
+           name = item.text()
+           QtWidgets.QMessageBox.information(self, f"name: {name}")
+    """
+
+
     def fetch_table(self, item):
         coinName = item.text()
         url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map"
