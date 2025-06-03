@@ -22,10 +22,10 @@ Der Produkt Owner hat sein job auch gut gemacht und vorschläge gut begründet a
 Ich fand allerdings, das unser Scrum-Master kurz beide rollen übernommen hatte, da unser Produkt Owner beschäftigt mit unserer Technik war. Was allerdings in den Situationnen gut gepasst hat und es wurde auch immer gut kommuniziert.
 Was Vielleicht nicht so gut geklappt hat bei mir Persönlich, war die Commits und generell die struktur bei gitlab, da ich vergessen hab, dass wir jetzt sinnvole commit-kommentare schreiben sollen. Ich wurde allerdings schnell drauf aufmerksam gemacht und habe dies dann gebessert. ICh sollte also noch an den Förmlichkeiten arbeiten.
 
-###Reflection Sushant
+### Reflection Sushant
 In diesem Sprint war ich leider schwer krank, konnte aber dennoch an den Meetings teilnehmen. Ich habe Unit-Tests
 durchgeführt und Vorlesungsmaterial angesehen. In meinem Branch habe ich die Pipeline für automatisiertes
-Testing eingerichtet. 
+Testing eingerichtet.und ich habe pre hook,ymal und pre-commit config and auto-format files gekümmert und auch bisschen unitest
 
 # Report for 07.05.2025
 
