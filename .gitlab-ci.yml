@@ -17,7 +17,7 @@ gitlab-registry:
   stage: prepare
   image: "thlmylab/swakkd:stable"
   variables:
-    NAMESPACE: mylab-sweii/team14
+    NAMESPACE: mylab-sweii
   script:
     - kubectl delete secret gitlab-registry-secret -n $NAMESPACE || true
     - "kubectl create secret docker-registry gitlab-registry-secret \
