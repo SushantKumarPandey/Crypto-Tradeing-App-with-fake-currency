@@ -58,3 +58,6 @@ docker-compose up
 ### Building and Pushing Images
 
 The GitLab CI/CD pipeline will automatically build and push Docker images to the GitLab registry.
+
+
+& "C:\Program Files\Git\bin\bash.exe" run-checks.sh

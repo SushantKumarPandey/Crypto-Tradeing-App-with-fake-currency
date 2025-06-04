@@ -13,6 +13,7 @@ stages:
   - build
   - deploy
 
+
 gitlab-registry:
   stage: prepare
   image: "thlmylab/swakkd:stable"
@@ -24,7 +25,7 @@ gitlab-registry:
       --docker-server=$CI_REGISTRY \
       --docker-username=image-registry \
       --docker-password=$CI_REGISTRY_TOKEN -n $NAMESPACE
-      
+
 
 lint:
   stage: lint
@@ -39,7 +40,6 @@ test:
   script:
     - pip install pytest
     - python demotest.py
-
 
 
 .build:

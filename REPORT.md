@@ -1,5 +1,5 @@
 
-# Report for 16.04.2025 
+# Report for 16.04.2025
 
 ### Reflection Marcel
 
@@ -59,6 +59,16 @@ Das Team an sich hat gut gearbeitet, aus meiner perspektive, wenn Aufgaben zu zw
 
 
 # Report for 21.05.2025
+
+
+### Reflection Sushant  
+In diesem Sprint war ich leider schwer krank, konnte aber dennoch an den Meetings teilnehmen. Ich habe Unit-Tests 
+durchgeführt und Vorlesungsmaterial angesehen. In meinem Branch habe ich die Pipeline für automatisiertes 
+Testing eingerichtet. Trotz meiner Krankheit habe ich versucht, so produktiv wie möglich zu sein und meine
+Aufgaben zu erledigen. Es war eine Herausforderung, aber ich bin stolz auf das, was ich erreicht habe. 
+Zusätzlich habe ich mich bemüht, 
+meine Kenntnisse in der Projektkonfiguration zu vertiefen und einige kleinere Probleme zu beheben.
+
 
 ### Reflection Victoria
 
