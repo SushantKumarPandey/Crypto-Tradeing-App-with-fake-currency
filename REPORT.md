@@ -125,3 +125,18 @@ allerdings sind und noch weitere fehler der pipline aufgefallen. weshalb, ich di
 Zudem habe ich versucht das Achivment backend zu erstellen, allerdings hatte ich da sehr starke probleme mit der logik. Weshalb ich dann mich um etwas anderes gekümmert habe.
 Ich hatte in diesem sprint das gefühl, das Probleme sehr spät erkannt wurden und es dann sehr schwer war, diese zu lösen. (mein problem wurde erstmal weggeschoben, da es noch nicht so wichtig ist) 
 Generell habe ich das gefühl, das eine Person oft andere Aufganen gemacht hat, als abgesprochen (Auch in den Vorherigen Sprints).
+
+
+### Reflection Marcel
+In diesem Sprint habe ich die Rolle des Product Owners übernommen.
+Ich habe versucht die Struktur innerhalb des Projekts wieder herzustellen, damit wir wissen, was wir bisher alles gemacht haben und 
+was akkut gemacht werden muss. Ich denke das hat ganz gut geklappt, jedoch ist es kontraproduktiv, wenn gewisse Leute mal wieder andere Sachen machen als abgesprochen.
+Außerdem hab ich allgemein eher Aufräumarbeiten gemacht, das bedeutet, dass ich bestehenden Code etwas überarbeitet und verbessert habe.
+Ein großes Problem war der Scrum Master, denn dieser hat sich um nichts von alleine gekümmert und man musste ihn dauernd daran erinnern,
+damit überhaupt etwas passiert. Dementsprechend gab es auch nur 1-2 Meetings, wodurch der Überblick während des Sprints nicht wirklich da war.
+Als Product Owner hab ich mich auch um die merge requests gekümmert, was sich jedoch als sehr schwierig und zeitaufwändig herausstellte, da 
+der Scrum Master eine merge request von einem Branch erstellt hat, welcher über 50 commits behind war. Da habe ich unnötig Zeit und Nerven verloren,
+welche auch hätten anders Verwendung finden können.
+Eine andere Sache, die mich genervt hat war, dass nicht alle bei den abgesprochenen Meetings waren ohne sich zu melden und dass immer noch ohne Merge Re4quest 
+auf den main Branch gepusht wird.
+Dieser Sprint war insgesamt sehr Nerven und Kräfte raubend.
