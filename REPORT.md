@@ -126,6 +126,12 @@ Zudem habe ich versucht das Achivment backend zu erstellen, allerdings hatte ich
 Ich hatte in diesem sprint das gefühl, das Probleme sehr spät erkannt wurden und es dann sehr schwer war, diese zu lösen. (mein problem wurde erstmal weggeschoben, da es noch nicht so wichtig ist) 
 Generell habe ich das gefühl, das eine Person oft andere Aufganen gemacht hat, als abgesprochen (Auch in den Vorherigen Sprints).
 
+ ### Reflection Mathis
+ In diesem Sprint habe ich keine Rolle übernommen
+ Die Scrum Mettings waren diese wochen sehr irregulär geplant, wodurch es schwer zu einem guten Workflow kam. Ich habe mich in diesen Wochen vorallem mit der Restlichen Api gekümmert, sowie der db und der Crypto Darstellung sowie Suche.
+ Das waren zwar ungefähr meine Ziele, jedoch hätte ich auch mehr Arbeit in das Projekt stecken können. Das Projekt geht insgesamt gut vorran, und jetzt brauchen wir nurnoch 2 features einbauen, damit die basis Funktionalität hergestellt ist
+ Ich habe zudem teile der Orga übernommen, damit diese Besser vorran ging
+
 
 ### Reflection Marcel
 In diesem Sprint habe ich die Rolle des Product Owners übernommen.
