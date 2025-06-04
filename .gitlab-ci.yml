@@ -13,6 +13,7 @@ stages:
   - build
   - deploy
 
+
 gitlab-registry:
   stage: prepare
   image: "thlmylab/swakkd:stable"
@@ -39,7 +40,6 @@ test:
   script:
     - pip install pytest
     - python demotest.py
-
 
 
 .build:

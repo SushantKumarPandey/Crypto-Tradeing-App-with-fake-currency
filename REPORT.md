@@ -1,5 +1,5 @@
 
-# Report for 16.04.2025 
+# Report for 16.04.2025
 
 ### Reflection Marcel
 
@@ -67,6 +67,7 @@ Testing eingerichtet. Trotz meiner Krankheit habe ich versucht, so produktiv wie
 Aufgaben zu erledigen. Es war eine Herausforderung, aber ich bin stolz auf das, was ich erreicht habe. 
 Zusätzlich habe ich mich bemüht, 
 meine Kenntnisse in der Projektkonfiguration zu vertiefen und einige kleinere Probleme zu beheben.
+
 
 ### Reflection Victoria
 
