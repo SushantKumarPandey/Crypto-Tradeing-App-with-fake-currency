@@ -28,12 +28,12 @@ CREATE TABLE tutorial(
 
 CREATE TABLE coin(
     id INTEGER PRIMARY KEY,
-    price FLOAT NOT NULL,
-    name TEXT NOT NULL,
-    supply INTEGER NOT NULL,
-    symbol TEXT NOT NULL,
-    market_cap FLOAT NOT NULL,
-    last_updated DATE NOT NULL
+    price FLOAT,
+    name TEXT,
+    supply INTEGER,
+    symbol TEXT ,
+    market_cap FLOAT ,
+    last_updated DATE
 );
 
 CREATE TABLE holding(

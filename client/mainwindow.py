@@ -3,26 +3,48 @@ import json
 import sqlite3
 from PyQt6 import QtWidgets, uic
 from anyio.streams import file
+from pyarrow import show_info
 from werkzeug.security import generate_password_hash, check_password_hash
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import os
 
+
 class Cryptowindow(QtWidgets.QWidget):
-    def __init__(self, item):
+    def __init__(self, item_text):
         super().__init__()
         uic.loadUi("crypto.ui", self)
-        show_info()
+        self.item = item_text
 
-        self.item = item
-        self.pushbutton.clicked(self.buy_crypto)
-        self.pushbutton_2.clicked(self.sell_crypto)
+        self.show_info()
+        self.pushButton.clicked.connect(self.buy_crypto)
+        self.pushButton_2.clicked.connect(self.sell_crypto)
 
-    #def show_info(self):
+    def show_info(self):
+        symbol = self.item
+        print('before' + symbol)
+        try:
+            conn = sqlite3.connect("crypto.db")
+            cursor = conn.cursor()
 
-    #def buy_crypto(self):
+            cursor.execute("SELECT name,price FROM coin WHERE symbol=?", (symbol,))
+            name = cursor.fetchone()
 
-    #def sell_crypto(self):
+            print(name)
+            self.label.setText(name[0])
+            self.label_2.setText(str(name[1]))
+            conn.commit()
+            conn.close()
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            print("Request error:", e)
+        except Exception as e:
+            print("Other error:", e)
+
+    def buy_crypto(self):
+        print('buy_crypto')
+    def sell_crypto(self):
+        print('sell_crypto')
+
 
 class Registerwindow(QtWidgets.QDialog):
     def init(self):
@@ -118,8 +140,8 @@ class Mainwindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("form.ui", self)
-        self.loade_Tutorial_Guides()
 
+        self.loade_Tutorial_Guides()
         self.search.clicked.connect(self.account_search)
         self.loginButton.clicked.connect(self.login_show)
         self.Accounts.itemClicked.connect(self.show_account)
@@ -129,14 +151,67 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.refresh.clicked.connect(self.fetch_table)
         self.search_2.clicked.connect(self.search_crypto)
         self.login_window = None
+        self.crypto_window = None
 
     def login_show(self):
         self.login_window = Loginwindow()
         self.login_window.show()
 
     def crypto_show(self, item):
-        self.login_window = Cryptowindow(item)
-        self.login_window.show()
+        symbol = item.text()
+        try:
+            self.crypto_window = Cryptowindow(item.text())  # assume item is QListWidgetItem
+            self.crypto_window.show()
+        except Exception as e:
+            print("❌ Error opening Cryptowindow:", e)
+
+    def show_guides(self, item):
+        guides_name = item.text()
+
+        try:
+            conn = sqlite3.connect('crypto.db')
+            c = conn.cursor()
+
+            c.execute("""
+                    SELECT nameG, info FROM guides
+                    WHERE nameG = ?
+                """, (guides_name,))
+            one = c.fetchone()
+
+        except sqlite3.Error as e:
+            QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
+
+        finally:
+            conn.close()
+
+        if one:
+            QtWidgets.QMessageBox.information(self,f"{one[0]}",f"{one[1]}",)
+        else:
+            QtWidgets.QMessageBox.information(self, "Keine Daten", 'help')
+
+    def show_tutorial(self, item):
+        tutorial_name = item.text()
+
+        try:
+            conn = sqlite3.connect('crypto.db')
+            c = conn.cursor()
+
+            c.execute("""
+                    SELECT nameT, info FROM tutorial
+                    WHERE nameT = ?
+                """, (tutorial_name,))
+            one = c.fetchone()
+
+        except sqlite3.Error as e:
+            QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
+
+        finally:
+            conn.close()
+
+        if one:
+            QtWidgets.QMessageBox.information(self,f"{one[0]}",f"{one[1]}",)
+        else:
+            QtWidgets.QMessageBox.information(self, "Keine Daten", 'help')
 
     def search_crypto(self):
         search_term = self.search_Account_3.text()
@@ -233,54 +308,6 @@ class Mainwindow(QtWidgets.QMainWindow):
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
 
-    def show_guides(self, item):
-        guides_name = item.text()
-
-        try:
-            conn = sqlite3.connect('crypto.db')
-            c = conn.cursor()
-
-            c.execute("""
-                    SELECT nameG, info FROM guides
-                    WHERE nameG = ?
-                """, (guides_name,))
-            one = c.fetchone()
-
-        except sqlite3.Error as e:
-            QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
-
-        finally:
-            conn.close()
-
-        if one:
-            QtWidgets.QMessageBox.information(self,f"{one[0]}",f"{one[1]}",)
-        else:
-            QtWidgets.QMessageBox.information(self, "Keine Daten", 'help')
-
-    def show_tutorial(self, item):
-        tutorial_name = item.text()
-
-        try:
-            conn = sqlite3.connect('crypto.db')
-            c = conn.cursor()
-
-            c.execute("""
-                    SELECT nameT, info FROM tutorial
-                    WHERE nameT = ?
-                """, (tutorial_name,))
-            one = c.fetchone()
-
-        except sqlite3.Error as e:
-            QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
-
-        finally:
-            conn.close()
-
-        if one:
-            QtWidgets.QMessageBox.information(self,f"{one[0]}",f"{one[1]}",)
-        else:
-            QtWidgets.QMessageBox.information(self, "Keine Daten", 'help')
-
     def show_account(self, item):
         username = item.text()
         infos = []
@@ -315,152 +342,57 @@ class Mainwindow(QtWidgets.QMainWindow):
            QtWidgets.QMessageBox.information(self, f"name: {name}")
     """
 
-    def account_search(self):
-        name = self.search_Account_2.text().strip()
-
-        try:
-            conn = sqlite3.connect('crypto.db')
-            c = conn.cursor()
-
-            c.execute("""
-            SELECT username FROM user
-                WHERE username LIKE ?
-            """, (f"%{name}%",))
-
-            results = c.fetchall()
-            print(results)
-
-            self.Accounts.clear()
-            for row in results:
-                item = QtWidgets.QListWidgetItem(row[0])
-                self.Accounts.addItem(row[0])
-
-        except sqlite3.Error as e:
-            QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
-
-        finally:
-            conn.close()
-
-    """
-        def crypto_search(self):
-            name = self.search_Account_2.text().strip()
-
-            try:
-                conn = sqlite3.connect('crypto.db')
-                c = conn.cursor()
-
-                results = c.fetchall()
-                print(results)
-
-                self.Crypto.clear()
-                for row in results:
-                    item = QtWidgets.QListWidgetItem(row[0])
-                    self.Crypt.addItem(row[0])
-
-            except sqlite3.Error as e:
-                QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
-
-            finally:
-                conn.close()
-    """
-
-    def fetch_table(self, table):
+    def fetch_table(self):
         url = ("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
         parameters = {
-            'limit': '500'
+            'limit': '500',
+            'convert': 'EUR'
         }
-
         headers = {
             'Accepts': 'application/json',
             'X-CMC_PRO_API_KEY': '8bc7959e-153c-40dd-8da9-34e544661e71'
         }
-
         session = Session()
         session.headers.update(headers)
-
         try:
             response = session.get(url, params=parameters)
-            data = json.loads(response.text)
+            data = response.json()
+
             conn = sqlite3.connect('crypto.db')
             c = conn.cursor()
-            for coin in data['coins']:
+            print(data)
+
+            c.execute('''DELETE
+                         FROM coin''')
+
+            for coin in data['data']:
+                name = coin['name']
+                symbol = coin['symbol']
+                supply = coin['total_supply']
+                last_updated = coin['last_updated']
+                price = coin['quote']['EUR']['price']
+                market_cap = coin['quote']['EUR']['market_cap']
+
                 c.execute('''
-                       INSERT INTO coin (id, price, name, supply, symbol, market_cap, data_date)
-                       VALUES (?, ?, ?, ?, ?, ?, ?)
-                   ''', (
-                    coin['id'],
-                    coin['price'],
-                    coin['name'],
-                    coin['total_supply'],
-                    coin['symbol'],
-                    coin['market_cap'],
-                    coin['last_updated'],
+                    INSERT INTO coin (id, price, name, supply, symbol, market_cap, last_updated)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                ''', (
+                    str(coin['id']),
+                    float(price),
+                    name,
+                    float(supply),
+                    symbol,
+                    float(market_cap),
+                    last_updated
                 ))
+                self.Accounts_2.addItem(symbol)
+
             conn.commit()
             conn.close()
-            print(data)
         except (ConnectionError, Timeout, TooManyRedirects) as e:
-            print(e)
-        table.item.clear()
-        for item in data['data']:
-            table.addItem(item['symbol'])
-
-    def show_account(self, item):
-        username = item.text()
-        infos = []
-        try:
-            conn = sqlite3.connect('crypto.db')
-            c = conn.cursor()
-            c.execute("""
-                    SELECT username, email FROM user
-                    WHERE username = ?
-                """, (username,))
-            infos = c.fetchall()
-
-        except sqlite3.Error as e:
-            QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
-
-        finally:
-            conn.close()
-
-        if infos:
-            user_info = infos[0]
-            QtWidgets.QMessageBox.information(
-                self,
-                "Account Info",
-                f"Username: {user_info[0]}\nEmail: {user_info[1]}"
-            )
-        else:
-            QtWidgets.QMessageBox.information(self, "Keine Daten", "Kein Benutzer gefunden.")
-
-    """
-        def show_crypto(self, item):
-           name = item.text()
-           QtWidgets.QMessageBox.information(self, f"name: {name}")
-    """
-
-
-    def fetch_table(self, item):
-        coinName = item.text()
-        url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map"
-        parameters = {
-            "symbol": coinName,
-        }
-
-        headers = {
-            "Accepts": "application/json",
-            "X-CMC_PRO_API_KEY": "8bc7959e-153c-40dd-8da9-34e544661e71",
-        }
-
-        session = Session()
-        session.headers.update(headers)
-
-        try:
-            response = session.get(url, params=parameters)
-            data = json.loads(response.text)
-            print(data)
-        except (ConnectionError, Timeout, TooManyRedirects) as e:
-            print(e)
+            print("Request error:", e)
+        except Exception as e:
+            print("Other error:", e)
 
 
 if __name__ == "__main__":

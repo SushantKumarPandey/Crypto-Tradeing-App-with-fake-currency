@@ -280,31 +280,6 @@ background-color: rgb(85, 170, 127);</string>
 color: rgb(0, 0, 0);
 background-color: rgb(85, 170, 127);</string>
        </property>
-       <item>
-        <property name="text">
-         <string>Crypto A</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BTC</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Crypto B</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Crypto C</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Crypto D</string>
-        </property>
-       </item>
       </widget>
       <widget class="QLineEdit" name="search_Account_2">
        <property name="geometry">
