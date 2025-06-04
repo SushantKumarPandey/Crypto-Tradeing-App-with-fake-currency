@@ -109,3 +109,19 @@ Die Kommunikation mit dem Team hat gut funktioniert, aber teilweise war es schwe
 die Flask-Route erfolgreich mit dem PyQt-Frontend verbinden konnte – und dass man jetzt über die GUI die Top-Player direkt abrufen kann.
 über a (API-Fehler, Datenbankanbindung) habe ich viel gelernt, ich bekomme probelm meine neue branch zu pushen,weil die habe ich direkt von main erstellte,wegen
  pre hook files. danke
+
+
+
+ ### Reflection Victoria
+In diesem Sprint habe ich eigentlich keine besondere rolle übernommen. 
+Die Absprachen im Team war sehr schwer, da wir wenig meetings hatten. Zudem kam das der Scrum master seine Aufagen nicht gemacht hat. Hauptsächlich haben ich und Mathis diese Aufgaben übernommen.
+Wir haben dadurch dafür gesorgt, das wir meetings überhaupt machen, und das wir uns ziele setzten, bzw. was hat wer gemacht.
+Es war allerdings schwer die Übersicht zu behalten, durch die denn doch wenigen meetings und aufteilung dieser Rolle.
+Zudem war in dem Sprint die Kommunikation etwas Schwierig, da man, wenn man ein meeting hatte, etwas genervt war.
+Der Produkt owner hat seine Aufgabe meines erachten nachs einen guten jo gemacht und hat auf die fertigen Aufgaben und merge Requests schnell erledigt.
+Zudem hat Marcel mich auch angesprochen um seine merge-request anzugucken.
+Sonst ging es im team ganz gut Vorran. Ich habe mich um die erstellung der DB- und HTTP/UI Integrationtests gekümmert.
+allerdings sind und noch weitere fehler der pipline aufgefallen. weshalb, ich die tests erstmal in der datei demotests gemacht habe.
+Zudem habe ich versucht das Achivment backend zu erstellen, allerdings hatte ich da sehr starke probleme mit der logik. Weshalb ich dann mich um etwas anderes gekümmert habe.
+Ich hatte in diesem sprint das gefühl, das Probleme sehr spät erkannt wurden und es dann sehr schwer war, diese zu lösen. (mein problem wurde erstmal weggeschoben, da es noch nicht so wichtig ist) 
+Generell habe ich das gefühl, das eine Person oft andere Aufganen gemacht hat, als abgesprochen (Auch in den Vorherigen Sprints).
