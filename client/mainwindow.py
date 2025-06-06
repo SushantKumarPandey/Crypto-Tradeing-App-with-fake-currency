@@ -75,9 +75,13 @@ class Registerwindow(QtWidgets.QDialog):
             self.close()
             return "success"
 
+
         except sqlite3.Error as e:
-            print(f"SQLite Error: {e}")
-            QtWidgets.QMessageBox.warning(self, "Error", f"SQLite Error: {e}")
+            if f"{e}" == "UNIQUE constraint failed: user.username":
+                QtWidgets.QMessageBox.warning(self, "Error", "Username already in use.")
+            else:
+                print(f"SQLite Error: {e}")
+                QtWidgets.QMessageBox.warning(self, "Error", f"SQLite Error: {e}")
 
         finally:
             conn.close()
