@@ -17,7 +17,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(85, 170, 127, 255), stop:1 rgba(64, 65, 66, 255));
+   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(85, 170, 127, 255), stop:1 rgba(255, 255, 255, 255));
 color: rgb(0, 0, 0);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -29,6 +29,12 @@ color: rgb(0, 0, 0);</string>
       <width>1191</width>
       <height>711</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>1191</width>
+      <height>0</height>
+     </size>
     </property>
     <property name="toolTip">
      <string>Profile
@@ -47,7 +53,7 @@ color: rgb(0, 0, 0);</string>
      <enum>QTabWidget::TabShape::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -61,6 +67,9 @@ color: rgb(0, 0, 0);</string>
         <width>1141</width>
         <height>701</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">
@@ -236,203 +245,6 @@ background-color: rgb(85, 170, 127);</string>
         </widget>
        </item>
       </layout>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab_2">
-     <attribute name="title">
-      <string>Search</string>
-     </attribute>
-     <widget class="QWidget" name="widget_6" native="true">
-      <property name="geometry">
-       <rect>
-        <x>-1</x>
-        <y>-1</y>
-        <width>1151</width>
-        <height>691</height>
-       </rect>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::NoFocus</enum>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
-      </property>
-      <property name="acceptDrops">
-       <bool>false</bool>
-      </property>
-      <property name="accessibleDescription">
-       <string/>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <widget class="QListWidget" name="Accounts_2">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>130</y>
-         <width>409</width>
-         <height>311</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);
-background-color: rgb(85, 170, 127);</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="search_Account_2">
-       <property name="geometry">
-        <rect>
-         <x>739</x>
-         <y>480</y>
-         <width>300</width>
-         <height>39</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);
-background-color: rgb(85, 170, 127);</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label">
-       <property name="geometry">
-        <rect>
-         <x>730</x>
-         <y>80</y>
-         <width>201</width>
-         <height>36</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-text-decoration: underline;
-color: rgb(0, 0, 0);
-background-color: transparent;</string>
-       </property>
-       <property name="text">
-        <string>Account Search</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_2">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>80</y>
-         <width>181</width>
-         <height>36</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-text-decoration: underline;
-color: rgb(0, 0, 0);
-background-color: transparent;</string>
-       </property>
-       <property name="text">
-        <string>Crypto Search</string>
-       </property>
-      </widget>
-      <widget class="QListWidget" name="Accounts">
-       <property name="geometry">
-        <rect>
-         <x>630</x>
-         <y>130</y>
-         <width>409</width>
-         <height>311</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);
-background-color: rgb(85, 170, 127);</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Account A</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Account B</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Account C</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Account D</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QPushButton" name="search">
-       <property name="geometry">
-        <rect>
-         <x>630</x>
-         <y>480</y>
-         <width>100</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);
-background-color: rgb(85, 170, 127);</string>
-       </property>
-       <property name="text">
-        <string>Search</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="search_Account_3">
-       <property name="geometry">
-        <rect>
-         <x>239</x>
-         <y>480</y>
-         <width>300</width>
-         <height>39</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);
-background-color: rgb(85, 170, 127);</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="search_2">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>480</y>
-         <width>100</width>
-         <height>40</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);
-background-color: rgb(85, 170, 127);</string>
-       </property>
-       <property name="text">
-        <string>Search</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="refresh">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>250</y>
-         <width>81</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Refresh</string>
-       </property>
-      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
@@ -783,6 +595,203 @@ background-color: transparent;</string>
       </widget>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Search</string>
+     </attribute>
+     <widget class="QWidget" name="widget_6" native="true">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>-1</y>
+        <width>1151</width>
+        <height>691</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="accessibleDescription">
+       <string/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <widget class="QListWidget" name="Accounts_2">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>130</y>
+         <width>409</width>
+         <height>311</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
+background-color: rgb(85, 170, 127);</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="search_Account_2">
+       <property name="geometry">
+        <rect>
+         <x>739</x>
+         <y>480</y>
+         <width>300</width>
+         <height>39</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
+background-color: rgb(85, 170, 127);</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>730</x>
+         <y>80</y>
+         <width>201</width>
+         <height>36</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 16pt &quot;Segoe UI&quot;;
+text-decoration: underline;
+color: rgb(0, 0, 0);
+background-color: transparent;</string>
+       </property>
+       <property name="text">
+        <string>Account Search</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>80</y>
+         <width>181</width>
+         <height>36</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 16pt &quot;Segoe UI&quot;;
+text-decoration: underline;
+color: rgb(0, 0, 0);
+background-color: transparent;</string>
+       </property>
+       <property name="text">
+        <string>Crypto Search</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="Accounts">
+       <property name="geometry">
+        <rect>
+         <x>630</x>
+         <y>130</y>
+         <width>409</width>
+         <height>311</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
+background-color: rgb(85, 170, 127);</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Account A</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Account B</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Account C</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Account D</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QPushButton" name="search">
+       <property name="geometry">
+        <rect>
+         <x>630</x>
+         <y>480</y>
+         <width>100</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
+background-color: rgb(85, 170, 127);</string>
+       </property>
+       <property name="text">
+        <string>Search</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="search_Account_3">
+       <property name="geometry">
+        <rect>
+         <x>239</x>
+         <y>480</y>
+         <width>300</width>
+         <height>39</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
+background-color: rgb(85, 170, 127);</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="search_2">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>480</y>
+         <width>100</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
+background-color: rgb(85, 170, 127);</string>
+       </property>
+       <property name="text">
+        <string>Search</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="refresh">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>250</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Refresh</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
     <widget class="QWidget" name="tab_5">
      <attribute name="title">
       <string>Achievements</string>
@@ -954,7 +963,7 @@ color: rgb(85, 170, 127);</string>
       <property name="styleSheet">
        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);
-background-color: rgb(64, 65, 66);</string>
+background-color: rgb(85, 170, 127);</string>
       </property>
       <attribute name="horizontalHeaderDefaultSectionSize">
        <number>133</number>
@@ -1033,8 +1042,7 @@ text-decoration: underline;
       <property name="styleSheet">
        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);
-background-color: rgb(64, 65, 66);
-</string>
+background-color: rgb(85, 170, 127);</string>
       </property>
       <attribute name="horizontalHeaderDefaultSectionSize">
        <number>160</number>
@@ -1152,6 +1160,9 @@ background-color: rgb(64, 65, 66);
         <width>211</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(85, 170, 127);</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_11">
