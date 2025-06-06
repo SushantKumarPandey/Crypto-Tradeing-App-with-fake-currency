@@ -9,16 +9,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>800</height>
+    <width>1208</width>
+    <height>845</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(85, 170, 127, 255), stop:1 rgba(255, 255, 255, 255));
-color: rgb(0, 0, 0);</string>
+   <string notr="true">
+background-color: rgb(57, 116, 86);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -27,7 +27,7 @@ color: rgb(0, 0, 0);</string>
       <x>10</x>
       <y>60</y>
       <width>1191</width>
-      <height>711</height>
+      <height>761</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -44,16 +44,30 @@ color: rgb(0, 0, 0);</string>
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Your Accouont&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">background-color: rgb(48, 97, 72);
+color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="tabPosition">
-     <enum>QTabWidget::TabPosition::East</enum>
+     <enum>QTabWidget::TabPosition::North</enum>
     </property>
     <property name="tabShape">
      <enum>QTabWidget::TabShape::Triangular</enum>
     </property>
     <property name="currentIndex">
      <number>0</number>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>26</width>
+      <height>26</height>
+     </size>
+    </property>
+    <property name="documentMode">
+     <bool>true</bool>
+    </property>
+    <property name="movable">
+     <bool>true</bool>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -76,12 +90,15 @@ color: rgb(0, 0, 0);</string>
         <widget class="QLabel" name="label">
          <property name="font">
           <font>
-           <pointsize>16</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>14</pointsize>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: transparent;
-color: rgb(0, 0, 0);</string>
+color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string>Top Winners of the day</string>
@@ -92,12 +109,15 @@ color: rgb(0, 0, 0);</string>
         <widget class="QLabel" name="label_2">
          <property name="font">
           <font>
-           <pointsize>16</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>14</pointsize>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: transparent;
-color: rgb(0, 0, 0);</string>
+</string>
          </property>
          <property name="text">
           <string>Top Losers of the day</string>
@@ -162,12 +182,15 @@ background-color: rgb(85, 170, 127);</string>
         <widget class="QLabel" name="label_3">
          <property name="font">
           <font>
-           <pointsize>16</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>14</pointsize>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: transparent;
-color: rgb(0, 0, 0);</string>
+</string>
          </property>
          <property name="text">
           <string>Cryptos to Watch</string>
@@ -178,12 +201,15 @@ color: rgb(0, 0, 0);</string>
         <widget class="QLabel" name="label_4">
          <property name="font">
           <font>
-           <pointsize>16</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>14</pointsize>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: transparent;
-color: rgb(0, 0, 0);</string>
+</string>
          </property>
          <property name="text">
           <string>Portfolio</string>
@@ -567,7 +593,6 @@ background-color: rgb(39, 79, 59);</string>
        <property name="styleSheet">
         <string notr="true">font: 16pt &quot;Segoe UI&quot;;
 text-decoration: underline;
-color: rgb(0, 0, 0);
 background-color: transparent;</string>
        </property>
        <property name="text">
@@ -586,7 +611,6 @@ background-color: transparent;</string>
        <property name="styleSheet">
         <string notr="true">font: 16pt &quot;Segoe UI&quot;;
 text-decoration: underline;
-color: rgb(0, 0, 0);
 background-color: transparent;</string>
        </property>
        <property name="text">
@@ -665,7 +689,7 @@ background-color: rgb(85, 170, 127);</string>
        <property name="styleSheet">
         <string notr="true">font: 16pt &quot;Segoe UI&quot;;
 text-decoration: underline;
-color: rgb(0, 0, 0);
+
 background-color: transparent;</string>
        </property>
        <property name="text">
@@ -684,7 +708,7 @@ background-color: transparent;</string>
        <property name="styleSheet">
         <string notr="true">font: 16pt &quot;Segoe UI&quot;;
 text-decoration: underline;
-color: rgb(0, 0, 0);
+
 background-color: transparent;</string>
        </property>
        <property name="text">
@@ -799,18 +823,16 @@ background-color: rgb(85, 170, 127);</string>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>425</x>
+        <x>360</x>
         <y>20</y>
-        <width>330</width>
+        <width>461</width>
         <height>90</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-text-decoration: underline;
-color: rgb(0, 0, 0);
-background-color: transparent;
-</string>
+       <string notr="true">font: 28pt &quot;Segoe UI&quot;;
+background-color:transparent;
+text-decoration: underline;</string>
       </property>
       <property name="text">
        <string> Your Achievements</string>
@@ -827,8 +849,9 @@ background-color: transparent;
       </property>
       <property name="styleSheet">
        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
+color: rgb(108, 216, 160);
 background-color: rgb(64, 65, 66);
-color: rgb(0, 170, 127);</string>
+</string>
       </property>
       <item>
        <property name="text">
@@ -880,7 +903,6 @@ color: rgb(0, 170, 127);</string>
       <property name="styleSheet">
        <string notr="true">font: 16pt &quot;Segoe UI&quot;;
 text-decoration: underline;
-color: rgb(0, 0, 0);
 background-color: transparent;</string>
       </property>
       <property name="text">
@@ -899,7 +921,7 @@ background-color: transparent;</string>
       <property name="styleSheet">
        <string notr="true">font: 16pt &quot;Segoe UI&quot;;
 text-decoration: underline;
-color: rgb(0, 0, 0);
+
 background-color: transparent;</string>
       </property>
       <property name="text">
@@ -917,8 +939,8 @@ background-color: transparent;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-background-color: rgb(64, 65, 66);
-color: rgb(85, 170, 127);</string>
+color: rgb(108, 216, 160);
+background-color: rgb(64, 65, 66);</string>
       </property>
       <item>
        <property name="text">
@@ -937,8 +959,8 @@ color: rgb(85, 170, 127);</string>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-background-color: rgb(64, 65, 66);
-color: rgb(85, 170, 127);</string>
+color: rgb(108, 216, 160);
+background-color: rgb(64, 65, 66);</string>
       </property>
       <item>
        <property name="text">
@@ -1020,7 +1042,6 @@ background-color: rgb(85, 170, 127);</string>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 28pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);
 background-color:transparent;
 text-decoration: underline;
 
@@ -1155,9 +1176,9 @@ background-color: rgb(85, 170, 127);</string>
      <widget class="QLCDNumber" name="kontostand">
       <property name="geometry">
        <rect>
-        <x>840</x>
+        <x>790</x>
         <y>170</y>
-        <width>211</width>
+        <width>261</width>
         <height>50</height>
        </rect>
       </property>
@@ -1168,14 +1189,14 @@ background-color: rgb(85, 170, 127);</string>
      <widget class="QLabel" name="label_11">
       <property name="geometry">
        <rect>
-        <x>890</x>
+        <x>790</x>
         <y>110</y>
         <width>101</width>
         <height>41</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(0, 0, 0);
+       <string notr="true">
 font: 16pt &quot;Segoe UI&quot;;
 background-color: transparent;
 </string>
@@ -1196,7 +1217,7 @@ background-color: transparent;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(64, 65, 66);</string>
+     <string notr="true">background-color: rgb(57, 116, 86);</string>
     </property>
     <widget class="QPushButton" name="loginButton">
      <property name="geometry">
@@ -1208,7 +1229,9 @@ background-color: transparent;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(85, 170, 127);</string>
+      <string notr="true">background-color: rgb(85, 170, 127);
+color: rgb(0, 0, 0);
+</string>
      </property>
      <property name="text">
       <string>Login</string>
@@ -1224,7 +1247,7 @@ background-color: transparent;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(206, 206, 206);</string>
+      <string notr="true">color: rgb(0, 0, 0);</string>
      </property>
     </widget>
    </widget>
