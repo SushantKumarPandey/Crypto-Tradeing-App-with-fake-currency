@@ -2,6 +2,7 @@ import sys
 import json
 import sqlite3
 from PyQt6 import QtWidgets, uic
+from anyio.streams import file
 from werkzeug.security import generate_password_hash, check_password_hash
 from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
@@ -51,13 +52,14 @@ class Registerwindow(QtWidgets.QDialog):
         result = self.create_new_user(username, password, email)
 
         if result == "empty":
-            QtWidgets.QMessageBox.warning(self, "Error", "Please fill all fields")
-        elif result == "notValid":(
             QtWidgets.QMessageBox.warning(self, "Error",
-                                          "Enter a valid email address."))
+                                          "Please fill all fields")
+        elif result == "notValid":
+            QtWidgets.QMessageBox.warning(self, "Error",
+                                          "Enter a valid email address.")
         elif result == "success":
             QtWidgets.QMessageBox.information(self, 'Account created',
-                                              "Your account has been created! You are now able to log in.")
+                "Your account has been created! You are now able to log in.")
             self.close()
 
 
@@ -78,7 +80,8 @@ class Loginwindow(QtWidgets.QDialog):
         try:
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
-            c.execute("SELECT id, password FROM user WHERE username = ?", (username,))
+            c.execute("SELECT id, password FROM user WHERE username = ?",
+                      (username,))
             user = c.fetchone()
             conn.close()
 
@@ -92,7 +95,8 @@ class Loginwindow(QtWidgets.QDialog):
                     self, "Login Failed", "Invalid Username or Password"
                 )
         except Exception as e:
-            QtWidgets.QMessageBox.critical(self, "Error", f"An error occurred:\n{e}")
+            QtWidgets.QMessageBox.critical(self, "Error",
+                                           f"An error occurred:\n{e}")
 
     def show_login(self):
         self.register_window = Registerwindow()
@@ -111,7 +115,6 @@ class Mainwindow(QtWidgets.QMainWindow):
     def login_show(self):
         self.login_window = Loginwindow()
         self.login_window.show()
-
 
     def fetch_table(self, item):
         coinName = item.text()
