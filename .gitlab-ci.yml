@@ -38,7 +38,7 @@ lint:
 test:
   stage: test
   script:
-    - pip install pytest
+    - pip3 install pytest
     - python demotest.py
 
 
