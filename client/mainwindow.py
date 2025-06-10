@@ -3,7 +3,7 @@ import json
 import sqlite3
 from PyQt6 import QtWidgets, uic
 from werkzeug.security import generate_password_hash, check_password_hash
-from requests import Request, Session
+from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import os
 
@@ -16,8 +16,8 @@ class Registerwindow(QtWidgets.QDialog):
 
         self.pushButton_register.clicked.connect(self.register)
 
-
-    def create_new_user(self,username, password, email, db_path="../client/crypto.db"):
+    def create_new_user(self, username, password, email,
+                        db_path="../client/crypto.db"):
         if username == '' or password == '' or email == '':
             return "empty"
         if '@' not in email or '.' not in email:
@@ -43,7 +43,6 @@ class Registerwindow(QtWidgets.QDialog):
         finally:
             conn.close()
 
-
     def register(self):
         username = self.lineEdit_username.text()
         password = self.lineEdit_password.text()
@@ -54,7 +53,8 @@ class Registerwindow(QtWidgets.QDialog):
         if result == "empty":
             QtWidgets.QMessageBox.warning(self, "Error", "Please fill all fields")
         elif result == "notValid":(
-            QtWidgets.QMessageBox.warning(self, "Error", "Enter a valid email address."))
+            QtWidgets.QMessageBox.warning(self, "Error",
+                                          "Enter a valid email address."))
         elif result == "success":
             QtWidgets.QMessageBox.information(self, 'Account created',
                                               "Your account has been created! You are now able to log in.")
