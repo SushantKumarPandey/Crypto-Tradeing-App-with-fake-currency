@@ -59,7 +59,8 @@ class Registerwindow(QtWidgets.QDialog):
                                           "Enter a valid email address.")
         elif result == "success":
             QtWidgets.QMessageBox.information(self, 'Account created',
-                "Your account has been created! You are now able to log in.")
+                                              "Your account has been created! "
+                                              "You are now able to log in.")
             self.close()
 
 
