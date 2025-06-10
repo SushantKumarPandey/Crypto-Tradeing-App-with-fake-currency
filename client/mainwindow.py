@@ -30,7 +30,7 @@ class Registerwindow(QtWidgets.QDialog):
             conn = sqlite3.connect(db_path)
             c = conn.cursor()
             c.execute('''
-                    INSERT INTO user (username, password, email) 
+                    INSERT INTO user (username, password, email)
                     VALUES (?,?,?)
                 ''', (username, hashed_password, email))
             conn.commit()
