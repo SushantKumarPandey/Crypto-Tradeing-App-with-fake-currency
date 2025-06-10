@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import sqlite3
@@ -6,7 +7,6 @@ from anyio.streams import file
 from werkzeug.security import generate_password_hash, check_password_hash
 from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-import os
 
 
 class Registerwindow(QtWidgets.QDialog):
