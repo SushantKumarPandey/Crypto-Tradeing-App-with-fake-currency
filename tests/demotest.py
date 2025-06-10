@@ -1,6 +1,6 @@
 import sqlite3
 import unittest
-from team14.client.mainwindow import Registerwindow
+from mainwindow import Registerwindow
 from werkzeug.security import check_password_hash
 from PyQt6.QtWidgets import QApplication
 import sys
