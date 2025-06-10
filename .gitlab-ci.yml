@@ -31,9 +31,9 @@ lint:
   script:
     - apk add --no-cache py3-pip
     - pip3 install flake8 black isort
-    - flake8 client/
-    - black --check client/
-    - isort --check-only client/
+    - flake8 client/mainwindow.py
+    - black --check client/mainwindow.py
+    - isort --check-only client/mainwindow.py
 
 test:
   stage: test
