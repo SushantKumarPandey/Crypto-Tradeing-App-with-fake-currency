@@ -1,5 +1,5 @@
 
-# Report for 16.04.2025 
+# Report for 16.04.2025
 
 ### Reflection Marcel
 
@@ -60,6 +60,16 @@ Das Team an sich hat gut gearbeitet, aus meiner perspektive, wenn Aufgaben zu zw
 
 # Report for 21.05.2025
 
+
+### Reflection Sushant  
+In diesem Sprint war ich leider schwer krank, konnte aber dennoch an den Meetings teilnehmen. Ich habe Unit-Tests 
+durchgeführt und Vorlesungsmaterial angesehen. In meinem Branch habe ich die Pipeline für automatisiertes 
+Testing eingerichtet. Trotz meiner Krankheit habe ich versucht, so produktiv wie möglich zu sein und meine
+Aufgaben zu erledigen. Es war eine Herausforderung, aber ich bin stolz auf das, was ich erreicht habe. 
+Zusätzlich habe ich mich bemüht, 
+meine Kenntnisse in der Projektkonfiguration zu vertiefen und einige kleinere Probleme zu beheben.
+
+
 ### Reflection Victoria
 
 In diesem sprint habe ich die rolle des Product-owner übernommen.
@@ -99,3 +109,40 @@ Die Kommunikation mit dem Team hat gut funktioniert, aber teilweise war es schwe
 die Flask-Route erfolgreich mit dem PyQt-Frontend verbinden konnte – und dass man jetzt über die GUI die Top-Player direkt abrufen kann.
 über a (API-Fehler, Datenbankanbindung) habe ich viel gelernt, ich bekomme probelm meine neue branch zu pushen,weil die habe ich direkt von main erstellte,wegen
  pre hook files. danke
+
+
+
+ ### Reflection Victoria
+In diesem Sprint habe ich eigentlich keine besondere rolle übernommen. 
+Die Absprachen im Team war sehr schwer, da wir wenig meetings hatten. Zudem kam das der Scrum master seine Aufagen nicht gemacht hat. Hauptsächlich haben ich und Mathis diese Aufgaben übernommen.
+Wir haben dadurch dafür gesorgt, das wir meetings überhaupt machen, und das wir uns ziele setzten, bzw. was hat wer gemacht.
+Es war allerdings schwer die Übersicht zu behalten, durch die denn doch wenigen meetings und aufteilung dieser Rolle.
+Zudem war in dem Sprint die Kommunikation etwas Schwierig, da man, wenn man ein meeting hatte, etwas genervt war.
+Der Produkt owner hat seine Aufgabe meines erachten nachs einen guten jo gemacht und hat auf die fertigen Aufgaben und merge Requests schnell erledigt.
+Zudem hat Marcel mich auch angesprochen um seine merge-request anzugucken.
+Sonst ging es im team ganz gut Vorran. Ich habe mich um die erstellung der DB- und HTTP/UI Integrationtests gekümmert.
+allerdings sind und noch weitere fehler der pipline aufgefallen. weshalb, ich die tests erstmal in der datei demotests gemacht habe.
+Zudem habe ich versucht das Achivment backend zu erstellen, allerdings hatte ich da sehr starke probleme mit der logik. Weshalb ich dann mich um etwas anderes gekümmert habe.
+Ich hatte in diesem sprint das gefühl, das Probleme sehr spät erkannt wurden und es dann sehr schwer war, diese zu lösen. (mein problem wurde erstmal weggeschoben, da es noch nicht so wichtig ist) 
+Generell habe ich das gefühl, das eine Person oft andere Aufganen gemacht hat, als abgesprochen (Auch in den Vorherigen Sprints).
+
+ ### Reflection Mathis
+ In diesem Sprint habe ich keine Rolle übernommen
+ Die Scrum Mettings waren diese wochen sehr irregulär geplant, wodurch es schwer zu einem guten Workflow kam. Ich habe mich in diesen Wochen vorallem mit der Restlichen Api gekümmert, sowie der db und der Crypto Darstellung sowie Suche.
+ Das waren zwar ungefähr meine Ziele, jedoch hätte ich auch mehr Arbeit in das Projekt stecken können. Das Projekt geht insgesamt gut vorran, und jetzt brauchen wir nurnoch 2 features einbauen, damit die basis Funktionalität hergestellt ist
+ Ich habe zudem teile der Orga übernommen, damit diese Besser vorran ging
+
+
+### Reflection Marcel
+In diesem Sprint habe ich die Rolle des Product Owners übernommen.
+Ich habe versucht die Struktur innerhalb des Projekts wieder herzustellen, damit wir wissen, was wir bisher alles gemacht haben und 
+was akkut gemacht werden muss. Ich denke das hat ganz gut geklappt, jedoch ist es kontraproduktiv, wenn gewisse Leute mal wieder andere Sachen machen als abgesprochen.
+Außerdem hab ich allgemein eher Aufräumarbeiten gemacht, das bedeutet, dass ich bestehenden Code etwas überarbeitet und verbessert habe.
+Ein großes Problem war der Scrum Master, denn dieser hat sich um nichts von alleine gekümmert und man musste ihn dauernd daran erinnern,
+damit überhaupt etwas passiert. Dementsprechend gab es auch nur 1-2 Meetings, wodurch der Überblick während des Sprints nicht wirklich da war.
+Als Product Owner hab ich mich auch um die merge requests gekümmert, was sich jedoch als sehr schwierig und zeitaufwändig herausstellte, da 
+der Scrum Master eine merge request von einem Branch erstellt hat, welcher über 50 commits behind war. Da habe ich unnötig Zeit und Nerven verloren,
+welche auch hätten anders Verwendung finden können.
+Eine andere Sache, die mich genervt hat war, dass nicht alle bei den abgesprochenen Meetings waren ohne sich zu melden und dass immer noch ohne Merge Re4quest 
+auf den main Branch gepusht wird.
+Dieser Sprint war insgesamt sehr Nerven und Kräfte raubend.

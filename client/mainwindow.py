@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import sqlite3
@@ -8,7 +9,6 @@ from pyarrow import show_info
 from werkzeug.security import generate_password_hash, check_password_hash
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-import os
 
 
 class Cryptowindow(QtWidgets.QWidget):
@@ -74,15 +74,17 @@ class Cryptowindow(QtWidgets.QWidget):
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print("Request error:", e)
 
+
 class Registerwindow(QtWidgets.QDialog):
-    def init(self):
-        super().init()
-        ui_path = os.path.join(os.path.dirname(file), "register.ui")
+    def __init__(self):
+        super().__init__()
+        ui_path = os.path.join(os.path.dirname(__file__), "register.ui")
         uic.loadUi(ui_path, self)
 
         self.pushButton_register.clicked.connect(self.register)
 
-    def create_new_user(self, username, password, email, db_path="../client/crypto.db"):
+
+    def create_new_user(self,username, password, email, db_path="../client/crypto.db"):
         if username == '' or password == '' or email == '':
             return "empty"
         if '@' not in email or '.' not in email:
@@ -94,19 +96,24 @@ class Registerwindow(QtWidgets.QDialog):
             conn = sqlite3.connect(db_path)
             c = conn.cursor()
             c.execute('''
-                    INSERT INTO user (username, password, email) 
+                    INSERT INTO user (username, password, email)
                     VALUES (?,?,?)
                 ''', (username, hashed_password, email))
             conn.commit()
             self.close()
             return "success"
 
+
         except sqlite3.Error as e:
-            print(f"SQLite Error: {e}")
-            QtWidgets.QMessageBox.warning(self, "Error", f"SQLite Error: {e}")
+            if f"{e}" == "UNIQUE constraint failed: user.username":
+                QtWidgets.QMessageBox.warning(self, "Error", "Username already in use.")
+            else:
+                print(f"SQLite Error: {e}")
+                QtWidgets.QMessageBox.warning(self, "Error", f"SQLite Error: {e}")
 
         finally:
             conn.close()
+
 
     def register(self):
         username = self.lineEdit_username.text()
@@ -117,13 +124,13 @@ class Registerwindow(QtWidgets.QDialog):
 
         if result == "empty":
             QtWidgets.QMessageBox.warning(self, "Error", "Please fill all fields")
-        elif result == "notValid":
-            (
-                QtWidgets.QMessageBox.warning(self, "Error", "Enter a valid email address."))
+        elif result == "notValid":(
+            QtWidgets.QMessageBox.warning(self, "Error", "Enter a valid email address."))
         elif result == "success":
             QtWidgets.QMessageBox.information(self, 'Account created',
                                               "Your account has been created! You are now able to log in.")
             self.close()
+
 
 
 class Loginwindow(QtWidgets.QDialog):
@@ -138,6 +145,7 @@ class Loginwindow(QtWidgets.QDialog):
         self.pushButton_to_login.clicked.connect(self.verify_login)
 
     def verify_login(self):
+
         username = self.lineEdit_password_2.text()
         password = self.lineEdit_password.text()
 
@@ -158,9 +166,7 @@ class Loginwindow(QtWidgets.QDialog):
                 self.mainwindow.show()
                 self.close()
             else:
-                QtWidgets.QMessageBox.warning(
-                    self, "Login Failed", "Invalid Username or Password"
-                )
+                QtWidgets.QMessageBox.warning(self, "Login Failed", "Invalid Username or Password")
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"An error occurred:\n{e}")
 

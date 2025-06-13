@@ -1,6 +1,6 @@
 import sqlite3
 import unittest
-from client.mainwindow import Registerwindow
+import mainwindow.Registerwindow
 from werkzeug.security import check_password_hash
 from PyQt6.QtWidgets import QApplication
 import sys
@@ -120,6 +120,8 @@ class TestHTTP(unittest.TestCase):
         result = self.window.create_new_user('user', 'pass', 'no-at-sign')
         self.assertEqual(result, 'notValid')
 
+    def test(self):
+        pass
 
 # class TestAPI(unittest.TestCase):
 '''
