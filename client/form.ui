@@ -47,7 +47,7 @@ color: rgb(0, 0, 0);</string>
      <enum>QTabWidget::TabShape::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -102,9 +102,17 @@ color: rgb(0, 0, 0);</string>
 color: rgb(0, 0, 0);
 background-color: rgb(85, 170, 127);</string>
          </property>
+         <property name="rowCount">
+          <number>5</number>
+         </property>
          <attribute name="horizontalHeaderDefaultSectionSize">
           <number>184</number>
          </attribute>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
          <column>
           <property name="text">
            <string>Crypto</string>
@@ -129,9 +137,17 @@ background-color: rgb(85, 170, 127);</string>
 color: rgb(0, 0, 0);
 background-color: rgb(85, 170, 127);</string>
          </property>
+         <property name="rowCount">
+          <number>5</number>
+         </property>
          <attribute name="horizontalHeaderDefaultSectionSize">
           <number>184</number>
          </attribute>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
          <column>
           <property name="text">
            <string>Crypto</string>
@@ -188,9 +204,17 @@ color: rgb(0, 0, 0);</string>
 color: rgb(0, 0, 0);
 background-color: rgb(85, 170, 127);</string>
          </property>
+         <property name="rowCount">
+          <number>5</number>
+         </property>
          <attribute name="horizontalHeaderDefaultSectionSize">
           <number>184</number>
          </attribute>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
          <column>
           <property name="text">
            <string>Crypto</string>
@@ -215,9 +239,62 @@ background-color: rgb(85, 170, 127);</string>
 color: rgb(0, 0, 0);
 background-color: rgb(85, 170, 127);</string>
          </property>
+         <property name="rowCount">
+          <number>50</number>
+         </property>
          <attribute name="horizontalHeaderDefaultSectionSize">
           <number>184</number>
          </attribute>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
          <column>
           <property name="text">
            <string>Crypto</string>
