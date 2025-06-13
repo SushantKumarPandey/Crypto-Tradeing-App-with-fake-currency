@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(85, 170, 127, 255), stop:1 rgba(64, 65, 66, 255));
+   <string notr="true">background-color: rgb(57, 116, 86);
 font: 14pt &quot;Segoe UI&quot;;</string>
   </property>
   <widget class="QGraphicsView" name="graphicsView">
@@ -39,6 +39,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <height>41</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(64, 65, 66);</string>
+   </property>
    <property name="text">
     <string>buy</string>
    </property>
@@ -51,6 +54,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <width>81</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(64, 65, 66);</string>
    </property>
    <property name="text">
     <string>sell</string>
@@ -65,6 +71,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <height>41</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(64, 65, 66);</string>
+   </property>
   </widget>
   <widget class="QToolButton" name="toolButton">
    <property name="geometry">
@@ -74,6 +83,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <width>25</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(64, 65, 66);</string>
    </property>
    <property name="text">
     <string>...</string>
@@ -91,6 +103,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <height>51</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(64, 65, 66);</string>
+   </property>
    <property name="text">
     <string>TextLabel</string>
    </property>
@@ -103,6 +118,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <width>141</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(64, 65, 66);</string>
    </property>
    <property name="text">
     <string>TextLabel</string>
