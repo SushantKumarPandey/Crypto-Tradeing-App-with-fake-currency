@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import sqlite3
@@ -7,7 +8,6 @@ from pyarrow import show_info
 from werkzeug.security import generate_password_hash, check_password_hash
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-import os
 
 
 class Cryptowindow(QtWidgets.QWidget):
@@ -68,7 +68,7 @@ class Registerwindow(QtWidgets.QDialog):
             conn = sqlite3.connect(db_path)
             c = conn.cursor()
             c.execute('''
-                    INSERT INTO user (username, password, email) 
+                    INSERT INTO user (username, password, email)
                     VALUES (?,?,?)
                 ''', (username, hashed_password, email))
             conn.commit()
