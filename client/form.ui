@@ -131,9 +131,17 @@ color: rgb(255, 255, 255);</string>
 color: rgb(0, 0, 0);
 background-color: rgb(85, 170, 127);</string>
          </property>
+         <property name="rowCount">
+          <number>5</number>
+         </property>
          <attribute name="horizontalHeaderDefaultSectionSize">
           <number>184</number>
          </attribute>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
          <column>
           <property name="text">
            <string>Crypto</string>
@@ -158,9 +166,17 @@ background-color: rgb(85, 170, 127);</string>
 color: rgb(0, 0, 0);
 background-color: rgb(85, 170, 127);</string>
          </property>
+         <property name="rowCount">
+          <number>5</number>
+         </property>
          <attribute name="horizontalHeaderDefaultSectionSize">
           <number>184</number>
          </attribute>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
          <column>
           <property name="text">
            <string>Crypto</string>
@@ -223,9 +239,17 @@ background-color: rgb(85, 170, 127);</string>
 color: rgb(0, 0, 0);
 background-color: rgb(85, 170, 127);</string>
          </property>
+         <property name="rowCount">
+          <number>5</number>
+         </property>
          <attribute name="horizontalHeaderDefaultSectionSize">
           <number>184</number>
          </attribute>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
          <column>
           <property name="text">
            <string>Crypto</string>
@@ -250,9 +274,62 @@ background-color: rgb(85, 170, 127);</string>
 color: rgb(0, 0, 0);
 background-color: rgb(85, 170, 127);</string>
          </property>
+         <property name="rowCount">
+          <number>50</number>
+         </property>
          <attribute name="horizontalHeaderDefaultSectionSize">
           <number>184</number>
          </attribute>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
          <column>
           <property name="text">
            <string>Crypto</string>
