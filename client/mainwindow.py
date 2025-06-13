@@ -10,6 +10,44 @@ from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import os
 
 
+class Tutorialwindow(QtWidgets.QDialog):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi("tutorial.ui", self)
+        self.tutorial_steps = []
+        self.step = 0
+
+        try:
+            conn = sqlite3.connect("crypto.db")
+            cursor = conn.cursor()
+
+            cursor.execute("SELECT nameT, info from tutorial")
+            self.tutorial_steps = cursor.fetchall()
+
+
+        except sqlite3.Error as e:
+            QtWidgets.QMessageBox.critical(self, "error", f"DB-eroor: {e}")
+            self.tutorial_steps = [("errr", "no tutorials found")]
+
+        finally:
+            conn.close()
+
+        self.update_tutorial()
+        self.button_next.clicked.connect(self.next_step)
+
+    def update_tutorial(self):
+        title, content = self.tutorial_steps[self.step]
+        self.label_title.setText(title)
+        self.label_content.setText(content)
+
+    def next_step(self):
+        self.step += 1
+        if self.step < len(self.tutorial_steps):
+            self.update_tutorial()
+        else:
+            self.accept()
+
+
 class Cryptowindow(QtWidgets.QWidget):
     def __init__(self, item_text):
         super().__init__()
@@ -42,6 +80,7 @@ class Cryptowindow(QtWidgets.QWidget):
 
     def buy_crypto(self):
         print('buy_crypto')
+
     def sell_crypto(self):
         print('sell_crypto')
 
@@ -141,6 +180,7 @@ class Mainwindow(QtWidgets.QMainWindow):
         super().__init__()
         uic.loadUi("form.ui", self)
 
+        self.ask_tutorial()
         self.loade_Tutorial_Guides()
         self.search.clicked.connect(self.account_search)
         self.loginButton.clicked.connect(self.login_show)
@@ -152,6 +192,21 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.search_2.clicked.connect(self.search_crypto)
         self.login_window = None
         self.crypto_window = None
+
+    def ask_tutorial(self):
+        asked = QtWidgets.QMessageBox.question(
+            self,
+            "start Tutorial?",
+            "Do you want to beginn the tutorial?",
+            QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No
+        )
+
+        if asked == QtWidgets.QMessageBox.StandardButton.Yes:
+            self.start_tutorial()
+
+    def start_tutorial(self):
+        tutorial = Tutorialwindow()
+        tutorial.exec()
 
     def login_show(self):
         self.login_window = Loginwindow()
@@ -185,7 +240,7 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn.close()
 
         if one:
-            QtWidgets.QMessageBox.information(self,f"{one[0]}",f"{one[1]}",)
+            QtWidgets.QMessageBox.information(self, f"{one[0]}", f"{one[1]}", )
         else:
             QtWidgets.QMessageBox.information(self, "Keine Daten", 'help')
 
@@ -209,7 +264,7 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn.close()
 
         if one:
-            QtWidgets.QMessageBox.information(self,f"{one[0]}",f"{one[1]}",)
+            QtWidgets.QMessageBox.information(self, f"{one[0]}", f"{one[1]}", )
         else:
             QtWidgets.QMessageBox.information(self, "Keine Daten", 'help')
 
