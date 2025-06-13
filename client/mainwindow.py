@@ -34,6 +34,7 @@ class Tutorialwindow(QtWidgets.QDialog):
 
         self.update_tutorial()
         self.button_next.clicked.connect(self.next_step)
+        self.button_back.clicked.connect(self.back_step)
 
     def update_tutorial(self):
         title, content = self.tutorial_steps[self.step]
@@ -42,6 +43,13 @@ class Tutorialwindow(QtWidgets.QDialog):
 
     def next_step(self):
         self.step += 1
+        if self.step < len(self.tutorial_steps):
+            self.update_tutorial()
+        else:
+            self.accept()
+
+    def back_step(self):
+        self.step -= 1
         if self.step < len(self.tutorial_steps):
             self.update_tutorial()
         else:

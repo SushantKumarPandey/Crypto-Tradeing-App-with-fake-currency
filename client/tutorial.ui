@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(48, 97, 72);
+color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
+  </property>
   <widget class="QLabel" name="label_title">
    <property name="geometry">
     <rect>
@@ -60,6 +65,11 @@
      <width>451</width>
      <height>161</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(48, 97, 72);
+color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="text">
     <string>Tutorial</string>
