@@ -12,10 +12,11 @@ import os
 
 
 class Cryptowindow(QtWidgets.QWidget):
-    def __init__(self, item_text):
+    def __init__(self, item_text, user_id):
         super().__init__()
         uic.loadUi("crypto.ui", self)
         self.item = item_text
+        self.user_id = user_id
 
         self.show_info()
         self.pushButton.clicked.connect(self.buy_crypto)
@@ -43,16 +44,35 @@ class Cryptowindow(QtWidgets.QWidget):
 
     def buy_crypto(self):
         amount = self.spinBox.value()
-        conn = sqlite3.connect('crypto.db')
-        c = conn.cursor()
+        try:
+            conn = sqlite3.connect('crypto.db')
+            c = conn.cursor()
 
-        c.execute(''' INSERT INTO holding VALUES (?,?,?) ''', (,amount,self.item))
+            c.execute(''' INSERT INTO holding VALUES (?,?,?) ''', (self.user_id, self.item ,amount))
 
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            print("Request error:", e)
+
     def sell_crypto(self):
-        print('sell_crypto')
+        amount = self.spinBox.value()
+        try:
+            conn = sqlite3.connect('crypto.db')
+            c = conn.cursor()
 
+            c.execute('''SELECT amount from holding Where user_id=? AND coin_symbol=?''', (self.user_id, self.item))
+            current = c.fetchone()
+            current = current - amount
+
+            c.execute(''' DELETE FROM HOLDING WHERE coin_symbol=? AND user_id=?''', (self.item,self.user_id))
+
+            c.execute(''' INSERT INTO holding VALUES (?,?,?) ''', (self.user_id, self.item ,current))
+
+            conn.commit()
+            conn.close()
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            print("Request error:", e)
 
 class Registerwindow(QtWidgets.QDialog):
     def init(self):
@@ -110,6 +130,7 @@ class Loginwindow(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
         uic.loadUi("login.ui", self)
+        self.current_user_id = None
 
         self.Register.clicked.connect(self.show_login)
         self.register_window = None
@@ -133,6 +154,9 @@ class Loginwindow(QtWidgets.QDialog):
                 )
                 self.current_user_id = user['id']
                 self.accept()
+                self.mainwindow = Mainwindow(self.current_user_id)
+                self.mainwindow.show()
+                self.close()
             else:
                 QtWidgets.QMessageBox.warning(
                     self, "Login Failed", "Invalid Username or Password"
@@ -146,9 +170,10 @@ class Loginwindow(QtWidgets.QDialog):
 
 
 class Mainwindow(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self, user_id):
         super().__init__()
         uic.loadUi("form.ui", self)
+        self.user_id = user_id
 
         self.fetch_top_winners()
         self.fetch_top_losers()
@@ -172,7 +197,7 @@ class Mainwindow(QtWidgets.QMainWindow):
     def crypto_show(self, item):
         symbol = item.text()
         try:
-            self.crypto_window = Cryptowindow(item.text())  # assume item is QListWidgetItem
+            self.crypto_window = Cryptowindow(item.text(), self.user_id)  # assume item is QListWidgetItem
             self.crypto_window.show()
         except Exception as e:
             print("❌ Error opening Cryptowindow:", e)
@@ -485,6 +510,6 @@ class Mainwindow(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    window = Mainwindow()
+    window = Mainwindow(None)
     window.show()
     sys.exit(app.exec())
