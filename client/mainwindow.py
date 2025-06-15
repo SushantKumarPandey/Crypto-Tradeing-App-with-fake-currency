@@ -473,14 +473,16 @@ class Mainwindow(QtWidgets.QMainWindow):
                                            QTableWidgetItem(coin['name']))
                 self.tableWidget_3.setItem(i, 1,
                                            QTableWidgetItem(
-                                               str(coin['quote']['EUR']['price'])
-                                           )
-                                           )
+                                               str(coin['quote']
+                                                   ['EUR']
+                                                   ['price']
+                                                   )))
                 self.tableWidget_3.setItem(i, 2,
                                            QTableWidgetItem(
-                                               str(coin['quote']['EUR']['percent_change_24h'])
-                                           )
-                                           )
+                                               str(coin['quote']
+                                                   ['EUR']
+                                                   ['percent_change_24h']
+                                                   )))
                 i = i+1
                 print(coin['name'])
 
@@ -527,14 +529,16 @@ class Mainwindow(QtWidgets.QMainWindow):
                                            QTableWidgetItem(coin['name']))
                 self.tableWidget_4.setItem(i, 1,
                                            QTableWidgetItem(
-                                               str(coin['quote']['EUR']['price'])
-                                           )
-                                           )
+                                               str(coin['quote']
+                                                   ['EUR']
+                                                   ['price']
+                                                   )))
                 self.tableWidget_4.setItem(i, 2,
                                            QTableWidgetItem(
-                                               str(coin['quote']['EUR']['percent_change_24h'])
-                                           )
-                                           )
+                                               str(coin['quote']
+                                                   ['EUR']
+                                                   ['percent_change_24h']
+                                                   )))
                 print(coin['name'])
 
             conn.commit()
