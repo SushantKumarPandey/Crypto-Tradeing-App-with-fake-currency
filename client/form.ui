@@ -55,7 +55,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <enum>QTabWidget::TabShape::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="iconSize">
      <size>
@@ -806,26 +806,6 @@ background-color: transparent;</string>
 color: rgb(0, 0, 0);
 background-color: rgb(85, 170, 127);</string>
        </property>
-       <item>
-        <property name="text">
-         <string>Account A</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Account B</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Account C</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Account D</string>
-        </property>
-       </item>
       </widget>
       <widget class="QPushButton" name="search">
        <property name="geometry">
