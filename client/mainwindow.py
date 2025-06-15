@@ -26,7 +26,8 @@ class Cryptowindow(QtWidgets.QWidget):
             conn = sqlite3.connect("crypto.db")
             cursor = conn.cursor()
 
-            cursor.execute("SELECT name,price FROM coin WHERE symbol=?", (symbol,))
+            cursor.execute("SELECT name,price FROM coin WHERE symbol=?",
+                           (symbol,))
             name = cursor.fetchone()
 
             print(name)
@@ -59,12 +60,14 @@ class Cryptowindow(QtWidgets.QWidget):
             conn = sqlite3.connect('crypto.db')
             c = conn.cursor()
 
-            c.execute('''SELECT amount from holding Where user_id=? AND coin_symbol=?''',
+            c.execute('''SELECT amount from holding Where user_id=? 
+                        AND coin_symbol=?''',
                       (self.user_id, self.item))
             current = c.fetchone()
             current = current - amount
 
-            c.execute(''' DELETE FROM HOLDING WHERE coin_symbol=? AND user_id=?''',
+            c.execute(''' DELETE FROM HOLDING WHERE coin_symbol=? 
+                        AND user_id=?''',
                       (self.item, self.user_id))
 
             c.execute(''' INSERT INTO holding VALUES (?,?,?) ''',
@@ -84,7 +87,8 @@ class Registerwindow(QtWidgets.QDialog):
 
         self.pushButton_register.clicked.connect(self.register)
 
-    def create_new_user(self, username, password, email, db_path="../client/crypto.db"):
+    def create_new_user(self, username, password,
+                        email, db_path="../client/crypto.db"):
         if username == '' or password == '' or email == '':
             return "empty"
         if '@' not in email or '.' not in email:
@@ -105,10 +109,12 @@ class Registerwindow(QtWidgets.QDialog):
 
         except sqlite3.Error as e:
             if f"{e}" == "UNIQUE constraint failed: user.username":
-                QtWidgets.QMessageBox.warning(self, "Error", "Username already in use.")
+                QtWidgets.QMessageBox.warning(self, "Error",
+                                              "Username already in use.")
             else:
                 print(f"SQLite Error: {e}")
-                QtWidgets.QMessageBox.warning(self, "Error", f"SQLite Error: {e}")
+                QtWidgets.QMessageBox.warning(self, "Error",
+                                              f"SQLite Error: {e}")
 
         finally:
             conn.close()
@@ -121,13 +127,17 @@ class Registerwindow(QtWidgets.QDialog):
         result = self.create_new_user(username, password, email)
 
         if result == "empty":
-            QtWidgets.QMessageBox.warning(self, "Error", "Please fill all fields")
+            QtWidgets.QMessageBox.warning(self, "Error",
+                                          "Please fill all fields")
         elif result == "notValid":
-            QtWidgets.QMessageBox.warning(self, "Error", "Enter a valid email address.")
+            QtWidgets.QMessageBox.warning(self, "Error",
+                                          "Enter a valid email address.")
         elif result == "success":
             QtWidgets.QMessageBox.information(self, 'Account created',
-                                              "Your account has been created! You are now able to log in.")
+                                              "Your account has been created! "
+                                              "You are now able to log in.")
             self.close()
+
 
 class Loginwindow(QtWidgets.QDialog):
     def __init__(self):
