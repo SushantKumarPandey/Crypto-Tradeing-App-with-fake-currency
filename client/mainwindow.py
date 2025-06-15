@@ -65,10 +65,10 @@ class Cryptowindow(QtWidgets.QWidget):
             current = current - amount
 
             c.execute(''' DELETE FROM HOLDING WHERE coin_symbol=? AND user_id=?''',
-                      (self.item,self.user_id))
+                      (self.item, self.user_id))
 
             c.execute(''' INSERT INTO holding VALUES (?,?,?) ''',
-                      (self.user_id, self.item ,current))
+                      (self.user_id, self.item, current))
 
             conn.commit()
             conn.close()
@@ -125,8 +125,8 @@ class Registerwindow(QtWidgets.QDialog):
 
         if result == "empty":
             QtWidgets.QMessageBox.warning(self, "Error", "Please fill all fields")
-        elif result == "notValid":(
-            QtWidgets.QMessageBox.warning(self, "Error", "Enter a valid email address."))
+        elif result == "notValid":
+            QtWidgets.QMessageBox.warning(self, "Error", "Enter a valid email address.")
         elif result == "success":
             QtWidgets.QMessageBox.information(self, 'Account created',
                                               "Your account has been created! You are now able to log in.")
@@ -229,7 +229,7 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn.close()
 
         if one:
-            QtWidgets.QMessageBox.information(self,f"{one[0]}",f"{one[1]}",)
+            QtWidgets.QMessageBox.information(self, f"{one[0]}", f"{one[1]}",)
         else:
             QtWidgets.QMessageBox.information(self, "Keine Daten", 'help')
 
@@ -253,7 +253,7 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn.close()
 
         if one:
-            QtWidgets.QMessageBox.information(self,f"{one[0]}",f"{one[1]}",)
+            QtWidgets.QMessageBox.information(self, f"{one[0]}", f"{one[1]}",)
         else:
             QtWidgets.QMessageBox.information(self, "Keine Daten", 'help')
 
@@ -459,9 +459,9 @@ class Mainwindow(QtWidgets.QMainWindow):
 
             i = 0
             for coin in data['data']:
-                self.tableWidget_3.setItem(i,0,QTableWidgetItem(coin['name']))
-                self.tableWidget_3.setItem(i,1,QTableWidgetItem(str(coin['quote']['EUR']['price'])))
-                self.tableWidget_3.setItem(i,2,QTableWidgetItem(str(coin['quote']['EUR']['percent_change_24h'])))
+                self.tableWidget_3.setItem(i, 0, QTableWidgetItem(coin['name']))
+                self.tableWidget_3.setItem(i, 1, QTableWidgetItem(str(coin['quote']['EUR']['price'])))
+                self.tableWidget_3.setItem(i, 2, QTableWidgetItem(str(coin['quote']['EUR']['percent_change_24h'])))
                 i = i+1
                 print(coin['name'])
 
@@ -501,7 +501,6 @@ class Mainwindow(QtWidgets.QMainWindow):
             )
 
             conn = sqlite3.connect('crypto.db')
-            c = conn.cursor()
 
             for i, coin in enumerate(sorted_coins[:5]):
                 self.tableWidget_4.setItem(i, 0, QTableWidgetItem(coin['name']))
