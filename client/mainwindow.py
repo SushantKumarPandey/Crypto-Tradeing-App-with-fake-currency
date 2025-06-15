@@ -60,13 +60,13 @@ class Cryptowindow(QtWidgets.QWidget):
             conn = sqlite3.connect('crypto.db')
             c = conn.cursor()
 
-            c.execute('''SELECT amount from holding Where user_id=? 
+            c.execute('''SELECT amount from holding Where user_id=?
                         AND coin_symbol=?''',
                       (self.user_id, self.item))
             current = c.fetchone()
             current = current - amount
 
-            c.execute(''' DELETE FROM HOLDING WHERE coin_symbol=? 
+            c.execute(''' DELETE FROM HOLDING WHERE coin_symbol=?
                         AND user_id=?''',
                       (self.item, self.user_id))
 
@@ -158,7 +158,8 @@ class Loginwindow(QtWidgets.QDialog):
         try:
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
-            c.execute("SELECT id, password FROM user WHERE username = ?", (username,))
+            c.execute("SELECT id, password FROM user WHERE username = ?",
+                      (username,))
             user = c.fetchone()
             conn.close()
 
@@ -172,9 +173,11 @@ class Loginwindow(QtWidgets.QDialog):
                 self.mainwindow.show()
                 self.close()
             else:
-                QtWidgets.QMessageBox.warning(self, "Login Failed", "Invalid Username or Password")
+                QtWidgets.QMessageBox.warning(self, "Login Failed",
+                                              "Invalid Username or Password")
         except Exception as e:
-            QtWidgets.QMessageBox.critical(self, "Error", f"An error occurred:\n{e}")
+            QtWidgets.QMessageBox.critical(self, "Error",
+                                           f"An error occurred:\n{e}")
 
     def show_login(self):
         self.register_window = Registerwindow()
@@ -208,7 +211,8 @@ class Mainwindow(QtWidgets.QMainWindow):
 
     def crypto_show(self, item):
         try:
-            self.crypto_window = Cryptowindow(item.text(), self.user_id)  # assume item is QListWidgetItem
+            self.crypto_window = Cryptowindow(item.text(),
+                                              self.user_id)  # assume item is QListWidgetItem
             self.crypto_window.show()
         except Exception as e:
             print("❌ Error opening Cryptowindow:", e)
@@ -287,7 +291,8 @@ class Mainwindow(QtWidgets.QMainWindow):
                 f"Username: {user_info[0]}\nEmail: {user_info[1]}"
             )
         else:
-            QtWidgets.QMessageBox.information(self, "Keine Daten", "Kein Benutzer gefunden.")
+            QtWidgets.QMessageBox.information(self, "Keine Daten",
+                                              "Kein Benutzer gefunden.")
 
     def crypto_search(self):
         search_term = self.search_Account_3.text()
@@ -296,7 +301,8 @@ class Mainwindow(QtWidgets.QMainWindow):
             c = conn.cursor()
 
             c.execute('''
-            SELECT symbol FROM coin Where symbol LIKE ?''', (f'%{search_term}%',))
+            SELECT symbol FROM coin Where symbol LIKE ?''',
+                      (f'%{search_term}%',))
 
             results = c.fetchall()
             print(results)
@@ -388,7 +394,8 @@ class Mainwindow(QtWidgets.QMainWindow):
     """
 
     def fetch_table(self):
-        url = ("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
+        url = ("https://pro-api.coinmarketcap.com/v1"
+               "/cryptocurrency/listings/latest")
         parameters = {
             'limit': '500',
             'convert': 'EUR'
@@ -418,7 +425,8 @@ class Mainwindow(QtWidgets.QMainWindow):
                 market_cap = coin['quote']['EUR']['market_cap']
 
                 c.execute('''
-                    INSERT INTO coin (id, price, name, supply, symbol, market_cap, last_updated)
+                    INSERT INTO coin (id, price, name, supply, symbol,
+                     market_cap, last_updated)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                 ''', (
                     str(coin['id']),
@@ -439,7 +447,8 @@ class Mainwindow(QtWidgets.QMainWindow):
             print("Other error:", e)
 
     def fetch_top_winners(self):
-        url = ("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
+        url = ("https://pro-api.coinmarketcap.com/v1"
+               "/cryptocurrency/listings/latest")
         parameters = {
             'limit': '5',
             'convert': 'EUR',
@@ -459,9 +468,12 @@ class Mainwindow(QtWidgets.QMainWindow):
 
             i = 0
             for coin in data['data']:
-                self.tableWidget_3.setItem(i, 0, QTableWidgetItem(coin['name']))
-                self.tableWidget_3.setItem(i, 1, QTableWidgetItem(str(coin['quote']['EUR']['price'])))
-                self.tableWidget_3.setItem(i, 2, QTableWidgetItem(str(coin['quote']['EUR']['percent_change_24h'])))
+                self.tableWidget_3.setItem(i, 0,
+                                           QTableWidgetItem(coin['name']))
+                self.tableWidget_3.setItem(i, 1,
+                                           QTableWidgetItem(str(coin['quote']['EUR']['price'])))
+                self.tableWidget_3.setItem(i, 2,
+                                           QTableWidgetItem(str(coin['quote']['EUR']['percent_change_24h'])))
                 i = i+1
                 print(coin['name'])
 
@@ -471,7 +483,8 @@ class Mainwindow(QtWidgets.QMainWindow):
             print("Request error:", e)
 
     def fetch_top_losers(self):
-        url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
+        url = ("https://pro-api.coinmarketcap.com/v1"
+               "/cryptocurrency/listings/latest")
         parameters = {
             'limit': '100',
             'convert': 'EUR',
@@ -503,9 +516,12 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn = sqlite3.connect('crypto.db')
 
             for i, coin in enumerate(sorted_coins[:5]):
-                self.tableWidget_4.setItem(i, 0, QTableWidgetItem(coin['name']))
-                self.tableWidget_4.setItem(i, 1, QTableWidgetItem(str(coin['quote']['EUR']['price'])))
-                self.tableWidget_4.setItem(i, 2, QTableWidgetItem(str(coin['quote']['EUR']['percent_change_24h'])))
+                self.tableWidget_4.setItem(i, 0,
+                                           QTableWidgetItem(coin['name']))
+                self.tableWidget_4.setItem(i, 1,
+                                           QTableWidgetItem(str(coin['quote']['EUR']['price'])))
+                self.tableWidget_4.setItem(i, 2,
+                                           QTableWidgetItem(str(coin['quote']['EUR']['percent_change_24h'])))
                 print(coin['name'])
 
             conn.commit()
