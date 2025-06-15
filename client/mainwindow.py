@@ -84,7 +84,6 @@ class Registerwindow(QtWidgets.QDialog):
 
         self.pushButton_register.clicked.connect(self.register)
 
-
     def create_new_user(self, username, password, email, db_path="../client/crypto.db"):
         if username == '' or password == '' or email == '':
             return "empty"
@@ -104,7 +103,6 @@ class Registerwindow(QtWidgets.QDialog):
             self.close()
             return "success"
 
-
         except sqlite3.Error as e:
             if f"{e}" == "UNIQUE constraint failed: user.username":
                 QtWidgets.QMessageBox.warning(self, "Error", "Username already in use.")
@@ -114,7 +112,6 @@ class Registerwindow(QtWidgets.QDialog):
 
         finally:
             conn.close()
-
 
     def register(self):
         username = self.lineEdit_username.text()
@@ -131,8 +128,6 @@ class Registerwindow(QtWidgets.QDialog):
             QtWidgets.QMessageBox.information(self, 'Account created',
                                               "Your account has been created! You are now able to log in.")
             self.close()
-
-
 
 class Loginwindow(QtWidgets.QDialog):
     def __init__(self):
@@ -202,7 +197,6 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.login_window.show()
 
     def crypto_show(self, item):
-        symbol = item.text()
         try:
             self.crypto_window = Cryptowindow(item.text(), self.user_id)  # assume item is QListWidgetItem
             self.crypto_window.show()
@@ -299,7 +293,6 @@ class Mainwindow(QtWidgets.QMainWindow):
 
             self.Accounts_2.clear()
             for row in results:
-                item = QtWidgets.QListWidgetItem(row[0])
                 self.Accounts_2.addItem(row[0])
 
         except sqlite3.Error as e:
@@ -326,7 +319,6 @@ class Mainwindow(QtWidgets.QMainWindow):
 
             self.Accounts.clear()
             for row in results:
-                item = QtWidgets.QListWidgetItem(row[0])
                 self.Accounts.addItem(row[0])
 
         except sqlite3.Error as e:
@@ -375,7 +367,6 @@ class Mainwindow(QtWidgets.QMainWindow):
             all_tutorials = c.fetchall()
             for row in all_tutorials:
                 self.Tutorial.addItem(row[0])
-
 
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
@@ -455,7 +446,6 @@ class Mainwindow(QtWidgets.QMainWindow):
             data = response.json()
 
             conn = sqlite3.connect('crypto.db')
-            c = conn.cursor()
 
             i = 0
             for coin in data['data']:
