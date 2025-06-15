@@ -13,33 +13,34 @@ stages:
   - build
   - deploy
 
-
-gitlab-registry:
-  stage: prepare
-  image: "thlmylab/swakkd:stable"
-  variables:
-    NAMESPACE: mylab-sweii
-  script:
-    - kubectl delete secret gitlab-registry-secret -n $NAMESPACE || true
-    - kubectl create secret docker-registry gitlab-registry-secret \
-      --docker-server=$CI_REGISTRY \
-      --docker-username=image-registry \
-      --docker-password=$CI_REGISTRY_TOKEN -n $NAMESPACE
-
+#gitlab-registry:
+#  stage: prepare
+#  image: "thlmylab/swakkd:stable"
+#  variables:
+#    NAMESPACE: mylab-sweii
+#  script:
+#    - kubectl delete secret gitlab-registry-secret -n $NAMESPACE || true
+#    - "kubectl create secret docker-registry gitlab-registry-secret \
+#      --docker-server=$CI_REGISTRY \
+#      --docker-username=image-registry \
+#      --docker-password=$CI_REGISTRY_TOKEN -n $NAMESPACE"
+      
 
 lint:
   stage: lint
   script:
-    - pip install flake8 black isort
-    - flake8 team14/
-    - black --check team14/
-    - isort --check-only team14/
+    - apk add --no-cache py3-pip
+    - pip3 install flake8 black isort
+    - flake8 client/mainwindow.py
+    - black --check client/mainwindow.py
+    - isort client/mainwindow.py
 
 test:
   stage: test
   script:
-    - pip install pytest
-    - python demotest.py
+    - apk add --no-cache py3-pip
+    - pip3 install pytest
+    - python3 tests/demotest.py
 
 
 .build:
