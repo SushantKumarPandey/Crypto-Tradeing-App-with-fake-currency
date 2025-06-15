@@ -1,13 +1,10 @@
 import os
 import sys
-import json
 import sqlite3
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import QTableWidgetItem
-from anyio.streams import file
-from pyarrow import show_info
 from werkzeug.security import generate_password_hash, check_password_hash
-from requests import Request, Session
+from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 
 
@@ -48,7 +45,8 @@ class Cryptowindow(QtWidgets.QWidget):
             conn = sqlite3.connect('crypto.db')
             c = conn.cursor()
 
-            c.execute(''' INSERT INTO holding VALUES (?,?,?) ''', (self.user_id, self.item ,amount))
+            c.execute(''' INSERT INTO holding VALUES (?,?,?) ''',
+                      (self.user_id, self.item, amount))
 
             conn.commit()
             conn.close()
@@ -61,13 +59,16 @@ class Cryptowindow(QtWidgets.QWidget):
             conn = sqlite3.connect('crypto.db')
             c = conn.cursor()
 
-            c.execute('''SELECT amount from holding Where user_id=? AND coin_symbol=?''', (self.user_id, self.item))
+            c.execute('''SELECT amount from holding Where user_id=? AND coin_symbol=?''',
+                      (self.user_id, self.item))
             current = c.fetchone()
             current = current - amount
 
-            c.execute(''' DELETE FROM HOLDING WHERE coin_symbol=? AND user_id=?''', (self.item,self.user_id))
+            c.execute(''' DELETE FROM HOLDING WHERE coin_symbol=? AND user_id=?''',
+                      (self.item,self.user_id))
 
-            c.execute(''' INSERT INTO holding VALUES (?,?,?) ''', (self.user_id, self.item ,current))
+            c.execute(''' INSERT INTO holding VALUES (?,?,?) ''',
+                      (self.user_id, self.item ,current))
 
             conn.commit()
             conn.close()
@@ -84,7 +85,7 @@ class Registerwindow(QtWidgets.QDialog):
         self.pushButton_register.clicked.connect(self.register)
 
 
-    def create_new_user(self,username, password, email, db_path="../client/crypto.db"):
+    def create_new_user(self, username, password, email, db_path="../client/crypto.db"):
         if username == '' or password == '' or email == '':
             return "empty"
         if '@' not in email or '.' not in email:
