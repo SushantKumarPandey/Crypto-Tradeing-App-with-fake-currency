@@ -212,7 +212,8 @@ class Mainwindow(QtWidgets.QMainWindow):
     def crypto_show(self, item):
         try:
             self.crypto_window = Cryptowindow(item.text(),
-                                              self.user_id)  # assume item is QListWidgetItem
+                                              self.user_id)
+            # assume item is QListWidgetItem
             self.crypto_window.show()
         except Exception as e:
             print("❌ Error opening Cryptowindow:", e)
@@ -471,9 +472,15 @@ class Mainwindow(QtWidgets.QMainWindow):
                 self.tableWidget_3.setItem(i, 0,
                                            QTableWidgetItem(coin['name']))
                 self.tableWidget_3.setItem(i, 1,
-                                           QTableWidgetItem(str(coin['quote']['EUR']['price'])))
+                                           QTableWidgetItem(
+                                               str(coin['quote']['EUR']['price'])
+                                           )
+                                           )
                 self.tableWidget_3.setItem(i, 2,
-                                           QTableWidgetItem(str(coin['quote']['EUR']['percent_change_24h'])))
+                                           QTableWidgetItem(
+                                               str(coin['quote']['EUR']['percent_change_24h'])
+                                           )
+                                           )
                 i = i+1
                 print(coin['name'])
 
@@ -519,9 +526,15 @@ class Mainwindow(QtWidgets.QMainWindow):
                 self.tableWidget_4.setItem(i, 0,
                                            QTableWidgetItem(coin['name']))
                 self.tableWidget_4.setItem(i, 1,
-                                           QTableWidgetItem(str(coin['quote']['EUR']['price'])))
+                                           QTableWidgetItem(
+                                               str(coin['quote']['EUR']['price'])
+                                           )
+                                           )
                 self.tableWidget_4.setItem(i, 2,
-                                           QTableWidgetItem(str(coin['quote']['EUR']['percent_change_24h'])))
+                                           QTableWidgetItem(
+                                               str(coin['quote']['EUR']['percent_change_24h'])
+                                           )
+                                           )
                 print(coin['name'])
 
             conn.commit()
