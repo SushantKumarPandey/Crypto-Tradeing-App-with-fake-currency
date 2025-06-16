@@ -44,6 +44,7 @@ test:
     - pip install PyQt6
     - apt-get update && apt-get install -y libgl1
     - apt-get update && apt-get install -y libxkbcommon0
+    - apt-get install -y libegl1
     - export PYTHONPATH=$PYTHONPATH:/builds/swe/sose25/team14
     - pytest tests/demotest.py
     - pytest tests/test_demo.py
