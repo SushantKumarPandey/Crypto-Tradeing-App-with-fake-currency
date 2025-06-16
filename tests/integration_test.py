@@ -141,6 +141,96 @@ class TestHTTP(unittest.TestCase):
         assert response.status_code == 200, "error not cnected"
         assert response.text == "OK"
 '''
+class TestBestenliste(unittest.TestCase):
+    def setUp(self):
+        self.conn = sqlite3.connect(testDB)
+        self.c = self.conn.cursor()
+
+        self.c.execute(
+            """
+            CREATE TABLE IF NOT EXISTS user(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL,
+                email TEXT NOT NULL,
+                balance REAL DEFAULT 0
+            )
+        """
+        )
+        self.conn.commit()
+
+        self.c.execute("DELETE FROM user WHERE username IN (?, ?)", ("marcel", "kiki"))
+        self.conn.commit()
+
+        self.c.execute(
+            "INSERT INTO user (username, password, email, balance) VALUES (?, ?, ?, ?)",
+            ("marcel", "pw", "m@gmail.com", 7200),
+        )
+        self.c.execute(
+            "INSERT INTO user (username, password, email, balance) VALUES (?, ?, ?, ?)",
+            ("kiki", "pw", "k@gmail.com", 5000),
+        )
+        self.conn.commit()
+
+    def test_leaderboard_sorted(self):
+        self.c.execute("SELECT balance FROM user ORDER BY balance DESC")
+        results = self.c.fetchall()
+        balances = [r[0] for r in results]
+        self.assertEqual(balances, sorted(balances, reverse=True))
+
+    def tearDown(self):
+        self.conn.close()
+
+
+class TestCryptoSearch(unittest.TestCase):
+    def setUp(self):
+        self.conn = sqlite3.connect(testDB)
+        self.c = self.conn.cursor()
+
+        self.c.execute(
+            """
+            CREATE TABLE IF NOT EXISTS coin (
+                id INTEGER PRIMARY KEY,
+                price FLOAT NOT NULL,
+                name TEXT NOT NULL,
+                supply INTEGER NOT NULL,
+                symbol TEXT NOT NULL,
+                market_cap FLOAT NOT NULL,
+                last_updated DATE NOT NULL
+            )
+        """
+        )
+        self.c.execute("DELETE FROM coin")
+        self.conn.commit()
+
+        self.c.execute(
+            """
+            INSERT INTO coin (id, price, name, supply, symbol, market_cap, last_updated)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """,
+            (1, 50000.0, "Bitcoin", 19000000, "BTC", 900000000000, "2024-06-10"),
+        )
+        self.conn.commit()
+
+    def test_search_by_symbol(self):
+        search_term = "BTC"
+        self.c.execute("SELECT name FROM coin WHERE symbol = ?", (search_term,))
+        result = self.c.fetchone()
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result[0], "Bitcoin")
+
+    def test_search_by_name(self):
+        search_term = "Bitcoin"
+        self.c.execute("SELECT symbol FROM coin WHERE name = ?", (search_term,))
+        result = self.c.fetchone()
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result[0], "BTC")
+
+    def tearDown(self):
+        self.conn.close()
+
 
 
 

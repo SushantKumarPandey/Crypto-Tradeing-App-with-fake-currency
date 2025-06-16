@@ -1,3 +1,4 @@
+import unittest
 
 def login(username, password):
     return username == "user" and password == "pass123"
@@ -35,4 +36,14 @@ def test_duplicate_registration():
 def test_fake_balance():
     fake_balance = 1000
     assert fake_balance >= 0
+
+
+    def test_achievement_awarded_on_first_buy(self):
+        fake_user = {"bought": 0}
+        result = buy_token(fake_user)
+        self.assertEqual(result, "achievement awarded")
+
+
+if __name__ == "__main__":
+    unittest.main()
 
