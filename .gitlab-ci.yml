@@ -29,7 +29,7 @@ stages:
 lint:
   stage: lint
   script:
-    - python3 -m pip install --upgrade pip
+    - apk add --no-cache pip
     - pip install flake8 black isort
     - flake8 client/mainwindow.py
     - black client/mainwindow.py
