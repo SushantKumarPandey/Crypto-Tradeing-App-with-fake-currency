@@ -55,7 +55,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <enum>QTabWidget::TabShape::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>0</number>
     </property>
     <property name="iconSize">
      <size>
@@ -263,12 +263,7 @@ background-color: rgb(85, 170, 127);</string>
          </column>
          <column>
           <property name="text">
-           <string>Value</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Change</string>
+           <string>Trades</string>
           </property>
          </column>
         </widget>
