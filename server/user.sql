@@ -40,15 +40,17 @@ CREATE TABLE holding(
     user_id INTEGER NOT NULL,
     coin_symbol TEXT NOT NULL,
     amount INTEGER,
+    value Float,
     PRIMARY KEY(user_id, coin_symbol)
 );
 
 INSERT INTO user (username, password, email)
     VALUES ('kiki','quack', 'bsp1@gmail.com'),
+           ('test','a','a'),
            ('marcel','duck', 'bsp2@gmail.com');
 
-INSERT INTO holding (user_id, coin_symbol, amount)
-    VALUES (2, 'BTC', 3);
+INSERT INTO holding (user_id, coin_symbol, amount, value)
+    VALUES (2, 'BTC', 3,25.5);
 
 
 INSERT INTO guides (nameG, info)
