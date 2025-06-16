@@ -49,6 +49,7 @@ test:
     - apt-get install -y libegl1
     - apt-get install -y libdbus-1-3
     - export PYTHONPATH=$PYTHONPATH:/builds/swe/sose25/team14
+    - export QT_QPA_PLATFORM=offscreen
     - pytest tests/demotest.py
     - pytest tests/test_demo.py
 
