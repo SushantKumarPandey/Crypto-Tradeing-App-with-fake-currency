@@ -1,7 +1,6 @@
 import sys
 import sqlite3
 import unittest
-sys.path.insert(0, '../client')
 from client.mainwindow import Registerwindow
 from werkzeug.security import check_password_hash
 from PyQt6.QtWidgets import QApplication
