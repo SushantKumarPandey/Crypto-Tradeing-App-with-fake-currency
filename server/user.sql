@@ -9,7 +9,8 @@ CREATE TABLE user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    email TEXT NOT NULL
+    email TEXT NOT NULL,
+    balance FLOAT NOT NULL
 );
 
 
@@ -23,6 +24,13 @@ CREATE TABLE tutorial(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nameT TEXT UNIQUE NOT NULL,
     info TEXT UNIQUE NOT NULL
+);
+
+
+CREATE TABLE cryptos_to_watch(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    trades INTEGER NOT NULL
 );
 
 
@@ -40,17 +48,18 @@ CREATE TABLE holding(
     user_id INTEGER NOT NULL,
     coin_symbol TEXT NOT NULL,
     amount INTEGER,
-    value Float,
+    value FLOAT,
     PRIMARY KEY(user_id, coin_symbol)
 );
 
-INSERT INTO user (username, password, email)
-    VALUES ('kiki','quack', 'bsp1@gmail.com'),
-           ('test','a','a'),
-           ('marcel','duck', 'bsp2@gmail.com');
+INSERT INTO user (username, password, email, balance)
+    VALUES ('kiki','quack', 'bsp1@gmail.com',10000),
+           ('test','a','a', 10000),
+           ('marcel','duck', 'bsp2@gmail.com', 10000);
 
 INSERT INTO holding (user_id, coin_symbol, amount, value)
-    VALUES (2, 'BTC', 3,25.5);
+    VALUES (2, 'BTC', 3,25.5),
+           (2, 'ETH', 5,25.5);
 
 
 INSERT INTO guides (nameG, info)
