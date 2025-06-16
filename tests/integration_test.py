@@ -31,6 +31,7 @@ class TestDB(unittest.TestCase):
         self.conn.commit()
         self.conn.close()
 
+
     def test_connected(self):
         try:
             conn = sqlite3.connect(testDB)
