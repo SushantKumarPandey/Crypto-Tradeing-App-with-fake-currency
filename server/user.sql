@@ -61,6 +61,10 @@ INSERT INTO holding (user_id, coin_symbol, amount, value)
     VALUES (2, 'BTC', 3,25.5),
            (2, 'ETH', 5,25.5);
 
+INSERT INTO cryptos_to_watch (id,name,trades)
+    VALUES (1,'BTC',3),
+           (2,'ETH',2);
+
 
 INSERT INTO guides (nameG, info)
     VALUES ('GA', 'ALorem ipsum dolor sit amet, '),
