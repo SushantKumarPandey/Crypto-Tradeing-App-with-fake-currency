@@ -1,9 +1,9 @@
+import sys
 import sqlite3
 import unittest
-import mainwindow.Registerwindow
+from client.mainwindow import Registerwindow
 from werkzeug.security import check_password_hash
 from PyQt6.QtWidgets import QApplication
-import sys
 
 app = QApplication(sys.argv)  # Einmalig vor allen Tests, z.B. ganz oben in der Datei
 
