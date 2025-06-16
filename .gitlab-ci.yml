@@ -43,6 +43,7 @@ test:
     - pip install pytest
     - pip install PyQt6
     - pip install werkzeug
+    - pip install requests
     - apt-get update && apt-get install -y libgl1
     - apt-get update && apt-get install -y libxkbcommon0
     - apt-get install -y libegl1
