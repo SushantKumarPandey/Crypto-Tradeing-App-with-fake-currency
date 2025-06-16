@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import QApplication
 app = QApplication(sys.argv)  # Einmalig vor allen Tests, z.B. ganz oben in der Datei
 
 
-testDB = "../client/crypto.db"
+testDB = "crypto.db"
 
 class TestDB(unittest.TestCase):
 
