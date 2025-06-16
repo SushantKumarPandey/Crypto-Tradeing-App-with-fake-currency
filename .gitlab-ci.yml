@@ -25,20 +25,13 @@ stages:
 #      --docker-server=$CI_REGISTRY \
 #      --docker-username=image-registry \
 #      --docker-password=$CI_REGISTRY_TOKEN -n $NAMESPACE"
-      
-installation:
-  stage: installation
-  image: python:3.8
-  script:
-    - pip install --upgrade pip
-    - pip install flake8 black isort
-    - pip install pytest
-    - pip install PyQt6
 
 lint:
   stage: lint
   image: python:3.8
   script:
+    - pip install --upgrade pip
+    - pip install flake8 black isort
     - flake8 client/mainwindow.py
     - black client/mainwindow.py
     - isort client/mainwindow.py
@@ -47,6 +40,9 @@ test:
   stage: test
   image: python:3.8
   script:
+    - pip install pytest
+    - pip install PyQt6
+    - apt-get update && apt-get install -y libgl1
     - export PYTHONPATH=$PYTHONPATH:/builds/swe/sose25/team14
     - pytest tests/demotest.py
     - pytest tests/test_demo.py
