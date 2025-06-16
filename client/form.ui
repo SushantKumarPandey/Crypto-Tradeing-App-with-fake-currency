@@ -893,78 +893,52 @@ background-color: rgb(85, 170, 127);</string>
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_5">
-     <attribute name="title">
-      <string>Achievements</string>
-     </attribute>
-     <widget class="QLabel" name="label_5">
-      <property name="geometry">
-       <rect>
-        <x>360</x>
-        <y>20</y>
-        <width>461</width>
-        <height>90</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 28pt &quot;Segoe UI&quot;;
+ <widget class="QWidget" name="tab_5">
+ <attribute name="title">
+  <string>Achievements</string>
+ </attribute>
+
+ <!-- Title Label -->
+ <widget class="QLabel" name="label_5">
+  <property name="geometry">
+   <rect>
+    <x>360</x>
+    <y>20</y>
+    <width>461</width>
+    <height>90</height>
+   </rect>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">font: 28pt "Segoe UI";
+color: rgb(108, 216, 160);
 background-color:transparent;
 text-decoration: underline;</string>
-      </property>
-      <property name="text">
-       <string> Your Achievements</string>
-      </property>
-     </widget>
-     <widget class="QListWidget" name="listWidget">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>150</y>
-        <width>400</width>
-        <height>521</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-color: rgb(108, 216, 160);
-background-color: rgb(64, 65, 66);
-</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>✅ Completed your first trade</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>10 days of activity</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Portfolio above 1000</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Daily login streak</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>In Progress</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Completed
+  </property>
+  <property name="text">
+   <string>Your Achievements</string>
+  </property>
+ </widget>
 
+ <!-- ✅ Container for dynamic checkboxes -->
+ <widget class="QWidget" name="achievementsContainer">
+  <property name="geometry">
+   <rect>
+    <x>390</x>
+    <y>150</y>
+    <width>400</width>
+    <height>521</height>
+   </rect>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+background-color: rgb(64, 65, 66);
+border: 2px solid rgb(108, 216, 160);
 </string>
-       </property>
-      </item>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab_4">
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout"/>
+ </widget>
+</widget>
+       <widget class="QWidget" name="tab_4">
      <attribute name="title">
       <string>Guides/Tutorial</string>
      </attribute>
@@ -1044,7 +1018,7 @@ background-color: rgb(64, 65, 66);</string>
         <string>A</string>
        </property>
       </item>
-     </widget>
+</widget>
     </widget>
     <widget class="QWidget" name="Profil">
      <attribute name="title">
