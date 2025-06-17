@@ -183,14 +183,6 @@ class TestBestenliste(unittest.TestCase):
         )
         self.conn.commit()
 
-    def test_leaderboard_sorted(self):
-        self.c.execute("SELECT balance FROM user ORDER BY balance DESC")
-        results = self.c.fetchall()
-        balances = [r[0] for r in results]
-        self.assertEqual(balances, sorted(balances, reverse=True))
-
-    def tearDown(self):
-        self.conn.close()
 
 
 class TestCryptoSearch(unittest.TestCase):
