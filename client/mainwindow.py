@@ -109,12 +109,23 @@ class Cryptowindow(QtWidgets.QWidget):
                               FROM cryptos_to_watch
                               WHERE name = ?)''', (self.item,))
                 trades = c.fetchone()
-                if trades is not None:
+                print(trades)
+                if trades[0] != 0:
                     trades = trades[0] + 1
                     c.execute(''' UPDATE cryptos_to_watch SET trades = ? WHERE name = ? ''', (trades,self.item))
+                else:
+                    trades = 1
+                    c.execute(''' INSERT INTO cryptos_to_watch(name,trades) VALUES (?,?)''', (self.item,trades))
+                    print("cryptos to watch added")
+                QtWidgets.QMessageBox.information(
+                    self, "Purchase Succesful", "The Crypto has been added to your Portfolio"
+                )
 
             else:
                 print("not enough money")
+                QtWidgets.QMessageBox.information(
+                    self, "Purchase Unsuccessful", "Requiered funds not available"
+                )
 
             conn.commit()
 
@@ -144,15 +155,28 @@ class Cryptowindow(QtWidgets.QWidget):
             price = c.fetchone()
 
             restore = price[0] * amount
+            rebalance = balance[0] + restore
+            print(current)
 
-            if current >= 0:
-                c.execute(''' UPDATE holding SET amount = ? WHERE user_id = ? AND coin_symbol = ? ''', (current, self.user_id, self.item))
-                c.execute(''' UPDATE user SET balance = ? WHERE id = ? ''', (restore, self.user_id))
-
+            if current > 0:
+                c.execute(''' UPDATE holding SET amount = ?, value = ? WHERE user_id = ? AND coin_symbol = ? ''', (current, current * price[0],self.user_id, self.item))
+                c.execute(''' UPDATE user SET balance = ? WHERE id = ? ''', (rebalance, self.user_id))
+                QtWidgets.QMessageBox.information(
+                    self, "Sell Succesful", "The Crypto has been sold from your Portfolio"
+                )
+            else:
+                QtWidgets.QMessageBox.information(
+                    self, "Sell Unsuccesful", "insufficient amount of coins to sell"
+                )
             conn.commit()
-            conn.close()
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print("Request error:", e)
+
+        except sqlite3.Error as e:
+            print("SQLite error:", e)
+
+        finally:
+            conn.close()
 
 
 class Registerwindow(QtWidgets.QDialog):
@@ -169,7 +193,7 @@ class Registerwindow(QtWidgets.QDialog):
         if "@" not in email or "." not in email:
             return "notValid"
 
-        hashed_password = generate_password_hash(password)
+        password
 
         try:
             conn = sqlite3.connect(db_path)
@@ -179,7 +203,7 @@ class Registerwindow(QtWidgets.QDialog):
                     INSERT INTO user (username, password, email, balance)
                     VALUES (?,?,?,?)
                 """,
-                (username, hashed_password, email, 10000),
+                (username, password, email, 10000),
             )
             conn.commit()
             self.close()
@@ -481,11 +505,11 @@ class Mainwindow(QtWidgets.QMainWindow):
 
             for i,coin in enumerate(data):
                 self.infos.setItem(i,0, QTableWidgetItem(str(coin[0])))
-                self.infos.setItem(i,1, QTableWidgetItem(str(round(coin[1],4)) + '$'))
+                self.infos.setItem(i,1, QTableWidgetItem(str(round(coin[1],4)) + '€'))
 
             for i,coin in enumerate(data):
                 self.tableWidget_6.setItem(i,0, QTableWidgetItem(str(coin[0])))
-                self.tableWidget_6.setItem(i,1, QTableWidgetItem(str(round(coin[1],4)) + '$'))
+                self.tableWidget_6.setItem(i,1, QTableWidgetItem(str(round(coin[1],4)) + '€'))
 
             conn.commit()
 
@@ -646,7 +670,7 @@ class Mainwindow(QtWidgets.QMainWindow):
             for coin in data["data"]:
                 self.tableWidget_3.setItem(i, 0, QTableWidgetItem(coin["name"]))
                 self.tableWidget_3.setItem(
-                    i, 1, QTableWidgetItem(str(round(coin["quote"]["EUR"]["price"], 4)) + '$')
+                    i, 1, QTableWidgetItem(str(round(coin["quote"]["EUR"]["price"], 4)) + '€')
                 )
                 self.tableWidget_3.setItem(
                     i,
@@ -691,7 +715,7 @@ class Mainwindow(QtWidgets.QMainWindow):
             for i, coin in enumerate(sorted_coins[:7]):
                 self.tableWidget_4.setItem(i, 0, QTableWidgetItem(coin["name"]))
                 self.tableWidget_4.setItem(
-                    i, 1, QTableWidgetItem(str(round(coin["quote"]["EUR"]["price"],4)) + '$')
+                    i, 1, QTableWidgetItem(str(round(coin["quote"]["EUR"]["price"],4)) + '€')
                 )
                 self.tableWidget_4.setItem(
                     i,
