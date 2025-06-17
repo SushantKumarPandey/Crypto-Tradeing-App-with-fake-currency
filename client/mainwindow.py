@@ -71,7 +71,6 @@ class Cryptowindow(QtWidgets.QWidget):
 
     def show_info(self):
         symbol = self.item
-        print("before" + symbol)
         try:
             conn = sqlite3.connect("crypto.db")
             cursor = conn.cursor()
@@ -81,7 +80,7 @@ class Cryptowindow(QtWidgets.QWidget):
 
             print(name)
             self.label.setText(name[0])
-            self.label_2.setText(str(name[1]))
+            self.label_2.setText(str(round(name[1],4)))
             conn.commit()
             conn.close()
         except (ConnectionError, Timeout, TooManyRedirects) as e:
@@ -92,46 +91,92 @@ class Cryptowindow(QtWidgets.QWidget):
     def buy_crypto(self):
         amount = self.spinBox.value()
         try:
-            conn = sqlite3.connect("crypto.db")
+            conn = sqlite3.connect('crypto.db')
             c = conn.cursor()
 
-            c.execute(
-                """ INSERT INTO holding VALUES (?,?,?) """,
-                (self.user_id, self.item, amount),
-            )
+            c.execute(''' SELECT balance FROM user WHERE id = ?''', (self.user_id,))
+            balance = c.fetchone()
+
+            c.execute("SELECT price FROM coin WHERE symbol=?", (self.item,))
+            price = c.fetchone()
+            order = (amount*price[0])
+
+            if balance[0] - order > 0:
+                c.execute(''' INSERT INTO holding(user_id,coin_symbol,amount,value) VALUES (?,?,?,?) ''', (self.user_id, self.item , amount, order))
+                c.execute(''' UPDATE user SET balance = ? WHERE id = ? ''', (balance[0]-order,self.user_id))
+
+                c.execute(''' SELECT EXISTS(SELECT trades
+                              FROM cryptos_to_watch
+                              WHERE name = ?)''', (self.item,))
+                trades = c.fetchone()
+                print(trades)
+                if trades[0] != 0:
+                    trades = trades[0] + 1
+                    c.execute(''' UPDATE cryptos_to_watch SET trades = ? WHERE name = ? ''', (trades,self.item))
+                else:
+                    trades = 1
+                    c.execute(''' INSERT INTO cryptos_to_watch(name,trades) VALUES (?,?)''', (self.item,trades))
+                    print("cryptos to watch added")
+                QtWidgets.QMessageBox.information(
+                    self, "Purchase Succesful", "The Crypto has been added to your Portfolio"
+                )
+
+            else:
+                print("not enough money")
+                QtWidgets.QMessageBox.information(
+                    self, "Purchase Unsuccessful", "Requiered funds not available"
+                )
 
             conn.commit()
+
+        except sqlite3.Error as e:
+            print("SQLite error:", e)
+
+        except Exception as e:
+            print("Unexpected error:", e)
+
+        finally:
             conn.close()
-        except (ConnectionError, Timeout, TooManyRedirects) as e:
-            print("Request error:", e)
 
     def sell_crypto(self):
         amount = self.spinBox.value()
         try:
-            conn = sqlite3.connect("crypto.db")
+            conn = sqlite3.connect('crypto.db')
             c = conn.cursor()
 
-            c.execute(
-                """SELECT amount from holding Where user_id=? AND coin_symbol=?""",
-                (self.user_id, self.item),
-            )
+            c.execute(''' SELECT balance FROM user WHERE id = ?''', (self.user_id,))
+            balance = c.fetchone()
+
+            c.execute('''SELECT amount from holding Where user_id = ? AND coin_symbol = ?''', (self.user_id, self.item))
             current = c.fetchone()
-            current = current - amount
+            current = current[0] - amount
 
-            c.execute(
-                """ DELETE FROM HOLDING WHERE coin_symbol=? AND user_id=?""",
-                (self.item, self.user_id),
-            )
+            c.execute("SELECT price FROM coin WHERE symbol=?", (self.item,))
+            price = c.fetchone()
 
-            c.execute(
-                """ INSERT INTO holding VALUES (?,?,?) """,
-                (self.user_id, self.item, current),
-            )
+            restore = price[0] * amount
+            rebalance = balance[0] + restore
+            print(current)
 
+            if current > 0:
+                c.execute(''' UPDATE holding SET amount = ?, value = ? WHERE user_id = ? AND coin_symbol = ? ''', (current, current * price[0],self.user_id, self.item))
+                c.execute(''' UPDATE user SET balance = ? WHERE id = ? ''', (rebalance, self.user_id))
+                QtWidgets.QMessageBox.information(
+                    self, "Sell Succesful", "The Crypto has been sold from your Portfolio"
+                )
+            else:
+                QtWidgets.QMessageBox.information(
+                    self, "Sell Unsuccesful", "insufficient amount of coins to sell"
+                )
             conn.commit()
-            conn.close()
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print("Request error:", e)
+
+        except sqlite3.Error as e:
+            print("SQLite error:", e)
+
+        finally:
+            conn.close()
 
 
 class Registerwindow(QtWidgets.QDialog):
@@ -148,17 +193,17 @@ class Registerwindow(QtWidgets.QDialog):
         if "@" not in email or "." not in email:
             return "notValid"
 
-        hashed_password = generate_password_hash(password)
+        password
 
         try:
             conn = sqlite3.connect(db_path)
             c = conn.cursor()
             c.execute(
                 """
-                    INSERT INTO user (username, password, email)
-                    VALUES (?,?,?)
+                    INSERT INTO user (username, password, email, balance)
+                    VALUES (?,?,?,?)
                 """,
-                (username, hashed_password, email),
+                (username, password, email, 10000),
             )
             conn.commit()
             self.close()
@@ -206,6 +251,7 @@ class Loginwindow(QtWidgets.QDialog):
 
         self.Register.clicked.connect(self.show_login)
         self.register_window = None
+        self.mainwindow = None
 
         self.pushButton_to_login.clicked.connect(self.verify_login)
 
@@ -220,12 +266,11 @@ class Loginwindow(QtWidgets.QDialog):
             user = c.fetchone()
             conn.close()
 
-            if user and check_password_hash(user[1], password):
+            if user and user[1] == password:
                 QtWidgets.QMessageBox.information(
                     self, "Login Success", "Successfully Logged In"
                 )
-                self.current_user_id = user["id"]
-                self.accept()
+                self.current_user_id = user[0]
                 self.mainwindow = Mainwindow(self.current_user_id)
                 self.mainwindow.show()
                 self.close()
@@ -246,13 +291,20 @@ class Mainwindow(QtWidgets.QMainWindow):
         super().__init__()
         uic.loadUi("form.ui", self)
         self.user_id = user_id
+        if self.user_id is not None:
+            self.loginButton.hide()
+            self.get_profile_info()
+        else:
+            self.ask_tutorial()
 
         self.fetch_top_winners()
         self.fetch_top_losers()
-
-        self.ask_tutorial()
-        self.loade_Tutorial_Guides()
+        self.load_Tutorial_Guides()
         self.load_achievements()
+        self.fetch_cryptos_to_watch()
+        self.account_search()
+        self.fetch_table()
+
         self.search.clicked.connect(self.account_search)
         self.loginButton.clicked.connect(self.login_show)
         self.Accounts.itemClicked.connect(self.show_account)
@@ -261,6 +313,8 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.Accounts_2.itemClicked.connect(self.crypto_show)
         self.refresh.clicked.connect(self.fetch_table)
         self.search_2.clicked.connect(self.crypto_search)
+        self.updateButton.clicked.connect(self.get_profile_info)
+
         self.login_window = None
         self.crypto_window = None
 
@@ -282,6 +336,7 @@ class Mainwindow(QtWidgets.QMainWindow):
     def login_show(self):
         self.login_window = Loginwindow()
         self.login_window.show()
+        self.close()
 
     def crypto_show(self, item):
         symbol = item.text()
@@ -419,6 +474,51 @@ class Mainwindow(QtWidgets.QMainWindow):
         finally:
             conn.close()
 
+    def get_profile_info(self):
+        url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
+        parameters = {
+            "limit": "5",
+            "convert": "EUR",
+            "sort": "percent_change_24h",
+        }
+        headers = {
+            "Accepts": "application/json",
+            "X-CMC_PRO_API_KEY": "8bc7959e-153c-40dd-8da9-34e544661e71",
+        }
+        session = Session()
+        session.headers.update(headers)
+        try:
+            response = session.get(url, params=parameters)
+            data = response.json()
+
+            conn = sqlite3.connect("crypto.db")
+            c = conn.cursor()
+
+            c.execute(''' SELECT username,balance FROM user WHERE id = ?''', (self.user_id,))
+            username = c.fetchone()
+            self.label_10.setText(str(username[0]))
+            self.kontostand.display(username[1])
+            self.kontostand_2.display(username[1])
+
+            c.execute(''' SELECT coin_symbol,value FROM holding WHERE user_id = ?''', (self.user_id,))
+            data = c.fetchall()
+
+            for i,coin in enumerate(data):
+                self.infos.setItem(i,0, QTableWidgetItem(str(coin[0])))
+                self.infos.setItem(i,1, QTableWidgetItem(str(round(coin[1],4)) + '€'))
+
+            for i,coin in enumerate(data):
+                self.tableWidget_6.setItem(i,0, QTableWidgetItem(str(coin[0])))
+                self.tableWidget_6.setItem(i,1, QTableWidgetItem(str(round(coin[1],4)) + '€'))
+
+            conn.commit()
+
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            print("Request error:", e)
+
+        finally:
+            conn.close()
+
     def account_search(self):
         name = self.search_Account_2.text().strip()
         try:
@@ -470,7 +570,7 @@ class Mainwindow(QtWidgets.QMainWindow):
                 conn.close()
     """
 
-    def loade_Tutorial_Guides(self):
+    def load_Tutorial_Guides(self):
         try:
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
@@ -552,7 +652,7 @@ class Mainwindow(QtWidgets.QMainWindow):
     def fetch_top_winners(self):
         url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
         parameters = {
-            "limit": "5",
+            "limit": "7",
             "convert": "EUR",
             "sort": "percent_change_24h",
         }
@@ -566,25 +666,19 @@ class Mainwindow(QtWidgets.QMainWindow):
             response = session.get(url, params=parameters)
             data = response.json()
 
-            conn = sqlite3.connect("crypto.db")
-            c = conn.cursor()
-
             i = 0
             for coin in data["data"]:
                 self.tableWidget_3.setItem(i, 0, QTableWidgetItem(coin["name"]))
                 self.tableWidget_3.setItem(
-                    i, 1, QTableWidgetItem(str(coin["quote"]["EUR"]["price"]))
+                    i, 1, QTableWidgetItem(str(round(coin["quote"]["EUR"]["price"], 4)) + '€')
                 )
                 self.tableWidget_3.setItem(
                     i,
                     2,
-                    QTableWidgetItem(str(coin["quote"]["EUR"]["percent_change_24h"])),
+                    QTableWidgetItem('+' + str(round(coin["quote"]["EUR"]["percent_change_24h"], 4)) + '%'),
                 )
                 i = i + 1
-                print(coin["name"])
 
-            conn.commit()
-            conn.close()
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print("Request error:", e)
 
@@ -604,8 +698,6 @@ class Mainwindow(QtWidgets.QMainWindow):
 
         try:
             response = session.get(url, params=parameters)
-            print(response.status_code)
-            print(response.text)  # Debugging line
 
             data = response.json()
 
@@ -620,20 +712,35 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
 
-            for i, coin in enumerate(sorted_coins[:5]):
+            for i, coin in enumerate(sorted_coins[:7]):
                 self.tableWidget_4.setItem(i, 0, QTableWidgetItem(coin["name"]))
                 self.tableWidget_4.setItem(
-                    i, 1, QTableWidgetItem(str(coin["quote"]["EUR"]["price"]))
+                    i, 1, QTableWidgetItem(str(round(coin["quote"]["EUR"]["price"],4)) + '€')
                 )
                 self.tableWidget_4.setItem(
                     i,
                     2,
-                    QTableWidgetItem(str(coin["quote"]["EUR"]["percent_change_24h"])),
+                    QTableWidgetItem(str(round(coin["quote"]["EUR"]["percent_change_24h"],4)) + '%'),
                 )
                 print(coin["name"])
 
             conn.commit()
             conn.close()
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            print("Request error:", e)
+
+    def fetch_cryptos_to_watch(self):
+        try:
+            conn = sqlite3.connect("crypto.db")
+            c = conn.cursor()
+
+            c.execute(''' SELECT * FROM cryptos_to_watch''')
+            data = c.fetchall()
+
+            for i,coin in enumerate(data):
+                self.tableWidget_5.setItem(i,0, QTableWidgetItem(str(coin[1])))
+                self.tableWidget_5.setItem(i,1, QTableWidgetItem(str(coin[2])))
+
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print("Request error:", e)
 
