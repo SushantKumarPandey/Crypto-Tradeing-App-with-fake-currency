@@ -8,6 +8,7 @@ variables:
 
 stages:
   - prepare
+  - installation
   - lint
   - test
   - build
@@ -24,47 +25,55 @@ stages:
 #      --docker-server=$CI_REGISTRY \
 #      --docker-username=image-registry \
 #      --docker-password=$CI_REGISTRY_TOKEN -n $NAMESPACE"
-      
 
 lint:
   stage: lint
+  image: python:3.8
   script:
-    - apk add --no-cache py3-pip
-    - pip3 install flake8 black isort
+    - pip install --upgrade pip
+    - pip install flake8 black isort
     - flake8 client/mainwindow.py
-    - black --check client/mainwindow.py
+    - black client/mainwindow.py
     - isort client/mainwindow.py
 
 test:
   stage: test
+  image: python:3.8
   script:
-    - apk add --no-cache py3-pip
-    - pip3 install pytest
-    - python3 tests/integration_test.py
+    - pip install pytest
+    - pip install PyQt6
+    - pip install werkzeug
+    - pip install requests
+    - apt-get update && apt-get install -y libgl1
+    - apt-get update && apt-get install -y libxkbcommon0
+    - apt-get install -y libegl1
+    - apt-get install -y libdbus-1-3
+    - export PYTHONPATH=$PYTHONPATH:/builds/swe/sose25/team14
+    - export QT_QPA_PLATFORM=offscreen
+    - pytest tests/unit_test.py
 
+#.build:
+#  stage: build
+#  script:
+#    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+#    - docker build -t $IMAGE:$IMAGE_TAG $IMAGE/.
+#    - docker push $IMAGE:$IMAGE_TAG
 
-.build:
-  stage: build
-  script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker build -t $IMAGE:$IMAGE_TAG $IMAGE/.
-    - docker push $IMAGE:$IMAGE_TAG
+#build-client:
+#  extends: .build
+#  variables:
+#    IMAGE: client
 
-build-client:
-  extends: .build
-  variables:
-    IMAGE: client
+#build-server:
+#  extends: .build
+#  variables:
+#    IMAGE: server
 
-build-server:
-  extends: .build
-  variables:
-    IMAGE: server
-
-deploy:
-  stage: deploy
-  image: thlmylab/swakkd:stable
-  script:
-    - sed -i "s/LAST_DEPLOYED_UNDEFINED/$(date -Iseconds)/g" $CLIENT_DEPLOYMENT_YAML
-    - sed -i "s/LAST_DEPLOYED_UNDEFINED/$(date -Iseconds)/g" $SERVER_DEPLOYMENT_YAML
-    - kubectl apply -f $CLIENT_DEPLOYMENT_YAML
-    - kubectl apply -f $SERVER_DEPLOYMENT_YAML
+#deploy:
+#  stage: deploy
+#  image: thlmylab/swakkd:stable
+#  script:
+#    - sed -i "s/LAST_DEPLOYED_UNDEFINED/$(date -Iseconds)/g" $CLIENT_DEPLOYMENT_YAML
+#    - sed -i "s/LAST_DEPLOYED_UNDEFINED/$(date -Iseconds)/g" $SERVER_DEPLOYMENT_YAML
+#    - kubectl apply -f $CLIENT_DEPLOYMENT_YAML
+#    - kubectl apply -f $SERVER_DEPLOYMENT_YAML
