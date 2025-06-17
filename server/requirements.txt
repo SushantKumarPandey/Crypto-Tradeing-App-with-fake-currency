@@ -1,0 +1,3 @@
+black
+pyqt6
+flask
