@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS coin;
 DROP TABLE IF EXISTS holding;
 DROP TABLE IF EXISTS guides;
 DROP TABLE IF EXISTS tutorial;
+DROP TABLE IF EXISTS cryptos_to_watch;
 
 
 CREATE TABLE user(
@@ -56,10 +57,6 @@ INSERT INTO user (username, password, email, balance)
     VALUES ('kiki','quack', 'bsp1@gmail.com',10000),
            ('test','a','a', 10000),
            ('marcel','duck', 'bsp2@gmail.com', 10000);
-
-INSERT INTO holding (user_id, coin_symbol, amount, value)
-    VALUES (2, 'BTC', 3,25.5),
-           (2, 'ETH', 5,25.5);
 
 INSERT or IGNORE INTO cryptos_to_watch (id,name,trades)
     VALUES (1,'BTC',3),
