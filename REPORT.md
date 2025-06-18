@@ -175,4 +175,3 @@ Ich fand das, Dass die folge hatte, das man schon sehr genervt ins meeting gegan
 Meine Aufgaen habe ich verucht so schnell wie möglich zu erledigen, da ich keine lust auf den stress kurz vor abgabe hatte. Dies hat relativ gut geklappt, bis auf die Auswertung der tests. Allerdings führte das auch dazu, dass ich eher 'unrelevante' aufgaben hatte oder den Papierkram organisiert/erstellt hab.
 Generell war die Stimmung daher angespannt, was für mich diesen sprint sehr schwer und ermüdent gemacht hat.
 
-

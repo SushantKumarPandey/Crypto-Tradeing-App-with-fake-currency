@@ -65,7 +65,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
   <widget class="QSpinBox" name="spinBox">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>360</x>
      <y>580</y>
      <width>111</width>
      <height>41</height>
@@ -113,8 +113,8 @@ font: 14pt &quot;Segoe UI&quot;;</string>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>360</x>
-     <y>30</y>
+     <x>230</x>
+     <y>20</y>
      <width>141</width>
      <height>41</height>
     </rect>
