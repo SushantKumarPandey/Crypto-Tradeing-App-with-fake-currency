@@ -147,6 +147,9 @@ Eine andere Sache, die mich genervt hat war, dass nicht alle bei den abgesproche
 auf den main Branch gepusht wird.
 Dieser Sprint war insgesamt sehr Nerven und Kräfte raubend.
 
+
+### Report for 18.06.2025
+
 ### Reflection Sushant
 
 In diesem Sprint war ich scrummaster. Ich habe die Aufgaben verteilt, organisiert und alle Issues erstellt. Auch die Meetings habe 
@@ -175,4 +178,12 @@ Ich fand das, Dass die folge hatte, das man schon sehr genervt ins meeting gegan
 Meine Aufgaen habe ich verucht so schnell wie möglich zu erledigen, da ich keine lust auf den stress kurz vor abgabe hatte. Dies hat relativ gut geklappt, bis auf die Auswertung der tests. Allerdings führte das auch dazu, dass ich eher 'unrelevante' aufgaben hatte oder den Papierkram organisiert/erstellt hab.
 Generell war die Stimmung daher angespannt, was für mich diesen sprint sehr schwer und ermüdent gemacht hat.
 
-
+### Reflection Marcel
+In diesem Sprint habe ich keine besondere Rolle übernommen.
+Der Scrummaster hat sich in diesem Sprint merklich Mühe gegeben, was über weite Teile auch geklappt hat.
+Der Product-Owner hat meines erachtens eine gute Priorisierung der Aufgaben übernommen, jedoch hat er bisschen die Organisation in Gitlab schleifen lassen und man musste sehr lange auf merge requests warten bis diese erledigt wurden.
+In diesem Sprint war ich insgesamt wieder sehr genervt, da von Mitgliedern Aufgaben bis zum Schluss aufgeschoben wurden, welche ich für die weitere Bearbeitung gebraucht hätte.
+Ich habe öfter darauf hingewiesen, dass ich die Änderungen brauche, jedoch hat dies nichts geändert. Auch das lange Warten auf die Bearbeitung der Merge requests hat dazu geführt, dass meine Arbeit verzögert wurde.
+Außerdem gab es in diesem Sprint wieder eine Person, die Sachen gemacht hat die sie nicht machen sollte, ohne Absprache, sodass wieder neue Probleme auftraten, die wiederum behoben mussten wurden.
+Meine Aufgabe im Sprint war es die Pipeline zum durchlaufen zu bringen, jedoch hat es im Endeffekt durch die ganzen Verzögerungen und schieben von Aufgaben von anderen nicht geklappt. Die pipeline steht jedoch müssen die Files noch entsprechend angepasst werden.
+Alles in allem war ich eher unzufrieden mit diesem Sprint.
