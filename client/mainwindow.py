@@ -1,13 +1,10 @@
 import os
 import sys
-import json
 import sqlite3
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import QTableWidgetItem
-from anyio.streams import file
-from pyarrow import show_info
 from werkzeug.security import generate_password_hash, check_password_hash
-from requests import Request, Session
+from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 from PyQt6.QtWidgets import QCheckBox
 
