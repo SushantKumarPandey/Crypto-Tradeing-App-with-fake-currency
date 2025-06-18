@@ -101,10 +101,19 @@ class Cryptowindow(QtWidgets.QWidget):
             price = c.fetchone()
             order = (amount*price[0])
 
-            if balance[0] - order > 0:
-                c.execute(''' INSERT INTO holding(user_id,coin_symbol,amount,value) VALUES (?,?,?,?) ''', (self.user_id, self.item , amount, order))
-                c.execute(''' UPDATE user SET balance = ? WHERE id = ? ''', (balance[0]-order,self.user_id))
+            c.execute('''SELECT coin_symbol,amount,value FROM holding WHERE coin_symbol = ?''', (self.item,))
+            exists = c.fetchone()
+            print(exists)
 
+            if balance[0] - order > 0 and amount > 0:
+                if exists is None:
+                    c.execute(''' INSERT INTO holding(user_id,coin_symbol,amount,value) VALUES (?,?,?,?) ''', (self.user_id, self.item , amount, order))
+                else:
+                    c.execute('''UPDATE holding SET amount = ?, value = ? WHERE coin_symbol = ?''', (exists[1] + amount,exists[2] + order,self.item))
+
+                c.execute(''' UPDATE user
+                              SET balance = ?
+                              WHERE id = ? ''', (balance[0] - order, self.user_id))
                 c.execute(''' SELECT EXISTS(SELECT trades
                               FROM cryptos_to_watch
                               WHERE name = ?)''', (self.item,))
@@ -115,8 +124,8 @@ class Cryptowindow(QtWidgets.QWidget):
                     c.execute(''' UPDATE cryptos_to_watch SET trades = ? WHERE name = ? ''', (trades,self.item))
                 else:
                     trades = 1
-                    c.execute(''' INSERT INTO cryptos_to_watch(name,trades) VALUES (?,?)''', (self.item,trades))
-                    print("cryptos to watch added")
+                c.execute(''' INSERT INTO cryptos_to_watch(name,trades) VALUES (?,?)''', (self.item,trades))
+                print("cryptos to watch added")
                 QtWidgets.QMessageBox.information(
                     self, "Purchase Succesful", "The Crypto has been added to your Portfolio"
                 )
@@ -294,8 +303,10 @@ class Mainwindow(QtWidgets.QMainWindow):
         if self.user_id is not None:
             self.loginButton.hide()
             self.get_profile_info()
+            self.tabWidget.setTabVisible(5,True)
         else:
             self.ask_tutorial()
+            self.tabWidget.setTabVisible(5,False)
 
         self.fetch_top_winners()
         self.fetch_top_losers()
@@ -337,6 +348,31 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.login_window = Loginwindow()
         self.login_window.show()
         self.close()
+
+    def load_achievements(self):
+        achievements = [
+            "✅ Completed your first trade",
+            "📈 Portfolio above 1000",
+            "🔥 Daily login streak",
+            "💼 10 days of activity",
+            "⏳ In Progress",
+        ]
+
+        container = self.findChild(QtWidgets.QWidget, "achievementsContainer")
+        if container:
+            layout = container.layout()
+            for text in achievements:
+                checkbox = QtWidgets.QCheckBox(text)
+                checkbox.setStyleSheet(
+                    """
+                    QCheckBox {
+                        font: 14pt "Segoe UI";
+                        color: rgb(108, 216, 160);
+                    }
+                """
+                )
+                checkbox.setChecked("✅" in text or "🔥" in text)
+                layout.addWidget(checkbox)
 
     def crypto_show(self, item):
         symbol = item.text()
@@ -640,7 +676,7 @@ class Mainwindow(QtWidgets.QMainWindow):
                         last_updated,
                     ),
                 )
-                self.Accounts_2.addItem(symbol)
+                self.Accounts_2.addItem(name)
 
             conn.commit()
             conn.close()
@@ -652,7 +688,7 @@ class Mainwindow(QtWidgets.QMainWindow):
     def fetch_top_winners(self):
         url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
         parameters = {
-            "limit": "7",
+            "limit": "10",
             "convert": "EUR",
             "sort": "percent_change_24h",
         }
@@ -712,7 +748,7 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
 
-            for i, coin in enumerate(sorted_coins[:7]):
+            for i, coin in enumerate(sorted_coins[:10]):
                 self.tableWidget_4.setItem(i, 0, QTableWidgetItem(coin["name"]))
                 self.tableWidget_4.setItem(
                     i, 1, QTableWidgetItem(str(round(coin["quote"]["EUR"]["price"],4)) + '€')
@@ -744,30 +780,7 @@ class Mainwindow(QtWidgets.QMainWindow):
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print("Request error:", e)
 
-    def load_achievements(self):
-        achievements = [
-            "✅ Completed your first trade",
-            "📈 Portfolio above 1000",
-            "🔥 Daily login streak",
-            "💼 10 days of activity",
-            "⏳ In Progress",
-        ]
 
-        container = self.findChild(QtWidgets.QWidget, "achievementsContainer")
-        if container:
-            layout = container.layout()
-            for text in achievements:
-                checkbox = QtWidgets.QCheckBox(text)
-                checkbox.setStyleSheet(
-                    """
-                    QCheckBox {
-                        font: 14pt "Segoe UI";
-                        color: rgb(108, 216, 160);
-                    }
-                """
-                )
-                checkbox.setChecked("✅" in text or "🔥" in text)
-                layout.addWidget(checkbox)
 
 
 if __name__ == "__main__":

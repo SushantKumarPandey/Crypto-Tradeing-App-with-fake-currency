@@ -146,3 +146,10 @@ welche auch hätten anders Verwendung finden können.
 Eine andere Sache, die mich genervt hat war, dass nicht alle bei den abgesprochenen Meetings waren ohne sich zu melden und dass immer noch ohne Merge Re4quest 
 auf den main Branch gepusht wird.
 Dieser Sprint war insgesamt sehr Nerven und Kräfte raubend.
+
+### Reflection Mathis
+In diesem Sprint habe ich die Rolle des Product Owners zum zwiten mal übernommen. Die Erste Woche war auf die Fertigstellung der Funktionalität Fokusiert, diese Wurde auch verhältnissmäsig Fertiggestellt, jedoch brauchten gewisse teile etwas länger als andere
+Die Funktionalitätsteile hatte ich selber übernommen, da teils die Übersicht über das Projekt schwer wurde. Es gab wieder Merge Request die 50-60 commits behind waren und kaum ohne vorwissen zu fixen, waren. Dies führte dazu, dass ich viel zeit mit dem manuellen umschreiben von code zu tun hatte, von diesen nicht mergeablen Merge Requests.
+Die User Tests waren dann das hauptthema in der Zweiten Woche, wo wir uns dazu entschieden hatten, auch bekannte zuzukommen, da wir keinen guten Plan für das Ansprechen von Fremden hatten (Z.B. Studenten im Gebäude 1 die alle mit ihren eigenen dingen beschäftigt waren, und man nicht stören wollte)
+wir hatten dadurch aber auch die Chance, unser User genau auszusuchen, wodurch wir eine breitere aufstellung an Menschen zusammenbekommen hatten, als nur relativ Technischversierte Studenten
+Die Restlichen Aufgaben als PO liefen allgemein relativ gut.

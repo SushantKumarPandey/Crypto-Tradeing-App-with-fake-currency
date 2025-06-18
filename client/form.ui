@@ -55,7 +55,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <enum>QTabWidget::TabShape::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <property name="iconSize">
      <size>
@@ -870,8 +870,8 @@ text-decoration: underline;</string>
      <widget class="QWidget" name="achievementsContainer">
       <property name="geometry">
        <rect>
-        <x>390</x>
-        <y>150</y>
+        <x>310</x>
+        <y>130</y>
         <width>400</width>
         <height>521</height>
        </rect>
