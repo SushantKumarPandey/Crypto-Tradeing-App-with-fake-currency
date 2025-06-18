@@ -146,3 +146,24 @@ welche auch hätten anders Verwendung finden können.
 Eine andere Sache, die mich genervt hat war, dass nicht alle bei den abgesprochenen Meetings waren ohne sich zu melden und dass immer noch ohne Merge Re4quest 
 auf den main Branch gepusht wird.
 Dieser Sprint war insgesamt sehr Nerven und Kräfte raubend.
+
+### Reflection Sushant
+
+In diesem Sprint war ich scrummaster. Ich habe die Aufgaben verteilt, organisiert und alle Issues erstellt. Auch die Meetings habe 
+ich geplant. Es war nicht einfach, alles im Blick zu behalten, aber ich habe mir Mühe gegeben und alles erledigt.Unsere App funktionilat
+und die Usability-Aufgabe sind jetzt fertig. Zum ersten Mal habe ich Integrationstests erfolgreich umgesetzt für die Pipeline. Ich habe
+außerdem die Testdateien sortiert (Unit- und Integrationstests getrennt).Ich habe an der User-Profile-Issue gearbeitet, um das 
+Profil-Tab zu verbessern. Leider hat es nicht so geklappt, wie geplant – unter anderem wegen Login-Problemen am Anfang. Viel Zeit 
+habe ich auch damit verbracht, Konflikte zu lösen – mit Rebase und Merge.Zusätzlich habe ich am Achievement-Tab gearbeitet. Letztes 
+Wochenende hatte ich Probleme mit meinem PyCharm-Terminal und musste das ganze Projekt neu aufsetzen und installieren.Die ersten drei
+bis vier Meetings habe ich gut geplant und organisiert. Die letzten zwei waren eher spontan, aber wir haben das trotzdem erledgit.
+In der ersten Woche hatte ich ein Problem mit  Commit. Ich habe den Merge-Konflikt selbst erkannt und gelöst, aber mein merg request
+wurde nicht rechtzeitig gemerged. Drei Tage später war mein Branch wieder "veiele commibehind", weil neue Commits dazugekommen waren.
+Ich dachte, main sei geschützt, abe habe ich meinen Achievement-Branch mein dinge in achivemnt branch gepüsht,,die wurde wegen technich fehler
+auf main gepusht. Ich bin mir nicht sicher, wiedas passieren konnte.
+Trotz allem: Ich habe in diesem Sprint viel gelernt – mehr als in anderen – besonders in meiner Rolle als Scrum
+Master. Ich habe keine Beschwerden.
+
+
+
+
