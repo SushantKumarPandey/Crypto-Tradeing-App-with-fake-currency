@@ -164,9 +164,11 @@ auf main gepusht. Ich bin mir nicht sicher, wiedas passieren konnte.
 Trotz allem: Ich habe in diesem Sprint viel gelernt – mehr als in anderen – besonders in meiner Rolle als Scrum
 Master. Ich habe keine Beschwerden.
 
- ### Reflection Victoria
+### Reflection Victoria
 In diesem Sprint habe ich eigentlich keine besondere rolle übernommen. 
-Der Scrummaster hat sich bei diesem sprint viel mühe gegeben, seine Aufgaben zu üernehmen, allerdings hatte ich am anfang den eindruck, dass er auch aufgaben vom Product-owner übernommen hat.
+Der Scrummaster hat sich bei diesem sprint viel mühe gegeben, seine Aufgaben zu üernehmen, allerdings hatte ich am anfang den eindruck, dass er auch aufgaben vom Product-owner übernemen wollte.
+Das führte dazu das issues etwas durcheinander erstellt wurden bzw. verwirrend war. Dazu kommte das der Scrummaster zeit eingetragen hat anstatt zeit einzuschätzen, was mich sehr irritiert hatte, da ich kurz dacht, das er das dann gemacht hat, oder dran sitzt troz, besprechung.
+Ich denke das wa auch nur ein fehler.
 Der Product-owner hat seine aufgaben meines erachtens nach gut gemacht, und uns zugeteilt, bzw. 
 Aufgaben priorisiert. Die erstellung des Milestones und die verschibung der issues, 
 habe ich am ende der 2.Woche gemacht, da sie immer noch nicht existierte und dadurch die plannung/eintragung schwirig für manche war.
@@ -174,6 +176,8 @@ In dem Sprint gab es am ende viel Reibung, da alle durch etwas genervt/gereizt w
 Ich fand das, Dass die folge hatte, das man schon sehr genervt ins meeting gegangen ist und keine lust darauf hatte.
 Meine Aufgaen habe ich verucht so schnell wie möglich zu erledigen, da ich keine lust auf den stress kurz vor abgabe hatte. Dies hat relativ gut geklappt, bis auf die Auswertung der tests. Allerdings führte das auch dazu, dass ich eher 'unrelevante' aufgaben hatte oder den Papierkram organisiert/erstellt hab.
 Generell war die Stimmung daher angespannt, was für mich diesen sprint sehr schwer und ermüdent gemacht hat.
+
+                                         
 
 ### Reflection Mathis
 In diesem Sprint habe ich die Rolle des Product Owners zum zwiten mal übernommen. Die Erste Woche war auf die Fertigstellung der Funktionalität Fokusiert, diese Wurde auch verhältnissmäsig Fertiggestellt, jedoch brauchten gewisse teile etwas länger als andere
