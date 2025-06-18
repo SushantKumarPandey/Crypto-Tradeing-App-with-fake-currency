@@ -175,3 +175,9 @@ Ich fand das, Dass die folge hatte, das man schon sehr genervt ins meeting gegan
 Meine Aufgaen habe ich verucht so schnell wie möglich zu erledigen, da ich keine lust auf den stress kurz vor abgabe hatte. Dies hat relativ gut geklappt, bis auf die Auswertung der tests. Allerdings führte das auch dazu, dass ich eher 'unrelevante' aufgaben hatte oder den Papierkram organisiert/erstellt hab.
 Generell war die Stimmung daher angespannt, was für mich diesen sprint sehr schwer und ermüdent gemacht hat.
 
+### Reflection Mathis
+In diesem Sprint habe ich die Rolle des Product Owners zum zwiten mal übernommen. Die Erste Woche war auf die Fertigstellung der Funktionalität Fokusiert, diese Wurde auch verhältnissmäsig Fertiggestellt, jedoch brauchten gewisse teile etwas länger als andere
+Die Funktionalitätsteile hatte ich selber übernommen, da teils die Übersicht über das Projekt schwer wurde. Es gab wieder Merge Request die 50-60 commits behind waren und kaum ohne vorwissen zu fixen, waren. Dies führte dazu, dass ich viel zeit mit dem manuellen umschreiben von code zu tun hatte, von diesen nicht mergeablen Merge Requests.
+Die User Tests waren dann das hauptthema in der Zweiten Woche, wo wir uns dazu entschieden hatten, auch bekannte zuzukommen, da wir keinen guten Plan für das Ansprechen von Fremden hatten (Z.B. Studenten im Gebäude 1 die alle mit ihren eigenen dingen beschäftigt waren, und man nicht stören wollte)
+wir hatten dadurch aber auch die Chance, unser User genau auszusuchen, wodurch wir eine breitere aufstellung an Menschen zusammenbekommen hatten, als nur relativ Technischversierte Studenten
+Die Restlichen Aufgaben als PO liefen allgemein relativ gut.
