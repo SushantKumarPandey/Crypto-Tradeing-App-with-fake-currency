@@ -137,10 +137,10 @@ font: 10pt &quot;Segoe UI&quot;;
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="inputMethodHints">
-    <set>Qt::InputMethodHint::ImhHiddenText|Qt::InputMethodHint::ImhNoAutoUppercase|Qt::InputMethodHint::ImhNoPredictiveText|Qt::InputMethodHint::ImhSensitiveData</set>
+    <set>Qt::InputMethodHint::ImhNone</set>
    </property>
    <property name="echoMode">
-    <enum>QLineEdit::EchoMode::Password</enum>
+    <enum>QLineEdit::EchoMode::Normal</enum>
    </property>
   </widget>
   <widget class="QCommandLinkButton" name="Register">

@@ -120,7 +120,7 @@ font: 10pt &quot;Segoe UI&quot;;
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="echoMode">
-    <enum>QLineEdit::EchoMode::Password</enum>
+    <enum>QLineEdit::EchoMode::Normal</enum>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_password">
@@ -156,7 +156,7 @@ font: 10pt &quot;Segoe UI&quot;;
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="echoMode">
-    <enum>QLineEdit::EchoMode::Password</enum>
+    <enum>QLineEdit::EchoMode::Normal</enum>
    </property>
   </widget>
   <widget class="QLabel" name="LoginForm">
