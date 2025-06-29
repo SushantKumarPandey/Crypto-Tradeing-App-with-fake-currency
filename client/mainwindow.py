@@ -192,6 +192,7 @@ class Registerwindow(QtWidgets.QDialog):
         uic.loadUi(ui_path, self)
 
         self.pushButton_register.clicked.connect(self.register)
+        self.Login.clicked.connect(self.show_login)
 
     def create_new_user(self, username, password, email, db_path="../client/crypto.db"):
         if username == "" or password == "" or email == "":
@@ -316,7 +317,6 @@ class Mainwindow(QtWidgets.QMainWindow):
 
         self.search.clicked.connect(self.account_search)
         self.loginButton.clicked.connect(self.login_show)
-        self.registerButton.clicked.connect(self.register_show)
         self.Accounts.itemClicked.connect(self.show_account)
         self.Guides.itemClicked.connect(self.show_guides)
         self.Tutorial.itemClicked.connect(self.show_tutorial)

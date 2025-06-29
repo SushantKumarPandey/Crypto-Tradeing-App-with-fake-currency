@@ -176,7 +176,7 @@ background-color: transparent;</string>
     <string>Register</string>
    </property>
   </widget>
-  <widget class="QCommandLinkButton" name="commandLinkButton">
+  <widget class="QCommandLinkButton" name="Login">
    <property name="geometry">
     <rect>
      <x>200</x>

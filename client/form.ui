@@ -1299,7 +1299,7 @@ color: rgb(0, 0, 0);
       <string notr="true">color: rgb(0, 0, 0);</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="loginButton_2">
+    <widget class="QPushButton" name="registerButton">
      <property name="geometry">
       <rect>
        <x>1010</x>
