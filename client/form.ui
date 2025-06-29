@@ -55,7 +55,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <enum>QTabWidget::TabShape::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>5</number>
     </property>
     <property name="iconSize">
      <size>
@@ -604,8 +604,8 @@ background-color: rgb(85, 170, 127);</string>
         <rect>
          <x>20</x>
          <y>20</y>
-         <width>101</width>
-         <height>31</height>
+         <width>151</width>
+         <height>41</height>
         </rect>
        </property>
        <property name="cursor">
@@ -615,8 +615,8 @@ background-color: rgb(85, 170, 127);</string>
         <bool>true</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(39, 79, 59);</string>
+        <string notr="true">background-color: rgb(85, 170, 127);
+color: rgb(0, 0, 0);</string>
        </property>
        <item>
         <property name="text">
@@ -832,11 +832,15 @@ background-color: rgb(85, 170, 127);</string>
       <widget class="QPushButton" name="refresh">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>250</y>
-         <width>81</width>
-         <height>31</height>
+         <x>20</x>
+         <y>50</y>
+         <width>91</width>
+         <height>51</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 127);
+color: rgb(0, 0, 0);</string>
        </property>
        <property name="text">
         <string>Refresh</string>
@@ -870,9 +874,9 @@ text-decoration: underline;</string>
      <widget class="QWidget" name="achievementsContainer">
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>330</x>
         <y>130</y>
-        <width>400</width>
+        <width>461</width>
         <height>521</height>
        </rect>
       </property>
@@ -976,8 +980,8 @@ background-color: rgb(64, 65, 66);</string>
        <rect>
         <x>790</x>
         <y>290</y>
-        <width>271</width>
-        <height>141</height>
+        <width>331</width>
+        <height>211</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -1011,7 +1015,7 @@ background-color: rgb(85, 170, 127);</string>
       <row/>
       <column>
        <property name="text">
-        <string>Achievements</string>
+        <string>Achived</string>
        </property>
       </column>
       <column>
@@ -1236,11 +1240,15 @@ background-color: transparent;
      <widget class="QPushButton" name="updateButton">
       <property name="geometry">
        <rect>
-        <x>790</x>
+        <x>420</x>
         <y>50</y>
-        <width>75</width>
-        <height>24</height>
+        <width>91</width>
+        <height>41</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(85, 170, 127);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>Update</string>
@@ -1283,12 +1291,30 @@ color: rgb(0, 0, 0);
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>181</width>
-       <height>31</height>
+       <width>231</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(0, 0, 0);</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="loginButton_2">
+     <property name="geometry">
+      <rect>
+       <x>1010</x>
+       <y>10</y>
+       <width>75</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(85, 170, 127);
+color: rgb(0, 0, 0);
+</string>
+     </property>
+     <property name="text">
+      <string>Register</string>
      </property>
     </widget>
    </widget>

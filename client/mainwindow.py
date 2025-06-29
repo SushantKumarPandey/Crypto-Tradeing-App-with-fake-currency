@@ -299,6 +299,7 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.user_id = user_id
         if self.user_id is not None:
             self.loginButton.hide()
+            self.registerButton.hide()
             self.get_profile_info()
             self.tabWidget.setTabVisible(5,True)
         else:
@@ -315,6 +316,7 @@ class Mainwindow(QtWidgets.QMainWindow):
 
         self.search.clicked.connect(self.account_search)
         self.loginButton.clicked.connect(self.login_show)
+        self.registerButton.clicked.connect(self.register_show)
         self.Accounts.itemClicked.connect(self.show_account)
         self.Guides.itemClicked.connect(self.show_guides)
         self.Tutorial.itemClicked.connect(self.show_tutorial)
