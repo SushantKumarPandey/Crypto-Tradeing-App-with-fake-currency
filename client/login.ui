@@ -80,23 +80,6 @@ color: rgb(255, 255, 255);</string>
     <enum>QLineEdit::EchoMode::Password</enum>
    </property>
   </widget>
-  <widget class="QPushButton" name="Register">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>690</y>
-     <width>111</width>
-     <height>50</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(101, 202, 150);
-color: rgb(0, 0, 0);</string>
-   </property>
-   <property name="text">
-    <string> Register</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="username">
    <property name="geometry">
     <rect>
@@ -135,25 +118,8 @@ color: rgb(108, 217, 161);</string>
    <property name="text">
     <string>Login</string>
    </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>610</y>
-     <width>331</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: transparent;
-text-decoration: underline;
-font: 16pt &quot;Segoe UI&quot;;
-
-</string>
-   </property>
-   <property name="text">
-    <string>Du hast noch kein Konto?</string>
+   <property name="default">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_password_2">
@@ -171,10 +137,28 @@ font: 10pt &quot;Segoe UI&quot;;
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="inputMethodHints">
-    <set>Qt::InputMethodHint::ImhHiddenText|Qt::InputMethodHint::ImhNoAutoUppercase|Qt::InputMethodHint::ImhNoPredictiveText|Qt::InputMethodHint::ImhSensitiveData</set>
+    <set>Qt::InputMethodHint::ImhNone</set>
    </property>
    <property name="echoMode">
-    <enum>QLineEdit::EchoMode::Password</enum>
+    <enum>QLineEdit::EchoMode::Normal</enum>
+   </property>
+  </widget>
+  <widget class="QCommandLinkButton" name="Register">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>680</y>
+     <width>361</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;
+text-decoration: underline;
+font: 16pt &quot;Segoe UI&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Don't have an Account?</string>
    </property>
   </widget>
  </widget>

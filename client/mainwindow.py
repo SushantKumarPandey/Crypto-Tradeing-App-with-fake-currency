@@ -1,4 +1,3 @@
-import os
 import sys
 import sqlite3
 from PyQt6 import QtWidgets, uic
@@ -231,8 +230,12 @@ class Cryptowindow(QtWidgets.QWidget):
 class Registerwindow(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
-        ui_path = os.path.join(os.path.dirname(__file__), "register.ui")
-        uic.loadUi(ui_path, self)
+        uic.loadUi("register.ui", self)
+        self.current_user_id = None
+
+        self.Login.clicked.connect(self.show_login)
+        self.login_window = None
+        self.mainwindow = None
 
         self.pushButton_register.clicked.connect(self.register)
 
@@ -291,6 +294,10 @@ class Registerwindow(QtWidgets.QDialog):
             )
             self.close()
 
+    def show_login(self):
+        self.login_window = Loginwindow()
+        self.login_window.show()
+
 
 class Loginwindow(QtWidgets.QDialog):
     def __init__(self):
@@ -298,7 +305,7 @@ class Loginwindow(QtWidgets.QDialog):
         uic.loadUi("login.ui", self)
         self.current_user_id = None
 
-        self.Register.clicked.connect(self.show_login)
+        self.Register.clicked.connect(self.show_register)
         self.register_window = None
         self.mainwindow = None
 
@@ -330,7 +337,7 @@ class Loginwindow(QtWidgets.QDialog):
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"An error occurred:\n{e}")
 
-    def show_login(self):
+    def show_register(self):
         self.register_window = Registerwindow()
         self.register_window.show()
 
@@ -342,6 +349,7 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.user_id = user_id
         if self.user_id is not None:
             self.loginButton.hide()
+            self.registerButton.hide()
             self.get_profile_info()
             self.tabWidget.setTabVisible(5, True)
         else:
@@ -358,6 +366,7 @@ class Mainwindow(QtWidgets.QMainWindow):
 
         self.search.clicked.connect(self.account_search)
         self.loginButton.clicked.connect(self.login_show)
+        self.registerButton.clicked.connect(self.register_show)
         self.Accounts.itemClicked.connect(self.show_account)
         self.Guides.itemClicked.connect(self.show_guides)
         self.Tutorial.itemClicked.connect(self.show_tutorial)
@@ -367,6 +376,7 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.updateButton.clicked.connect(self.get_profile_info)
 
         self.login_window = None
+        self.register_window = None
         self.crypto_window = None
 
     def ask_tutorial(self):
@@ -388,6 +398,11 @@ class Mainwindow(QtWidgets.QMainWindow):
     def login_show(self):
         self.login_window = Loginwindow()
         self.login_window.show()
+        self.close()
+
+    def register_show(self):
+        self.register_window = Registerwindow()
+        self.register_window.show()
         self.close()
 
     def load_achievements(self):
@@ -683,6 +698,7 @@ class Mainwindow(QtWidgets.QMainWindow):
         def show_crypto(self, item):
            name = item.text()
            QtWidgets.QMessageBox.information(self, f"name: {name}")
+           komentar
     """
 
     def fetch_table(self):
