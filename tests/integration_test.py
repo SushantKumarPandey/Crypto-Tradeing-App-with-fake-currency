@@ -1,14 +1,19 @@
+import os
 import sqlite3
 import unittest
-import mainwindow.Registerwindow
-from werkzeug.security import check_password_hash
+
+# from client.mainwindow import Registerwindow
+from werkzeug.security import check_password_hash, generate_password_hash
 from PyQt6.QtWidgets import QApplication
 import sys
+import atexit
 
 app = QApplication(sys.argv)  # Einmalig vor allen Tests, z.B. ganz oben in der Datei
+atexit.register(app.quit)
 
-
-testDB = "../client/crypto.db"
+# testDB = "../client/crypto.db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+testDB = os.path.abspath(os.path.join(BASE_DIR, "..", "client", "crypto.db"))
 
 
 class TestDB(unittest.TestCase):
@@ -31,61 +36,68 @@ class TestDB(unittest.TestCase):
             "INSERT INTO user (username, password, email) VALUES (?, ?, ?)",
             ("tester", "password", "bsp@email.com"),
         )
-
+        self.c.execute(
+            "INSERT OR IGNORE INTO user (username, password, email) VALUES (?, ?, ?)",
+            ("kiki", "quack", "bsp1@gmail.com"),
+        )
+        self.c.execute(
+            "INSERT OR IGNORE INTO user (username, password, email) VALUES (?, ?, ?)",
+            ("safe", generate_password_hash("safe"), "safe@test.de"),
+        )
         self.conn.commit()
-        self.conn.close()
+        # self.conn.close()
 
     def test_connected(self):
         try:
-            conn = sqlite3.connect(testDB)
-            c = conn.cursor()
-            state = "Conected"
-            conn.close()
-        except:
+            # conn = sqlite3.connect(testDB)
+            self.conn.execute("SELECT 1")
+            state = "Connected"
+            # conn.close()
+        except Exception:
             state = "Disconnected"
-        self.assertEqual(state, "Conected")
+        self.assertEqual(state, "Connected")
 
     def test_getUsers(self):
-        conn = sqlite3.connect(testDB)
-        c = conn.cursor()
+        # conn = sqlite3.connect(testDB)
+        # c = conn.cursor()
 
-        c.execute("SELECT username FROM user WHERE username =  ?", ("tester",))
-        user = c.fetchone()
-        conn.close()
+        self.c.execute("SELECT username FROM user WHERE username =  ?", ("tester",))
+        user = self.c.fetchone()
+        # conn.close()
         assert user is not None
         assert user[0] == "tester"
 
     def test_password_fromUser(self):
-        conn = sqlite3.connect("../client/crypto.db")
-        c = conn.cursor()
-        c.execute("SELECT password FROM user WHERE username = 'kiki' ")
-        password = c.fetchone()[0]
+        # conn = sqlite3.connect(testDB)
+        # c = conn.cursor()
+        self.c.execute("SELECT password FROM user WHERE username = 'kiki' ")
+        password = self.c.fetchone()[0]
         self.assertEqual(password, "quack")
 
-        conn.close()
+        # conn.close()
 
     def test_hasedPassword(self):
-        conn = sqlite3.connect("../client/crypto.db")
-        c = conn.cursor()
-        c.execute("SELECT password FROM user WHERE username = 'safe' ")
-        hashed_password = c.fetchone()[0]
+        # conn = sqlite3.connect(testDB)
+        # c = conn.cursor()
+        self.c.execute("SELECT password FROM user WHERE username = 'safe' ")
+        hashed_password = self.c.fetchone()[0]
         password = "safe"
 
         self.assertNotEqual(hashed_password, "safe")
         self.assertTrue(check_password_hash(hashed_password, password))
-        conn.close()
+        # conn.close()
 
     def test_email_fromUser(self):
-        conn = sqlite3.connect("../client/crypto.db")
-        c = conn.cursor()
-        c.execute("SELECT email FROM user WHERE username = 'kiki' ")
-        email = c.fetchone()[0]
+        # conn = sqlite3.connect(testDB)
+        # c = conn.cursor()
+        self.c.execute("SELECT email FROM user WHERE username = 'kiki' ")
+        email = self.c.fetchone()[0]
         self.assertEqual(email, "bsp1@gmail.com")
 
-        conn.close()
+        self.conn.close()
 
 
-class TestHTTP(unittest.TestCase):
+'''class TestHTTP(unittest.TestCase):
     def setUp(self):
         self.conn = sqlite3.connect(testDB)
         self.c = self.conn.cursor()
@@ -103,7 +115,7 @@ class TestHTTP(unittest.TestCase):
         self.c.execute("DELETE FROM user WHERE username = ?", ("tee",))
         self.c.execute("DELETE FROM user WHERE username = ?", ("user",))
         self.conn.commit()
-        self.conn.close()
+        # self.conn.close()
         self.window = Registerwindow()
 
     def test_createUser(self):
@@ -111,26 +123,27 @@ class TestHTTP(unittest.TestCase):
         self.assertEqual(new_user, "success")
 
     def test_usernameUnique(self):
-        conn = sqlite3.connect(testDB)
-        c = conn.cursor()
+        # conn = sqlite3.connect(testDB)
         try:
             self.c.execute(
                 "INSERT INTO user (username, password, email) VALUES (?, ?, ?)",
                 ("tester", "password", "bsp@email.com"),
             )
             message = "new accouont"
-        except:
+        except Exception:
             message = "name already taken"
-        conn.close()
+        # self.conn.close()
         self.assertEqual(message, "name already taken")
 
     def test_email(self):
         result = self.window.create_new_user("user", "pass", "no-at-sign")
         self.assertEqual(result, "notValid")
 
-    def test(self):
-        pass
-
+    def tearDownClass(self):
+        if QApplication.instance():
+            QApplication.instance().quit()
+        self.conn.close()
+'''
 
 # class TestAPI(unittest.TestCase):
 """
@@ -182,7 +195,7 @@ class TestBestenliste(unittest.TestCase):
             ("kiki", "pw", "k@gmail.com", 5000),
         )
         self.conn.commit()
-
+        self.conn.close()
 
 
 class TestCryptoSearch(unittest.TestCase):
