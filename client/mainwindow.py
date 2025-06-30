@@ -3,10 +3,8 @@ import sys
 import sqlite3
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import QTableWidgetItem
-from werkzeug.security import generate_password_hash, check_password_hash
 from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-from PyQt6.QtWidgets import QCheckBox
 
 
 class Tutorialwindow(QtWidgets.QDialog):
@@ -22,7 +20,6 @@ class Tutorialwindow(QtWidgets.QDialog):
 
             cursor.execute("SELECT nameT, info from tutorial")
             self.tutorial_steps = cursor.fetchall()
-
 
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "error", f"DB-eroor: {e}")
@@ -77,7 +74,7 @@ class Cryptowindow(QtWidgets.QWidget):
 
             print(name)
             self.label.setText(name[0])
-            self.label_2.setText(str(round(name[1],4)))
+            self.label_2.setText(str(round(name[1], 4)))
             conn.commit()
             conn.close()
         except (ConnectionError, Timeout, TooManyRedirects) as e:
@@ -88,43 +85,76 @@ class Cryptowindow(QtWidgets.QWidget):
     def buy_crypto(self):
         amount = self.spinBox.value()
         try:
-            conn = sqlite3.connect('crypto.db')
+            conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
 
-            c.execute(''' SELECT balance FROM user WHERE id = ?''', (self.user_id,))
+            c.execute(""" SELECT balance FROM user WHERE id = ?""", (self.user_id,))
             balance = c.fetchone()
 
             c.execute("SELECT price FROM coin WHERE symbol=?", (self.item,))
             price = c.fetchone()
-            order = (amount*price[0])
+            order = amount * price[0]
 
-            c.execute('''SELECT coin_symbol,amount,value FROM holding WHERE coin_symbol = ?''', (self.item,))
+            c.execute(
+                """SELECT coin_symbol,amount,value
+                         FROM holding
+                         WHERE coin_symbol = ?""",
+                (self.item,),
+            )
             exists = c.fetchone()
             print(exists)
 
             if balance[0] - order > 0 and amount > 0:
                 if exists is None:
-                    c.execute(''' INSERT INTO holding(user_id,coin_symbol,amount,value) VALUES (?,?,?,?) ''', (self.user_id, self.item , amount, order))
+                    c.execute(
+                        """ INSERT INTO holding(user_id,
+                                                coin_symbol,
+                                                amount,
+                                                value)
+                                  VALUES (?,?,?,?) """,
+                        (self.user_id, self.item, amount, order),
+                    )
                 else:
-                    c.execute('''UPDATE holding SET amount = ?, value = ? WHERE coin_symbol = ?''', (exists[1] + amount,exists[2] + order,self.item))
+                    c.execute(
+                        """UPDATE holding SET amount = ?, value = ?
+                                 WHERE coin_symbol = ?""",
+                        (exists[1] + amount, exists[2] + order, self.item),
+                    )
 
-                c.execute(''' UPDATE user
+                c.execute(
+                    """ UPDATE user
                               SET balance = ?
-                              WHERE id = ? ''', (balance[0] - order, self.user_id))
-                c.execute(''' SELECT EXISTS(SELECT trades
+                              WHERE id = ? """,
+                    (balance[0] - order, self.user_id),
+                )
+                c.execute(
+                    """ SELECT EXISTS(SELECT trades
                               FROM cryptos_to_watch
-                              WHERE name = ?)''', (self.item,))
+                              WHERE name = ?)""",
+                    (self.item,),
+                )
                 trades = c.fetchone()
                 print(trades)
                 if trades[0] != 0:
                     trades = trades[0] + 1
-                    c.execute(''' UPDATE cryptos_to_watch SET trades = ? WHERE name = ? ''', (trades,self.item))
+                    c.execute(
+                        """ UPDATE cryptos_to_watch
+                            SET trades = ?
+                            WHERE name = ? """,
+                        (trades, self.item),
+                    )
                 else:
                     trades = 1
-                c.execute(''' INSERT INTO cryptos_to_watch(name,trades) VALUES (?,?)''', (self.item,trades))
+                c.execute(
+                    """ INSERT INTO cryptos_to_watch(name,trades)
+                        VALUES (?,?)""",
+                    (self.item, trades),
+                )
                 print("cryptos to watch added")
                 QtWidgets.QMessageBox.information(
-                    self, "Purchase Succesful", "The Crypto has been added to your Portfolio"
+                    self,
+                    "Purchase Succesful",
+                    "The Crypto has been added to your Portfolio",
                 )
 
             else:
@@ -147,13 +177,17 @@ class Cryptowindow(QtWidgets.QWidget):
     def sell_crypto(self):
         amount = self.spinBox.value()
         try:
-            conn = sqlite3.connect('crypto.db')
+            conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
 
-            c.execute(''' SELECT balance FROM user WHERE id = ?''', (self.user_id,))
+            c.execute(""" SELECT balance FROM user WHERE id = ?""", (self.user_id,))
             balance = c.fetchone()
 
-            c.execute('''SELECT amount from holding Where user_id = ? AND coin_symbol = ?''', (self.user_id, self.item))
+            c.execute(
+                """SELECT amount from holding
+                    Where user_id = ? AND coin_symbol = ?""",
+                (self.user_id, self.item),
+            )
             current = c.fetchone()
             current = current[0] - amount
 
@@ -165,10 +199,19 @@ class Cryptowindow(QtWidgets.QWidget):
             print(current)
 
             if current > 0:
-                c.execute(''' UPDATE holding SET amount = ?, value = ? WHERE user_id = ? AND coin_symbol = ? ''', (current, current * price[0],self.user_id, self.item))
-                c.execute(''' UPDATE user SET balance = ? WHERE id = ? ''', (rebalance, self.user_id))
+                c.execute(
+                    """ UPDATE holding SET amount = ?, value = ?
+                        WHERE user_id = ? AND coin_symbol = ? """,
+                    (current, current * price[0], self.user_id, self.item),
+                )
+                c.execute(
+                    """ UPDATE user SET balance = ? WHERE id = ? """,
+                    (rebalance, self.user_id),
+                )
                 QtWidgets.QMessageBox.information(
-                    self, "Sell Succesful", "The Crypto has been sold from your Portfolio"
+                    self,
+                    "Sell Succesful",
+                    "The Crypto has been sold from your Portfolio",
                 )
             else:
                 QtWidgets.QMessageBox.information(
@@ -300,10 +343,10 @@ class Mainwindow(QtWidgets.QMainWindow):
         if self.user_id is not None:
             self.loginButton.hide()
             self.get_profile_info()
-            self.tabWidget.setTabVisible(5,True)
+            self.tabWidget.setTabVisible(5, True)
         else:
             self.ask_tutorial()
-            self.tabWidget.setTabVisible(5,False)
+            self.tabWidget.setTabVisible(5, False)
 
         self.fetch_top_winners()
         self.fetch_top_losers()
@@ -331,7 +374,8 @@ class Mainwindow(QtWidgets.QMainWindow):
             self,
             "start Tutorial?",
             "Do you want to beginn the tutorial?",
-            QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No
+            QtWidgets.QMessageBox.StandardButton.Yes
+            | QtWidgets.QMessageBox.StandardButton.No,
         )
 
         if asked == QtWidgets.QMessageBox.StandardButton.Yes:
@@ -372,7 +416,6 @@ class Mainwindow(QtWidgets.QMainWindow):
                 layout.addWidget(checkbox)
 
     def crypto_show(self, item):
-        symbol = item.text()
         try:
             self.crypto_window = Cryptowindow(
                 item.text(), self.user_id
@@ -411,7 +454,11 @@ class Mainwindow(QtWidgets.QMainWindow):
                 f"{one[1]}",
             )
 
-            QtWidgets.QMessageBox.information(self, f"{one[0]}", f"{one[1]}", )
+            QtWidgets.QMessageBox.information(
+                self,
+                f"{one[0]}",
+                f"{one[1]}",
+            )
 
         else:
             QtWidgets.QMessageBox.information(self, "Keine Daten", "help")
@@ -445,7 +492,11 @@ class Mainwindow(QtWidgets.QMainWindow):
                 f"{one[0]}",
                 f"{one[1]}",
             )
-            QtWidgets.QMessageBox.information(self, f"{one[0]}", f"{one[1]}", )
+            QtWidgets.QMessageBox.information(
+                self,
+                f"{one[0]}",
+                f"{one[1]}",
+            )
 
         else:
             QtWidgets.QMessageBox.information(self, "Keine Daten", "help")
@@ -498,7 +549,6 @@ class Mainwindow(QtWidgets.QMainWindow):
 
             self.Accounts_2.clear()
             for row in results:
-                item = QtWidgets.QListWidgetItem(row[0])
                 self.Accounts_2.addItem(row[0])
 
         except sqlite3.Error as e:
@@ -527,22 +577,29 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
 
-            c.execute(''' SELECT username,balance FROM user WHERE id = ?''', (self.user_id,))
+            c.execute(
+                """ SELECT username,balance FROM user WHERE id = ?""", (self.user_id,)
+            )
             username = c.fetchone()
             self.label_10.setText(str(username[0]))
             self.kontostand.display(username[1])
             self.kontostand_2.display(username[1])
 
-            c.execute(''' SELECT coin_symbol,value FROM holding WHERE user_id = ?''', (self.user_id,))
+            c.execute(
+                """ SELECT coin_symbol,value FROM holding WHERE user_id = ?""",
+                (self.user_id,),
+            )
             data = c.fetchall()
 
-            for i,coin in enumerate(data):
-                self.infos.setItem(i,0, QTableWidgetItem(str(coin[0])))
-                self.infos.setItem(i,1, QTableWidgetItem(str(round(coin[1],4)) + '€'))
+            for i, coin in enumerate(data):
+                self.infos.setItem(i, 0, QTableWidgetItem(str(coin[0])))
+                self.infos.setItem(i, 1, QTableWidgetItem(str(round(coin[1], 4)) + "€"))
 
-            for i,coin in enumerate(data):
-                self.tableWidget_6.setItem(i,0, QTableWidgetItem(str(coin[0])))
-                self.tableWidget_6.setItem(i,1, QTableWidgetItem(str(round(coin[1],4)) + '€'))
+            for i, coin in enumerate(data):
+                self.tableWidget_6.setItem(i, 0, QTableWidgetItem(str(coin[0])))
+                self.tableWidget_6.setItem(
+                    i, 1, QTableWidgetItem(str(round(coin[1], 4)) + "€")
+                )
 
             conn.commit()
 
@@ -571,7 +628,6 @@ class Mainwindow(QtWidgets.QMainWindow):
 
             self.Accounts.clear()
             for row in results:
-                item = QtWidgets.QListWidgetItem(row[0])
                 self.Accounts.addItem(row[0])
 
         except sqlite3.Error as e:
@@ -660,7 +716,13 @@ class Mainwindow(QtWidgets.QMainWindow):
 
                 c.execute(
                     """
-                    INSERT INTO coin (id, price, name, supply, symbol, market_cap, last_updated)
+                    INSERT INTO coin (id,
+                                    price,
+                                    name,
+                                    supply,
+                                    symbol,
+                                    market_cap,
+                                    last_updated)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
                     (
@@ -703,12 +765,20 @@ class Mainwindow(QtWidgets.QMainWindow):
             for coin in data["data"]:
                 self.tableWidget_3.setItem(i, 0, QTableWidgetItem(coin["name"]))
                 self.tableWidget_3.setItem(
-                    i, 1, QTableWidgetItem(str(round(coin["quote"]["EUR"]["price"], 4)) + '€')
+                    i,
+                    1,
+                    QTableWidgetItem(
+                        str(round(coin["quote"]["EUR"]["price"], 4)) + "€"
+                    ),
                 )
                 self.tableWidget_3.setItem(
                     i,
                     2,
-                    QTableWidgetItem('+' + str(round(coin["quote"]["EUR"]["percent_change_24h"], 4)) + '%'),
+                    QTableWidgetItem(
+                        "+"
+                        + str(round(coin["quote"]["EUR"]["percent_change_24h"], 4))
+                        + "%"
+                    ),
                 )
                 i = i + 1
 
@@ -743,17 +813,22 @@ class Mainwindow(QtWidgets.QMainWindow):
             )
 
             conn = sqlite3.connect("crypto.db")
-            c = conn.cursor()
 
             for i, coin in enumerate(sorted_coins[:10]):
                 self.tableWidget_4.setItem(i, 0, QTableWidgetItem(coin["name"]))
                 self.tableWidget_4.setItem(
-                    i, 1, QTableWidgetItem(str(round(coin["quote"]["EUR"]["price"],4)) + '€')
+                    i,
+                    1,
+                    QTableWidgetItem(
+                        str(round(coin["quote"]["EUR"]["price"], 4)) + "€"
+                    ),
                 )
                 self.tableWidget_4.setItem(
                     i,
                     2,
-                    QTableWidgetItem(str(round(coin["quote"]["EUR"]["percent_change_24h"],4)) + '%'),
+                    QTableWidgetItem(
+                        str(round(coin["quote"]["EUR"]["percent_change_24h"], 4)) + "%"
+                    ),
                 )
                 print(coin["name"])
 
@@ -767,17 +842,15 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
 
-            c.execute(''' SELECT * FROM cryptos_to_watch''')
+            c.execute(""" SELECT * FROM cryptos_to_watch""")
             data = c.fetchall()
 
-            for i,coin in enumerate(data):
-                self.tableWidget_5.setItem(i,0, QTableWidgetItem(str(coin[1])))
-                self.tableWidget_5.setItem(i,1, QTableWidgetItem(str(coin[2])))
+            for i, coin in enumerate(data):
+                self.tableWidget_5.setItem(i, 0, QTableWidgetItem(str(coin[1])))
+                self.tableWidget_5.setItem(i, 1, QTableWidgetItem(str(coin[2])))
 
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print("Request error:", e)
-
-
 
 
 if __name__ == "__main__":
