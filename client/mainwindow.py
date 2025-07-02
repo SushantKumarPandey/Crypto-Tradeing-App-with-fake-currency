@@ -292,6 +292,7 @@ class Registerwindow(QtWidgets.QDialog):
                 "Account created",
                 "Your account has been created! You are now able to log in.",
             )
+            self.show_login()
             self.close()
 
     def show_login(self):
