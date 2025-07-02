@@ -292,6 +292,7 @@ class Registerwindow(QtWidgets.QDialog):
                 "Account created",
                 "Your account has been created! You are now able to log in.",
             )
+            self.show_login()
             self.close()
 
     def show_login(self):
@@ -651,29 +652,6 @@ class Mainwindow(QtWidgets.QMainWindow):
         finally:
             conn.close()
 
-    """
-        def crypto_search(self):
-            name = self.search_Account_2.text().strip()
-
-            try:
-                conn = sqlite3.connect('crypto.db')
-                c = conn.cursor()
-
-                results = c.fetchall()
-                print(results)
-
-                self.Crypto.clear()
-                for row in results:
-                    item = QtWidgets.QListWidgetItem(row[0])
-                    self.Crypt.addItem(row[0])
-
-            except sqlite3.Error as e:
-                QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
-
-            finally:
-                conn.close()
-    """
-
     def load_Tutorial_Guides(self):
         try:
             conn = sqlite3.connect("crypto.db")
@@ -693,13 +671,6 @@ class Mainwindow(QtWidgets.QMainWindow):
 
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
-
-    """
-        def show_crypto(self, item):
-           name = item.text()
-           QtWidgets.QMessageBox.information(self, f"name: {name}")
-           komentar
-    """
 
     def fetch_table(self):
         url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
