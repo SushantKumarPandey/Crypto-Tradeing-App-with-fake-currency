@@ -1,4 +1,3 @@
-import os
 import sys
 import sqlite3
 from PyQt6 import QtWidgets, uic
@@ -699,6 +698,7 @@ class Mainwindow(QtWidgets.QMainWindow):
         def show_crypto(self, item):
            name = item.text()
            QtWidgets.QMessageBox.information(self, f"name: {name}")
+           komentar
     """
 
     def fetch_table(self):
