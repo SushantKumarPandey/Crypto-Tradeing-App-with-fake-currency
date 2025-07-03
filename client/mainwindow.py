@@ -68,7 +68,7 @@ class Cryptowindow(QtWidgets.QWidget):
             conn = sqlite3.connect("crypto.db")
             cursor = conn.cursor()
 
-            cursor.execute("SELECT name,price FROM coin WHERE symbol=?", (symbol,))
+            cursor.execute("SELECT name,price FROM coin WHERE name=?", (symbol,))
             name = cursor.fetchone()
 
             print(name)
@@ -90,7 +90,7 @@ class Cryptowindow(QtWidgets.QWidget):
             c.execute(""" SELECT balance FROM user WHERE id = ?""", (self.user_id,))
             balance = c.fetchone()
 
-            c.execute("SELECT price FROM coin WHERE symbol=?", (self.item,))
+            c.execute("SELECT price,symbol FROM coin WHERE name=?", (self.item,))
             price = c.fetchone()
             order = amount * price[0]
 
@@ -98,7 +98,7 @@ class Cryptowindow(QtWidgets.QWidget):
                 """SELECT coin_symbol,amount,value
                          FROM holding
                          WHERE coin_symbol = ?""",
-                (self.item,),
+                (price[1],),
             )
             exists = c.fetchone()
             print(exists)
@@ -111,13 +111,13 @@ class Cryptowindow(QtWidgets.QWidget):
                                                 amount,
                                                 value)
                                   VALUES (?,?,?,?) """,
-                        (self.user_id, self.item, amount, order),
+                        (self.user_id, price[1], amount, order),
                     )
                 else:
                     c.execute(
                         """UPDATE holding SET amount = ?, value = ?
                                  WHERE coin_symbol = ?""",
-                        (exists[1] + amount, exists[2] + order, self.item),
+                        (exists[1] + amount, exists[2] + order, price[1]),
                     )
 
                 c.execute(
@@ -182,18 +182,17 @@ class Cryptowindow(QtWidgets.QWidget):
             c.execute(""" SELECT balance FROM user WHERE id = ?""", (self.user_id,))
             balance = c.fetchone()
 
+            c.execute(""" SELECT symbol,price FROM coin WHERE name = ?""", (self.item,))
+            symbol = c.fetchone()
+
             c.execute(
                 """SELECT amount from holding
                     Where user_id = ? AND coin_symbol = ?""",
-                (self.user_id, self.item),
+                (self.user_id, symbol[0]),
             )
             current = c.fetchone()
             current = current[0] - amount
-
-            c.execute("SELECT price FROM coin WHERE symbol=?", (self.item,))
-            price = c.fetchone()
-
-            restore = price[0] * amount
+            restore = symbol[1] * amount
             rebalance = balance[0] + restore
             print(current)
 
@@ -201,7 +200,7 @@ class Cryptowindow(QtWidgets.QWidget):
                 c.execute(
                     """ UPDATE holding SET amount = ?, value = ?
                         WHERE user_id = ? AND coin_symbol = ? """,
-                    (current, current * price[0], self.user_id, self.item),
+                    (current, current * symbol[1], self.user_id, symbol[0]),
                 )
                 c.execute(
                     """ UPDATE user SET balance = ? WHERE id = ? """,
@@ -292,6 +291,8 @@ class Registerwindow(QtWidgets.QDialog):
                 "Account created",
                 "Your account has been created! You are now able to log in.",
             )
+            self.mainwindow = Mainwindow(None)
+            self.mainwindow.show()
             self.close()
 
     def show_login(self):
@@ -345,16 +346,8 @@ class Loginwindow(QtWidgets.QDialog):
 class Mainwindow(QtWidgets.QMainWindow):
     def __init__(self, user_id):
         super().__init__()
-        uic.loadUi("form.ui", self)
         self.user_id = user_id
-        if self.user_id is not None:
-            self.loginButton.hide()
-            self.registerButton.hide()
-            self.get_profile_info()
-            self.tabWidget.setTabVisible(5, True)
-        else:
-            self.ask_tutorial()
-            self.tabWidget.setTabVisible(5, False)
+        uic.loadUi("form.ui", self)
 
         self.fetch_top_winners()
         self.fetch_top_losers()
@@ -363,6 +356,15 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.fetch_cryptos_to_watch()
         self.account_search()
         self.fetch_table()
+
+        if self.user_id is not None:
+            self.loginButton.hide()
+            self.registerButton.hide()
+            self.get_profile_info()
+            self.tabWidget.setTabVisible(5, True)
+        else:
+            self.ask_tutorial()
+            self.tabWidget.setTabVisible(5, False)
 
         self.search.clicked.connect(self.account_search)
         self.loginButton.clicked.connect(self.login_show)
@@ -434,7 +436,7 @@ class Mainwindow(QtWidgets.QMainWindow):
         try:
             self.crypto_window = Cryptowindow(
                 item.text(), self.user_id
-            )  # assume item is QListWidgetItem
+            )
             self.crypto_window.show()
         except Exception as e:
             print("❌ Error opening Cryptowindow:", e)
@@ -555,8 +557,8 @@ class Mainwindow(QtWidgets.QMainWindow):
 
             c.execute(
                 """
-            SELECT symbol FROM coin Where symbol LIKE ?""",
-                (f"%{search_term}%",),
+            SELECT name FROM coin Where name LIKE ? AND last_updated LIKE ?""",
+                (f"%{search_term}%",self.current_time),
             )
 
             results = c.fetchall()
@@ -601,20 +603,54 @@ class Mainwindow(QtWidgets.QMainWindow):
             self.kontostand_2.display(username[1])
 
             c.execute(
-                """ SELECT coin_symbol,value FROM holding WHERE user_id = ?""",
+                """ SELECT coin_symbol,value,amount FROM holding WHERE user_id = ?""",
                 (self.user_id,),
             )
-            data = c.fetchall()
+            datas = c.fetchall()
 
-            for i, coin in enumerate(data):
-                self.infos.setItem(i, 0, QTableWidgetItem(str(coin[0])))
-                self.infos.setItem(i, 1, QTableWidgetItem(str(round(coin[1], 4)) + "€"))
+            for i, coin in enumerate(datas):
+                symbol = coin[0]
+                value = coin[1]
+                amount = coin[2]
 
-            for i, coin in enumerate(data):
+                # Get current price for this symbol
+                c.execute(
+                    "SELECT price FROM coin WHERE symbol = ?",
+                    (symbol,),
+                )
+                current_price = c.fetchone()
+
+                if current_price is None:
+                    price = 1  # fallback if no price found
+                else:
+                    price = current_price[0]
+
+                # Display data
+                self.infos.setItem(i, 0, QTableWidgetItem(symbol))
+                self.infos.setItem(i, 1, QTableWidgetItem(f"{round(value, 4)} €"))
+                self.infos.setItem(i, 2, QTableWidgetItem(str(round((((price * amount)-coin[1])/ coin[1])*100,5)) + "%"))
+                self.infos.setItem(i, 3, QTableWidgetItem(str(round((price * amount) - coin[1], 5)) + "€"))
+
+            for i, coin in enumerate(datas):
+                amount = coin[2]
+                symbol = coin[0]
+
+                c.execute(
+                    "SELECT price FROM coin WHERE symbol = ?",
+                    (symbol,),
+                )
+                current_price = c.fetchone()
+
+                if current_price is None:
+                    price = 1
+                else:
+                    price = current_price[0]
                 self.tableWidget_6.setItem(i, 0, QTableWidgetItem(str(coin[0])))
                 self.tableWidget_6.setItem(
                     i, 1, QTableWidgetItem(str(round(coin[1], 4)) + "€")
                 )
+                self.infos.setItem(i, 2, QTableWidgetItem(
+                    str(round((((price * amount) - coin[1]) / coin[1]) * 100, 5)) + "%"))
 
             conn.commit()
 
@@ -703,7 +739,7 @@ class Mainwindow(QtWidgets.QMainWindow):
 
     def fetch_table(self):
         url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
-        parameters = {"limit": "500", "convert": "EUR"}
+        parameters = {"limit": "300", "convert": "EUR"}
         headers = {
             "Accepts": "application/json",
             "X-CMC_PRO_API_KEY": "8bc7959e-153c-40dd-8da9-34e544661e71",
@@ -717,41 +753,73 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
 
-            c.execute(
-                """DELETE
-                         FROM coin"""
-            )
+            c.execute(''' SELECT * FROM coin''')
+            existing_coins = c.fetchall()
+            print(existing_coins)
 
-            for coin in data["data"]:
-                name = coin["name"]
-                symbol = coin["symbol"]
-                supply = coin["total_supply"]
-                last_updated = coin["last_updated"]
-                price = coin["quote"]["EUR"]["price"]
-                market_cap = coin["quote"]["EUR"]["market_cap"]
+            if not existing_coins:
+                for coin in data["data"]:
+                    name = coin["name"]
+                    symbol = coin["symbol"]
+                    supply = coin["total_supply"]
+                    last_updated = coin["last_updated"]
+                    price = coin["quote"]["EUR"]["price"]
+                    market_cap = coin["quote"]["EUR"]["market_cap"]
 
-                c.execute(
-                    """
-                    INSERT INTO coin (id,
-                                    price,
-                                    name,
-                                    supply,
-                                    symbol,
-                                    market_cap,
-                                    last_updated)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                """,
-                    (
-                        str(coin["id"]),
-                        float(price),
-                        name,
-                        float(supply),
-                        symbol,
-                        float(market_cap),
-                        last_updated,
-                    ),
-                )
-                self.Accounts_2.addItem(name)
+                    c.execute(
+                        """
+                        INSERT INTO coin (coin_id,
+                                        price,
+                                        name,
+                                        supply,
+                                        symbol,
+                                        market_cap,
+                                        last_updated)
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                        (
+                            str(coin["id"]),
+                            float(price),
+                            name,
+                            float(supply),
+                            symbol,
+                            float(market_cap),
+                            last_updated,
+                        ),
+                    )
+                    self.Accounts_2.addItem(name)
+                    self.current_time = last_updated
+            else:
+                for coin in data["data"]:
+                        name = coin["name"]
+                        symbol = coin["symbol"]
+                        supply = coin["total_supply"]
+                        last_updated = coin["last_updated"]
+                        price = coin["quote"]["EUR"]["price"]
+                        market_cap = coin["quote"]["EUR"]["market_cap"]
+
+                        c.execute(
+                            """
+                            UPDATE coin SET
+                                              price = ?,
+                                              name = ?,
+                                              supply = ?,
+                                              symbol = ?,
+                                              market_cap = ?,
+                                              last_updated = ? WHERE coin_id = ?
+                            """,
+                            (
+                                float(price),
+                                name,
+                                float(supply),
+                                symbol,
+                                float(market_cap),
+                                last_updated,
+                                str(coin["id"])
+                            ),
+                        )
+                        self.Accounts_2.addItem(name)
+                        self.current_time = last_updated
 
             conn.commit()
             conn.close()
@@ -846,7 +914,6 @@ class Mainwindow(QtWidgets.QMainWindow):
                         str(round(coin["quote"]["EUR"]["percent_change_24h"], 4)) + "%"
                     ),
                 )
-                print(coin["name"])
 
             conn.commit()
             conn.close()
