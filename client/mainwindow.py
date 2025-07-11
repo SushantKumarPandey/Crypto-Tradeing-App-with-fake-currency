@@ -1,3 +1,4 @@
+import os
 import sys
 import sqlite3
 from PyQt6 import QtWidgets, uic
@@ -230,7 +231,8 @@ class Cryptowindow(QtWidgets.QWidget):
 class Registerwindow(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi("register.ui", self)
+        ui_path = os.path.join(os.path.dirname(__file__), "register.ui")
+        uic.loadUi(ui_path, self)
         self.current_user_id = None
 
         self.Login.clicked.connect(self.show_login)
@@ -245,10 +247,9 @@ class Registerwindow(QtWidgets.QDialog):
         if "@" not in email or "." not in email:
             return "notValid"
 
-        password
+        conn = sqlite3.connect(db_path)
 
         try:
-            conn = sqlite3.connect(db_path)
             c = conn.cursor()
             c.execute(
                 """

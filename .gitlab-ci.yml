@@ -7,23 +7,8 @@ variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 
 stages:
-  - prepare
   - lint
   - test
-  - build
-  - deploy
-
-#gitlab-registry:
-#  stage: prepare
-#  image: "thlmylab/swakkd:stable"
-#  variables:
-#    NAMESPACE: mylab-sweii
-#  script:
-#    - kubectl delete secret gitlab-registry-secret -n $NAMESPACE || true
-#    - "kubectl create secret docker-registry gitlab-registry-secret \
-#      --docker-server=$CI_REGISTRY \
-#      --docker-username=image-registry \
-#      --docker-password=$CI_REGISTRY_TOKEN -n $NAMESPACE"
 
 lint:
   stage: lint
@@ -35,7 +20,14 @@ lint:
     - flake8 client/mainwindow.py
     - isort client/mainwindow.py
 
-test:
+unit-test:
+  stage: test
+  image: python:3.8
+  script:
+    - pip install pytest
+    - pytest tests/unit_test.py
+
+integration-test:
   stage: test
   image: python:3.8
   script:
@@ -49,31 +41,4 @@ test:
     - apt-get install -y libdbus-1-3
     - export PYTHONPATH=$PYTHONPATH:/builds/swe/sose25/team14
     - export QT_QPA_PLATFORM=offscreen
-    - pytest tests/unit_test.py
     - pytest tests/integration_test.py || exit 1
-
-#.build:
-#  stage: build
-#  script:
-#    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-#    - docker build -t $IMAGE:$IMAGE_TAG $IMAGE/.
-#    - docker push $IMAGE:$IMAGE_TAG
-
-#build-client:
-#  extends: .build
-#  variables:
-#    IMAGE: client
-
-#build-server:
-#  extends: .build
-#  variables:
-#    IMAGE: server
-
-#deploy:
-#  stage: deploy
-#  image: thlmylab/swakkd:stable
-#  script:
-#    - sed -i "s/LAST_DEPLOYED_UNDEFINED/$(date -Iseconds)/g" $CLIENT_DEPLOYMENT_YAML
-#    - sed -i "s/LAST_DEPLOYED_UNDEFINED/$(date -Iseconds)/g" $SERVER_DEPLOYMENT_YAML
-#    - kubectl apply -f $CLIENT_DEPLOYMENT_YAML
-#    - kubectl apply -f $SERVER_DEPLOYMENT_YAML

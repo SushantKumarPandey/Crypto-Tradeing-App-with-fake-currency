@@ -2,16 +2,20 @@ import os
 import sqlite3
 import unittest
 
-# from client.mainwindow import Registerwindow
+from client.mainwindow import Registerwindow
 from werkzeug.security import check_password_hash, generate_password_hash
 from PyQt6.QtWidgets import QApplication
+from unittest.mock import patch
 import sys
 import atexit
 
-app = QApplication(sys.argv)  # Einmalig vor allen Tests, z.B. ganz oben in der Datei
+app = QApplication.instance()
+if not app:
+    app = QApplication(
+        sys.argv
+    )  # Einmalig vor allen Tests, z.B. ganz oben in der Datei
 atexit.register(app.quit)
 
-# testDB = "../client/crypto.db"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 testDB = os.path.abspath(os.path.join(BASE_DIR, "..", "client", "crypto.db"))
 
@@ -45,51 +49,35 @@ class TestDB(unittest.TestCase):
             ("safe", generate_password_hash("safe"), "safe@test.de"),
         )
         self.conn.commit()
-        # self.conn.close()
 
     def test_connected(self):
         try:
-            # conn = sqlite3.connect(testDB)
             self.conn.execute("SELECT 1")
             state = "Connected"
-            # conn.close()
         except Exception:
             state = "Disconnected"
         self.assertEqual(state, "Connected")
 
     def test_getUsers(self):
-        # conn = sqlite3.connect(testDB)
-        # c = conn.cursor()
-
         self.c.execute("SELECT username FROM user WHERE username =  ?", ("tester",))
         user = self.c.fetchone()
-        # conn.close()
         assert user is not None
         assert user[0] == "tester"
 
     def test_password_fromUser(self):
-        # conn = sqlite3.connect(testDB)
-        # c = conn.cursor()
         self.c.execute("SELECT password FROM user WHERE username = 'kiki' ")
         password = self.c.fetchone()[0]
         self.assertEqual(password, "quack")
 
-        # conn.close()
-
     def test_hasedPassword(self):
-        # conn = sqlite3.connect(testDB)
-        # c = conn.cursor()
         self.c.execute("SELECT password FROM user WHERE username = 'safe' ")
         hashed_password = self.c.fetchone()[0]
         password = "safe"
 
         self.assertNotEqual(hashed_password, "safe")
         self.assertTrue(check_password_hash(hashed_password, password))
-        # conn.close()
 
     def test_email_fromUser(self):
-        # conn = sqlite3.connect(testDB)
-        # c = conn.cursor()
         self.c.execute("SELECT email FROM user WHERE username = 'kiki' ")
         email = self.c.fetchone()[0]
         self.assertEqual(email, "bsp1@gmail.com")
@@ -97,9 +85,12 @@ class TestDB(unittest.TestCase):
         self.conn.close()
 
 
-'''class TestHTTP(unittest.TestCase):
+TEST_DB_PATH = os.path.abspath("test_crypto.db")
+
+
+class TestHTTP(unittest.TestCase):
     def setUp(self):
-        self.conn = sqlite3.connect(testDB)
+        self.conn = sqlite3.connect(TEST_DB_PATH)
         self.c = self.conn.cursor()
 
         self.c.execute(
@@ -108,7 +99,8 @@ class TestDB(unittest.TestCase):
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL,
-            email TEXT NOT NULL
+            email TEXT NOT NULL,
+            balance FLOAT NOT NULL
             )
         """
         )
@@ -118,32 +110,44 @@ class TestDB(unittest.TestCase):
         # self.conn.close()
         self.window = Registerwindow()
 
-    def test_createUser(self):
-        new_user = self.window.create_new_user("tee", "secure", "email@example.com")
+    @patch("client.mainwindow.QtWidgets.QMessageBox.warning")
+    @patch("client.mainwindow.QtWidgets.QMessageBox.information")
+    @patch("client.mainwindow.Loginwindow.show")
+    def test_createUser(self, mock_show, mock_info, mock_warn):
+        new_user = self.window.create_new_user(
+            "tee", "secure", "email@example.com", db_path=TEST_DB_PATH
+        )
         self.assertEqual(new_user, "success")
 
-    def test_usernameUnique(self):
-        # conn = sqlite3.connect(testDB)
-        try:
-            self.c.execute(
-                "INSERT INTO user (username, password, email) VALUES (?, ?, ?)",
-                ("tester", "password", "bsp@email.com"),
-            )
-            message = "new accouont"
-        except Exception:
-            message = "name already taken"
-        # self.conn.close()
-        self.assertEqual(message, "name already taken")
+    @patch("client.mainwindow.QtWidgets.QMessageBox.warning")
+    def test_usernameUnique(self, mock_warn):
+        conn = sqlite3.connect(TEST_DB_PATH)
+        c = conn.cursor()
+        c.execute(
+            "INSERT INTO user (username, password, email, balance) VALUES (?, ?, ?, ?)",
+            ("tester", "password", "bsp@email.com", 10000),
+        )
+        conn.commit()
+        conn.close()
+        result = self.window.create_new_user(
+            "tester", "secure", "email@example.com", db_path=TEST_DB_PATH
+        )
+        self.assertIsNone(result)
 
-    def test_email(self):
-        result = self.window.create_new_user("user", "pass", "no-at-sign")
+    @patch("client.mainwindow.QtWidgets.QMessageBox.warning")
+    def test_email(self, mock_warn):
+        result = self.window.create_new_user(
+            "user", "pass", "no-at-sign", db_path=TEST_DB_PATH
+        )
         self.assertEqual(result, "notValid")
 
-    def tearDownClass(self):
+    def tearDown(self):
         if QApplication.instance():
             QApplication.instance().quit()
         self.conn.close()
-'''
+        if os.path.exists(TEST_DB_PATH):
+            os.remove(TEST_DB_PATH)
+
 
 # class TestAPI(unittest.TestCase):
 """
