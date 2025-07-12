@@ -355,6 +355,7 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.load_achievements()
         self.fetch_cryptos_to_watch()
         self.account_search()
+        self.fetch_cryptos_to_watch()
         self.fetch_table()
 
         if self.user_id is not None:
@@ -649,7 +650,7 @@ class Mainwindow(QtWidgets.QMainWindow):
                 self.tableWidget_6.setItem(
                     i, 1, QTableWidgetItem(str(round(coin[1], 4)) + "€")
                 )
-                self.infos.setItem(i, 2, QTableWidgetItem(
+                self.tableWidget_6.setItem(i, 2, QTableWidgetItem(
                     str(round((((price * amount) - coin[1]) / coin[1]) * 100, 5)) + "%"))
 
             conn.commit()
