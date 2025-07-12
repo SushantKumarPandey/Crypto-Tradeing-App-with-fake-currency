@@ -1,63 +1,20 @@
-# SWE II Boilerplate
+# Crypto Sim
 
-This is a boilerplate project for SWE II, containing a simple client-server setup using Docker and Docker Compose.
+Willkommen in Crypto, unsere Planspielbörse für den Cryptomarkt. Hier können sie mit simuliertem Geld in Crypto Token investieren, die dynamiken des Marktes lernen und die Grundlagen von Crypto verstehen.
 
-## Project Structure
+# Anforderungen
+ - IDE mit python compatibilität
+ - Eine Stabile Internetverbindung
+ - 
 
-```
-.gitlab-ci.yml
-docker-compose.yml
-README.md
-client/
-  Dockerfile
-  index.html
-server/
-  Dockerfile
-```
+# Standart Nutzungsdurchlauf
+ 1. Starten des Programms durch das Mainwindow
+ 2. Tutorial einsicht
+ 3. Account erstellung (Email muss typisches email format haben)
+ 4. Refresh der Crypto daten, und Search nach Tokens
+ 5. clicken auf die Namen der Token
+ 6. im neuen Window, auswahl an Anzahl und danach kauf oder verkauf
+ 7. in my Profile, auf den Update Button clicken
 
-## Services
-
-### Client
-
-The client service is a simple Nginx server serving static files from the `client` directory.
-
-- **Dockerfile**: [client/Dockerfile](client/Dockerfile)
-- **Index File**: [client/index.html](client/index.html)
-
-### Server
-
-The server service is an Nginx server that serves a static image from `https://http.cat/200.jpg`.
-
-- **Dockerfile**: [server/Dockerfile](server/Dockerfile)
-
-## Docker Compose
-
-The `docker-compose.yml` file defines the services and their configurations.
-
-- **File**: [docker-compose.yml](docker-compose.yml)
-
-## GitLab CI/CD
-
-The `.gitlab-ci.yml` file defines the CI/CD pipeline for building and deploying the services.
-
-- **File**: [.gitlab-ci.yml](.gitlab-ci.yml)
-
-## Usage
-
-### Running Locally
-
-To run the project locally, use Docker Compose:
-
-```sh
-docker-compose up
-```
-
-- The client will be available at [http://localhost](http://localhost)
-- The server will be available at [http://localhost:81](http://localhost:81)
-
-### Building and Pushing Images
-
-The GitLab CI/CD pipeline will automatically build and push Docker images to the GitLab registry.
-
-
-& "C:\Program Files\Git\bin\bash.exe" run-checks.sh
+# Wichtige Anmerkungen
+- Der Update Button im my Profile Updaten das eigene Portfolio, der Refresh Button fetched die api für die Token
