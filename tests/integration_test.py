@@ -37,16 +37,16 @@ class TestDB(unittest.TestCase):
         )
         self.c.execute("DELETE FROM user WHERE username = ?", ("tester",))
         self.c.execute(
-            "INSERT INTO user (username, password, email) VALUES (?, ?, ?)",
-            ("tester", "password", "bsp@email.com"),
+            "INSERT INTO user (username, password, email, balance) VALUES (?, ?, ?,?)",
+            ("tester", "password", "bsp@email.com", 10000),
         )
         self.c.execute(
             "INSERT OR IGNORE INTO user (username, password, email) VALUES (?, ?, ?)",
             ("kiki", "quack", "bsp1@gmail.com"),
         )
         self.c.execute(
-            "INSERT OR IGNORE INTO user (username, password, email) VALUES (?, ?, ?)",
-            ("safe", generate_password_hash("safe"), "safe@test.de"),
+            "INSERT OR IGNORE INTO user (username, password, email,balance) VALUES (?, ?, ?,?)",
+            ("safe", generate_password_hash("safe"), "safe@test.de", 10000),
         )
         self.conn.commit()
 

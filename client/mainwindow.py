@@ -274,13 +274,14 @@ class Registerwindow(QtWidgets.QDialog):
     und den Button gepresst hat
     """
 
-    def create_new_user(self, username, password, email, db_path="../client/crypto.db"):
+    def create_new_user(self, username, password, email, db_path="crypto.db"):
         if username == "" or password == "" or email == "":
             return "empty"
         if "@" not in email or "." not in email:
             return "notValid"
 
         try:
+            conn = sqlite3.connect(db_path)
             c = conn.cursor()
             c.execute(
                 """
