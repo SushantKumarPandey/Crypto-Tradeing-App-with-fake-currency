@@ -36,7 +36,8 @@ CREATE TABLE cryptos_to_watch(
 
 
 CREATE TABLE coin(
-    id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    coin_id INTEGER,
     price FLOAT,
     name TEXT,
     supply INTEGER,

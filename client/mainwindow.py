@@ -32,10 +32,18 @@ class Tutorialwindow(QtWidgets.QDialog):
         self.button_next.clicked.connect(self.next_step)
         self.button_back.clicked.connect(self.back_step)
 
+    """
+    update_tutorial: lädt die derzeitige Page im Tutorial
+    """
+
     def update_tutorial(self):
         title, content = self.tutorial_steps[self.step]
         self.label_title.setText(title)
         self.label_content.setText(content)
+
+    """
+    next_step: lässt einen eine Page im Tutorial vorangehen
+    """
 
     def next_step(self):
         self.step += 1
@@ -43,6 +51,10 @@ class Tutorialwindow(QtWidgets.QDialog):
             self.update_tutorial()
         else:
             self.accept()
+
+    """
+    back_step: lässt einen eine Page im Tutorial zurückgehen
+    """
 
     def back_step(self):
         self.step -= 1
@@ -63,13 +75,18 @@ class Cryptowindow(QtWidgets.QWidget):
         self.pushButton.clicked.connect(self.buy_crypto)
         self.pushButton_2.clicked.connect(self.sell_crypto)
 
+    """
+    show_info: eine Methode, welche den Namen,
+    und den derzeitigen Wert der Crypto abruft und darstellt
+    """
+
     def show_info(self):
         symbol = self.item
         try:
             conn = sqlite3.connect("crypto.db")
             cursor = conn.cursor()
 
-            cursor.execute("SELECT name,price FROM coin WHERE symbol=?", (symbol,))
+            cursor.execute("SELECT name,price FROM coin WHERE name=?", (symbol,))
             name = cursor.fetchone()
 
             print(name)
@@ -82,6 +99,13 @@ class Cryptowindow(QtWidgets.QWidget):
         except Exception as e:
             print("Other error:", e)
 
+    """
+    buy_crypto: die Methode, welche den Kaufprozess nach dem drücken des buy
+    Buttons verarbeitet.
+    fügt die eingegebene Anzahl in das Portfolio ein.
+    fügt dazu auch noch ein Eintrag in cryptos_to_watch hinzu
+    """
+
     def buy_crypto(self):
         amount = self.spinBox.value()
         try:
@@ -91,7 +115,7 @@ class Cryptowindow(QtWidgets.QWidget):
             c.execute(""" SELECT balance FROM user WHERE id = ?""", (self.user_id,))
             balance = c.fetchone()
 
-            c.execute("SELECT price FROM coin WHERE symbol=?", (self.item,))
+            c.execute("SELECT price,symbol FROM coin WHERE name=?", (self.item,))
             price = c.fetchone()
             order = amount * price[0]
 
@@ -99,7 +123,7 @@ class Cryptowindow(QtWidgets.QWidget):
                 """SELECT coin_symbol,amount,value
                          FROM holding
                          WHERE coin_symbol = ?""",
-                (self.item,),
+                (price[1],),
             )
             exists = c.fetchone()
             print(exists)
@@ -112,13 +136,13 @@ class Cryptowindow(QtWidgets.QWidget):
                                                 amount,
                                                 value)
                                   VALUES (?,?,?,?) """,
-                        (self.user_id, self.item, amount, order),
+                        (self.user_id, price[1], amount, order),
                     )
                 else:
                     c.execute(
                         """UPDATE holding SET amount = ?, value = ?
                                  WHERE coin_symbol = ?""",
-                        (exists[1] + amount, exists[2] + order, self.item),
+                        (exists[1] + amount, exists[2] + order, price[1]),
                     )
 
                 c.execute(
@@ -174,6 +198,11 @@ class Cryptowindow(QtWidgets.QWidget):
         finally:
             conn.close()
 
+    """
+    sell_crypto: die Methode, welche den Verkaufsprozess nach dem drücken des sell buttons verarbeitet.
+    entfernt entweder den Eintrag, oder passt die anzahl an Tokens im Portfolio an.
+    """
+
     def sell_crypto(self):
         amount = self.spinBox.value()
         try:
@@ -183,18 +212,17 @@ class Cryptowindow(QtWidgets.QWidget):
             c.execute(""" SELECT balance FROM user WHERE id = ?""", (self.user_id,))
             balance = c.fetchone()
 
+            c.execute(""" SELECT symbol,price FROM coin WHERE name = ?""", (self.item,))
+            symbol = c.fetchone()
+
             c.execute(
                 """SELECT amount from holding
                     Where user_id = ? AND coin_symbol = ?""",
-                (self.user_id, self.item),
+                (self.user_id, symbol[0]),
             )
             current = c.fetchone()
             current = current[0] - amount
-
-            c.execute("SELECT price FROM coin WHERE symbol=?", (self.item,))
-            price = c.fetchone()
-
-            restore = price[0] * amount
+            restore = symbol[1] * amount
             rebalance = balance[0] + restore
             print(current)
 
@@ -202,7 +230,7 @@ class Cryptowindow(QtWidgets.QWidget):
                 c.execute(
                     """ UPDATE holding SET amount = ?, value = ?
                         WHERE user_id = ? AND coin_symbol = ? """,
-                    (current, current * price[0], self.user_id, self.item),
+                    (current, current * symbol[1], self.user_id, symbol[0]),
                 )
                 c.execute(
                     """ UPDATE user SET balance = ? WHERE id = ? """,
@@ -241,13 +269,16 @@ class Registerwindow(QtWidgets.QDialog):
 
         self.pushButton_register.clicked.connect(self.register)
 
+    """
+    create_new_user: Erstellt einen neuen User in der Db, nachdem man die Daten eingegeben hat im Register Window,
+    und den Button gepresst hat
+    """
+
     def create_new_user(self, username, password, email, db_path="../client/crypto.db"):
         if username == "" or password == "" or email == "":
             return "empty"
         if "@" not in email or "." not in email:
             return "notValid"
-
-        conn = sqlite3.connect(db_path)
 
         try:
             c = conn.cursor()
@@ -272,6 +303,10 @@ class Registerwindow(QtWidgets.QDialog):
         finally:
             conn.close()
 
+    """
+    register: Verarbeitet den Register Button Press, und sendet die infos an die create_new_user Methode
+    """
+
     def register(self):
         username = self.lineEdit_username.text()
         password = self.lineEdit_password.text()
@@ -293,8 +328,13 @@ class Registerwindow(QtWidgets.QDialog):
                 "Account created",
                 "Your account has been created! You are now able to log in.",
             )
-            self.show_login()
+            self.mainwindow = Mainwindow(None)
+            self.mainwindow.show()
             self.close()
+
+    """
+    show_login: führt einen zum login window, wenn man doch bereits einen Account hat
+    """
 
     def show_login(self):
         self.login_window = Loginwindow()
@@ -312,6 +352,10 @@ class Loginwindow(QtWidgets.QDialog):
         self.mainwindow = None
 
         self.pushButton_to_login.clicked.connect(self.verify_login)
+
+    """
+    verify_login: prüft die Eingegebenen Daten mit der Db, wenn sie übereinstimmen, wird der login durchgeführt
+    """
 
     def verify_login(self):
         username = self.lineEdit_password_2.text()
@@ -339,6 +383,10 @@ class Loginwindow(QtWidgets.QDialog):
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"An error occurred:\n{e}")
 
+    """
+    show_register: Wenn man keinen Account besitzt, wird man durch diese Methode auf das Register window, verwiesen
+    """
+
     def show_register(self):
         self.register_window = Registerwindow()
         self.register_window.show()
@@ -347,8 +395,17 @@ class Loginwindow(QtWidgets.QDialog):
 class Mainwindow(QtWidgets.QMainWindow):
     def __init__(self, user_id):
         super().__init__()
-        uic.loadUi("form.ui", self)
         self.user_id = user_id
+        uic.loadUi("form.ui", self)
+
+        self.fetch_top_winners()
+        self.fetch_top_losers()
+        self.load_tutorial_guides()
+        self.load_achievements()
+        self.fetch_cryptos_to_watch()
+        self.account_search()
+        self.fetch_table()
+
         if self.user_id is not None:
             self.loginButton.hide()
             self.registerButton.hide()
@@ -357,14 +414,6 @@ class Mainwindow(QtWidgets.QMainWindow):
         else:
             self.ask_tutorial()
             self.tabWidget.setTabVisible(5, False)
-
-        self.fetch_top_winners()
-        self.fetch_top_losers()
-        self.load_Tutorial_Guides()
-        self.load_achievements()
-        self.fetch_cryptos_to_watch()
-        self.account_search()
-        self.fetch_table()
 
         self.search.clicked.connect(self.account_search)
         self.loginButton.clicked.connect(self.login_show)
@@ -381,6 +430,11 @@ class Mainwindow(QtWidgets.QMainWindow):
         self.register_window = None
         self.crypto_window = None
 
+    """
+    ask_tutorial: fragt am Start des Programmes, ob man das Tutorial machen will.
+    Wenn man ja klickt, lädt es das Tutorial
+    """
+
     def ask_tutorial(self):
         asked = QtWidgets.QMessageBox.question(
             self,
@@ -393,19 +447,35 @@ class Mainwindow(QtWidgets.QMainWindow):
         if asked == QtWidgets.QMessageBox.StandardButton.Yes:
             self.start_tutorial()
 
+    """
+    start_tutorial: Zeigt das Tutorial an
+    """
+
     def start_tutorial(self):
         tutorial = Tutorialwindow()
         tutorial.exec()
+
+    """
+    login_show: lädt die Login Page aus dem Mainwindow, nach dem man den Login Button klickt
+    """
 
     def login_show(self):
         self.login_window = Loginwindow()
         self.login_window.show()
         self.close()
 
+    """
+    register_show: lädt die Register Page aus dem Mainwindow, nachdem man den Register Button klickt
+    """
+
     def register_show(self):
         self.register_window = Registerwindow()
         self.register_window.show()
         self.close()
+
+    """
+    load_achievements: lädt die Achievements Liste
+    """
 
     def load_achievements(self):
         achievements = [
@@ -432,14 +502,20 @@ class Mainwindow(QtWidgets.QMainWindow):
                 checkbox.setChecked("✅" in text or "🔥" in text)
                 layout.addWidget(checkbox)
 
+    """
+    crypto_show: macht die einzelnen Cryptos clickable und öffnet das Crypto_window
+    """
+
     def crypto_show(self, item):
         try:
-            self.crypto_window = Cryptowindow(
-                item.text(), self.user_id
-            )  # assume item is QListWidgetItem
+            self.crypto_window = Cryptowindow(item.text(), self.user_id)
             self.crypto_window.show()
         except Exception as e:
             print("❌ Error opening Cryptowindow:", e)
+
+    """
+    show_guides:zeigt die Guides aus der DB an, und macht sie einsehbar nach dem anclicken
+    """
 
     def show_guides(self, item):
         guides_name = item.text()
@@ -480,6 +556,10 @@ class Mainwindow(QtWidgets.QMainWindow):
         else:
             QtWidgets.QMessageBox.information(self, "Keine Daten", "help")
 
+    """
+    show_tutorial: lässt das Tutorial beim erst Start des Programmes aufrufen.
+    """
+
     def show_tutorial(self, item):
         tutorial_name = item.text()
 
@@ -518,6 +598,10 @@ class Mainwindow(QtWidgets.QMainWindow):
         else:
             QtWidgets.QMessageBox.information(self, "Keine Daten", "help")
 
+    """
+    show_account: zeigt infos über einen User, welche nach dem click auf ihren Namen angezeigt wird
+    """
+
     def show_account(self, item):
         username = item.text()
         infos = []
@@ -549,6 +633,11 @@ class Mainwindow(QtWidgets.QMainWindow):
                 self, "Keine Daten", "Kein Benutzer gefunden."
             )
 
+    """
+    crypto_search: Methode, welche den String aus dem Search field nimmt,
+    um die Crypto Liste nach dem passenden Token zu durchsuchen
+    """
+
     def crypto_search(self):
         search_term = self.search_Account_3.text()
         try:
@@ -557,8 +646,8 @@ class Mainwindow(QtWidgets.QMainWindow):
 
             c.execute(
                 """
-            SELECT symbol FROM coin Where symbol LIKE ?""",
-                (f"%{search_term}%",),
+            SELECT name FROM coin Where name LIKE ? AND last_updated LIKE ?""",
+                (f"%{search_term}%", self.current_time),
             )
 
             results = c.fetchall()
@@ -574,13 +663,12 @@ class Mainwindow(QtWidgets.QMainWindow):
         finally:
             conn.close()
 
+    """
+    get_profile_info: Methode, welche die Datenbank für Profile Informationen absucht, um den Namen und Portfolio,
+    sowie die derzeitige Balance einzufügen
+    """
+
     def get_profile_info(self):
-        url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
-        parameters = {
-            "limit": "5",
-            "convert": "EUR",
-            "sort": "percent_change_24h",
-        }
         headers = {
             "Accepts": "application/json",
             "X-CMC_PRO_API_KEY": "8bc7959e-153c-40dd-8da9-34e544661e71",
@@ -588,8 +676,6 @@ class Mainwindow(QtWidgets.QMainWindow):
         session = Session()
         session.headers.update(headers)
         try:
-            response = session.get(url, params=parameters)
-            data = response.json()
 
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
@@ -603,19 +689,69 @@ class Mainwindow(QtWidgets.QMainWindow):
             self.kontostand_2.display(username[1])
 
             c.execute(
-                """ SELECT coin_symbol,value FROM holding WHERE user_id = ?""",
+                """ SELECT coin_symbol,value,amount FROM holding WHERE user_id = ?""",
                 (self.user_id,),
             )
-            data = c.fetchall()
+            datas = c.fetchall()
 
-            for i, coin in enumerate(data):
-                self.infos.setItem(i, 0, QTableWidgetItem(str(coin[0])))
-                self.infos.setItem(i, 1, QTableWidgetItem(str(round(coin[1], 4)) + "€"))
+            for i, coin in enumerate(datas):
+                symbol = coin[0]
+                value = coin[1]
+                amount = coin[2]
 
-            for i, coin in enumerate(data):
+                c.execute(
+                    "SELECT price FROM coin WHERE symbol = ?",
+                    (symbol,),
+                )
+                current_price = c.fetchone()
+
+                if current_price is None:
+                    price = 1
+                else:
+                    price = current_price[0]
+
+                # Display data
+                self.infos.setItem(i, 0, QTableWidgetItem(symbol))
+                self.infos.setItem(i, 1, QTableWidgetItem(f"{round(value, 4)} €"))
+                self.infos.setItem(
+                    i,
+                    2,
+                    QTableWidgetItem(
+                        str(round((((price * amount) - coin[1]) / coin[1]) * 100, 5))
+                        + "%"
+                    ),
+                )
+                self.infos.setItem(
+                    i,
+                    3,
+                    QTableWidgetItem(str(round((price * amount) - coin[1], 5)) + "€"),
+                )
+
+            for i, coin in enumerate(datas):
+                amount = coin[2]
+                symbol = coin[0]
+
+                c.execute(
+                    "SELECT price FROM coin WHERE symbol = ?",
+                    (symbol,),
+                )
+                current_price = c.fetchone()
+
+                if current_price is None:
+                    price = 1
+                else:
+                    price = current_price[0]
                 self.tableWidget_6.setItem(i, 0, QTableWidgetItem(str(coin[0])))
                 self.tableWidget_6.setItem(
                     i, 1, QTableWidgetItem(str(round(coin[1], 4)) + "€")
+                )
+                self.tableWidget_6.setItem(
+                    i,
+                    2,
+                    QTableWidgetItem(
+                        str(round((((price * amount) - coin[1]) / coin[1]) * 100, 5))
+                        + "%"
+                    ),
                 )
 
             conn.commit()
@@ -625,6 +761,11 @@ class Mainwindow(QtWidgets.QMainWindow):
 
         finally:
             conn.close()
+
+    """
+    account_ssearch: Methode, welche den String aus dem Search field nimmt,
+    und in der Liste nach einem zutreffenden Account sucht
+    """
 
     def account_search(self):
         name = self.search_Account_2.text().strip()
@@ -653,7 +794,11 @@ class Mainwindow(QtWidgets.QMainWindow):
         finally:
             conn.close()
 
-    def load_Tutorial_Guides(self):
+    """
+    load_tutorial_guides: lädt die Guides und Tutorials in die Tabellen, woraus man sie dann abrufen kann
+    """
+
+    def load_tutorial_guides(self):
         try:
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
@@ -673,9 +818,14 @@ class Mainwindow(QtWidgets.QMainWindow):
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Database Error", str(e))
 
+    """
+    fetch_table: ruft die Api ab, um die 300 größten Crypto tokens abzufragen.
+    Die Methode fügt diese dann in die Liste in Search ein
+    """
+
     def fetch_table(self):
         url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
-        parameters = {"limit": "500", "convert": "EUR"}
+        parameters = {"limit": "300", "convert": "EUR"}
         headers = {
             "Accepts": "application/json",
             "X-CMC_PRO_API_KEY": "8bc7959e-153c-40dd-8da9-34e544661e71",
@@ -689,41 +839,73 @@ class Mainwindow(QtWidgets.QMainWindow):
             conn = sqlite3.connect("crypto.db")
             c = conn.cursor()
 
-            c.execute(
-                """DELETE
-                         FROM coin"""
-            )
+            c.execute(""" SELECT * FROM coin""")
+            existing_coins = c.fetchall()
+            print(existing_coins)
 
-            for coin in data["data"]:
-                name = coin["name"]
-                symbol = coin["symbol"]
-                supply = coin["total_supply"]
-                last_updated = coin["last_updated"]
-                price = coin["quote"]["EUR"]["price"]
-                market_cap = coin["quote"]["EUR"]["market_cap"]
+            if not existing_coins:
+                for coin in data["data"]:
+                    name = coin["name"]
+                    symbol = coin["symbol"]
+                    supply = coin["total_supply"]
+                    last_updated = coin["last_updated"]
+                    price = coin["quote"]["EUR"]["price"]
+                    market_cap = coin["quote"]["EUR"]["market_cap"]
 
-                c.execute(
-                    """
-                    INSERT INTO coin (id,
-                                    price,
-                                    name,
-                                    supply,
-                                    symbol,
-                                    market_cap,
-                                    last_updated)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                """,
-                    (
-                        str(coin["id"]),
-                        float(price),
-                        name,
-                        float(supply),
-                        symbol,
-                        float(market_cap),
-                        last_updated,
-                    ),
-                )
-                self.Accounts_2.addItem(name)
+                    c.execute(
+                        """
+                        INSERT INTO coin (coin_id,
+                                        price,
+                                        name,
+                                        supply,
+                                        symbol,
+                                        market_cap,
+                                        last_updated)
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                        (
+                            str(coin["id"]),
+                            float(price),
+                            name,
+                            float(supply),
+                            symbol,
+                            float(market_cap),
+                            last_updated,
+                        ),
+                    )
+                    self.Accounts_2.addItem(name)
+                    self.current_time = last_updated
+            else:
+                for coin in data["data"]:
+                    name = coin["name"]
+                    symbol = coin["symbol"]
+                    supply = coin["total_supply"]
+                    last_updated = coin["last_updated"]
+                    price = coin["quote"]["EUR"]["price"]
+                    market_cap = coin["quote"]["EUR"]["market_cap"]
+
+                    c.execute(
+                        """
+                            UPDATE coin SET
+                                              price = ?,
+                                              name = ?,
+                                              supply = ?,
+                                              symbol = ?,
+                                              market_cap = ?,
+                                              last_updated = ? WHERE coin_id = ?
+                            """,
+                        (
+                            float(price),
+                            name,
+                            float(supply),
+                            symbol,
+                            float(market_cap),
+                            last_updated,
+                            str(coin["id"]),
+                        ),
+                    )
+                    self.Accounts_2.addItem(name)
+                    self.current_time = last_updated
 
             conn.commit()
             conn.close()
@@ -731,6 +913,10 @@ class Mainwindow(QtWidgets.QMainWindow):
             print("Request error:", e)
         except Exception as e:
             print("Other error:", e)
+
+    """
+    fetch_top_winners: ruft die api ab, und sucht dabei nach den tokens, die den größten 24h_change hatten
+    """
 
     def fetch_top_winners(self):
         url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
@@ -772,6 +958,10 @@ class Mainwindow(QtWidgets.QMainWindow):
 
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print("Request error:", e)
+
+    """
+    fetch_top_losers: ruft die api ab , und sucht dabei nach den tokens, die den größten 24h_change defizit verzeichnen
+    """
 
     def fetch_top_losers(self):
         url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
@@ -818,12 +1008,17 @@ class Mainwindow(QtWidgets.QMainWindow):
                         str(round(coin["quote"]["EUR"]["percent_change_24h"], 4)) + "%"
                     ),
                 )
-                print(coin["name"])
 
             conn.commit()
             conn.close()
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print("Request error:", e)
+
+    """
+    Cryptos to Watch: Ruft die "Cryptos to Watch" table ab und füllt sie in eine Table.
+    Cryptos to watch sind alle kaüfe die getätigt wurden für die Jeweiligen Tokens. Soll dem User eine Idee gaben,
+    welche Tokens gerade beliebt sind
+    """
 
     def fetch_cryptos_to_watch(self):
         try:
