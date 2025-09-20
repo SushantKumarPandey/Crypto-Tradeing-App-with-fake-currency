@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Crypto Sim
 
 Willkommen in Crypto, unsere Planspielbörse für den Cryptomarkt. Hier können sie mit simuliertem Geld in Crypto Token investieren, die dynamiken des Marktes lernen und die Grundlagen von Crypto verstehen.
@@ -26,6 +26,4 @@ Willkommen in Crypto, unsere Planspielbörse für den Cryptomarkt. Hier können 
 - Der Update Button im my Profile Updaten das eigene Portfolio, der Refresh Button fetched die api für die Token
 - Cryptos sind auf 200 limitiert, da mehr zuviele Tokens consumen würde, und die Performance beschränkten könnte
 - Tutorial sowie Guides größtenteils nur Beispiel inhalte, da diese vom dem Kunden ausgefüllt werden müssten
-=======
-# Crypto-Tradeing-App-with-fake-currency
->>>>>>> 200c2ab0e62f9ffd8f5c7b5ac7e9e82928249587
+                                
